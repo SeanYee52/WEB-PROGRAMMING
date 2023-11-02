@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang = en>
+    <head>
+        <title>Climat Foundation</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type = "text/css" href = "style.css">
+    </head>
+
+    <!-- HEADER -->
+    <header>
+        <a href="Home Page.html"><img  class="logo" src="../Images/Logo.svg"></a>
+        <nav>
+
+            <div class="left">
+                <div>
+                    <a href="Ongoing Crises.html">ONGOING CRISES</a>
+                </div>
+                <div>
+                    <a href="Gallery.html">GALLERY</a>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <div class="dropdown">
+                    <button>ABOUT&#x25BC;</button>
+                    <div class="dropdown-content">
+                        <a href="About Us.html">ABOUT US</a>
+                        <a href="Partners.html">PARTNERS</a>
+                        <a href="T&C.html">T&C</a>
+                        <a href="Contact Us.html">CONTACT US</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button>CONTRIBUTE&#x25BC;</button>
+                    <div class="dropdown-content">
+                        <a href="Volunteer Page.html">VOLUNTEER</a>
+                        <a href="Donate Page.html">DONATE</a>
+                    </div>
+                </div>
+                <div class="login">
+                    <button onclick="window.location.href='Login Page.html';">LOGIN</button>
+                </div>
+            </div>
+            
+            
+        </nav>
+    </header>
+    
+    <body>
+        <!-- SECTION1 OF WEBPAGE, BACKGROUND VIDEO WITH TEXT OVERLAP -->
+        <div id = "section1">
+            <video autoplay muted loop id="earth">
+            <source src="../Images/HomepageImages/earth.mp4" type="video/mp4">
+            </video>
+
+            <div class = "tspace"></div>
+
+            <div class = "overlap">
+                <dl>
+                    <dt class = "heading">MOTHER EARTH IS CALLING!</dt>
+                    <dt class = "subheading">DO YOUR PART TO STOP CLIMATE CHANGE TODAY</dt>
+                </dl>
+            </div>
+
+            <div class = "linebreak"></div>
+
+            <div class = "overlap"><button id = "read">Read more ></button></div>
+            <div class = "bspace"></div>
+            
+        </div>
+
+        <!-- SECTION2 OF WEBPAGE, CAUSES OF CLIMATE CHANGE -->
+        <div id = "s2heading">
+            <dl>
+                <dt class = "subheading">CAUSES</dt>
+                <dt class = "heading">Causes of Climate Change</dt>
+            </dl>
+        </div>
+        <div id = "section2">
+            <div class = "itemcontainer">
+                <div id = "s2item1">
+                    <img src = "../Images/HomepageImages/Deforestation.svg" alt = "Deforestation" class = "itemimg">
+                    <h2 class = "itemheading">Deforestation</h2>
+                    <p class = "itembodtext">Cutting down forests for farms, pastures, or other purposes releases carbon from trees. Since trees absorb carbon dioxide, 
+                       destroying the trees in forests reduces nature's ability to absorb carbon dioxide.</p>
+                </div>
+
+                <div id = "s2item2">
+                    <p class = "itembodtext">Most vehicles use fossil fuels, which means transportation emits greenhouse gases, like carbon dioxide. Although road vehicles 
+                       emit the most, but ship and plane emissions continue to grow.</p>
+                    <h2 class = "itemheading">Transportation</h2>
+                    <img src = "../Images/HomepageImages/Transport.svg" alt = "Transport" class = "itemimg">
+                </div>
+
+                <div id = "s2item3">
+                    <img src = "../Images/HomepageImages/Manufacturing.svg" alt = "Manufacturing" class = "itemimg">
+                    <h2 class = "itemheading">Manufacturing</h2>
+                    <p class = "itembodtext">Manufacturing and industry emit largely from burning fossil fuels to make cement, iron, steel, electronics, plastics, textiles, and 
+                                             other items. Industrial processes like mining also release gases.</p>
+                    </div>    
+            </div>
+        </div>
+
+        <!-- SECTION3 OF WEBPAGE, EFFECTS OF CLIMATE CHANGE-->
+        <div id = "section3">
+            <div id = "s3firstitem">
+                <div id = "s3heading">
+                    <dl>
+                        <dt class = "s3subheading">EFFECTS</dt>
+                        <dt class = "s3heading">Effects of Climate Change</dt>
+                    </dl>
+                </div>
+
+                <div id = "sec3container1">
+                    <div class = "s3itemimgright">
+                        <dl class = "s3imgrightitemtext">
+                            <dt class="s3itemheading">Food Shortages</dt>
+                            <dt class = "s3itembodytext">
+                                Climate change and extreme weather events contribute to world hunger and malnutrition. Fisheries, crops, and animals may be lost or reduced. 
+                                Heat stress reduces water and grazing areas.
+                            </dt>
+                        </dl>
+                        <img src = "../Images/HomepageImages/Food shortage.svg" alt = "Rising Sea Levels" class = "s3imgright">
+                    </div>
+                </div>
+            </div>
+
+            <div class = "sec3container">
+                <div class = "s3itemimgleft">
+                    <img src = "../Images/HomepageImages/Rising Sea Levels.svg" alt = "Rising Sea Levels" class = "s3imgleft">
+                    <dl class = "s3imgleftitemtext">
+                        <dt id="s3item2heading">Rising Sea Levels</dt>
+                        <dt class = "s3itembodytext">
+                            Most of the heat from global warming is absorbed by the ocean. This threatens coastal and island communities by melting ice sheets and raising 
+                            sea levels. Carbon dioxide is also absorbed by the water, keeping it out of the atmosphere. The ocean becomes more acidic as a result of increased 
+                            carbon dioxide, endangering marine life.
+                        </dt>
+                    </dl>
+                </div>
+            </div>
+
+            <div class = "sec3container">
+                <div class = "s3itemimgleft">
+                    <dl class = "s3imgleftitemtext">
+                        <dt class="s3itemheading">Loss of Species</dt>
+                        <dt class = "s3itembodytext">
+                            Both animals on land and in the ocean are at risk from climate change. As the temperatures rise, these risks rise as well. Among the various dangers 
+                            include forest fires, severe weather, invasive pests, and diseases. Some species may be able to relocate and live on, but some species will not be able to.
+                        </dt>
+                    </dl>
+                    <img src = "../Images/HomepageImages/Loss of Species.svg" alt = "Loss of Species" class = "s3imgleft">
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION4 OF WEBPAGE, ACTIONS THAT CAN BE TAKEN-->
+        <div id = "section4">
+            <div id = "sec4headdiv">
+                <div id = "s4heading">
+                    <dl>
+                        <dt class = "subheading">ACTIONS</dt>
+                        <dt class = "heading">Actions You Can Take To Help</dt>
+                    </dl>
+                </div>
+            </div>
+
+            <div class = "linebreak"></div>
+
+            <div id = "s4itemcontainer">
+                <div id = "s4item1">
+                    <h2 class = "s4itemheading">Use Public Transport</h2>
+                    <p class = "s4itembody">Most diesel and petrol automobiles choke the world's roads. Walking or biking instead of driving reduces greenhouse gas emissions and improves fitness. 
+                    Take a train or bus for longer trips, and carpool when possible.</p>
+                </div>
+
+                <div id = "s4item2">
+                    <h2 class = "s4itemheading">Eat Vegetables</h2>
+                    <p class = "s4itembody">Eating more vegetables, fruits, whole grains, legumes, nuts, and seeds and less meat and dairy can drastically reduce your environmental impact. 
+                    Plant-based diets produce less greenhouse gas emissions, energy, land, and water.</p>
+                </div>
+
+                <div id = "s4item3">
+                    <h2 class = "s4itemheading">Save Energy</h2>
+                    <p class = "s4itembody">Coal, oil, and gas provide our electricity and heat. Lower your heating and cooling, use LED light bulbs and energy-efficient appliances, 
+                    wash your clothes in cold water, and hang them to dry to save energy.</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+    <script>
+        // JavaScript code to handle scrolling
+        const scrollButton = document.getElementById('read');
+        const targetSection = document.getElementById('s2heading');
+
+        scrollButton.addEventListener('click', () => {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+   <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
+   <footer>
+    <div class="footer">
+        <div class="row">
+            <ul>
+                <li>
+                    <h3 style="color:inherit;"><strong>PAGES</strong></h3>
+                </li>
+            </ul>
+        </div>
+        <div class="nav">
+            <div class="column">
+                <ul>
+                    <li><a href="Home Page.html">HOME</a></li>
+                    <li><a href="About Us.html">ABOUT US</a></li>
+                    <li><a href="Ongoing Crises.html">ONGOING CRISES</a></li>
+                    <li><a href="Gallery.html">GALLERY</a></li>
+                    <li><a href="Login Page.html">LOGIN</a></li>
+                </ul>
+            </div>
+            <div class="column">
+                <ul>
+                    <li><a href="Partners.html">PARTNERS</a></li>
+                    <li><a href="T&C.html">T&C</a></li>
+                    <li><a href="Volunteer Page.html">VOLUNTEER</a></li>
+                    <li><a href="Donate Page.html">DONATE</a></li>
+                    <li><a href="Contact Us.html">CONTACT US</a></li>
+                </ul>
+            </div>
+            <div class="column">
+
+            </div>
+        </div>
+        <div class = "row">
+            <ul>
+                <li>
+                    <p class="copyright">&copy;Copyright 2009 &ndash; 2023 Climat Foundation.</p>
+                    <p class="copyright">Your generous donations help us continue our vital work. Contribute today and be a part of the solution.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="contact">
+        <div class="info-details">
+            <h3><strong>ADDRESS</strong></h3>
+            <p>Heinrich-Heine-Allee
+                18, 40213 Düsseldorf,
+                Germany</p>
+
+            <h3><strong>EMAIL</strong></h3>
+            <p>heinrichgschmidth@gmail.com</p>
+
+            <h3><strong>CONTACT</strong></h3>
+            <p>+(49) 09920 65 34 48</p>
+        </div>
+        <div class="socials">
+            <img class="icon" src="../Images/FB.svg">
+            <img class="icon" src="../Images/Insta.svg">
+            <img class="icon" src="../Images/Twitt.svg">
+            <img class="icon" src="../Images/VK.svg">
+            <img class="icon" src="../Images/Pin.svg">
+        </div>
+    </div>
+    </footer>
+    <!--FOOTER, END OF CODE-->
+
+</html>

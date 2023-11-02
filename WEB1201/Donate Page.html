@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>Donate Page</title>
+        <meta charset = "utf-8">
+        <link rel = "stylesheet" type = "text/css" href = "style.css">
+    </head>
+
+    <body>
+        <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
+        <header>
+            <a href="Home Page.html"><img  class="logo" src="../Images/Logo.svg"></a>
+            <nav>
+                <div class="left">
+                    <div>
+                        <a href="Ongoing Crises.html">ONGOING CRISES</a>
+                    </div>
+                    <div>
+                        <a href="Gallery.html">GALLERY</a>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="dropdown">
+                        <button>ABOUT&#x25BC;</button>
+                        <div class="dropdown-content">
+                            <a href="About Us.html">ABOUT US</a>
+                            <a href="Partners.html">PARTNERS</a>
+                            <a href="T&C.html">T&C</a>
+                            <a href="Contact Us.html">CONTACT US</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button>CONTRIBUTE&#x25BC;</button>
+                        <div class="dropdown-content">
+                            <a href="Volunteer Page.html">VOLUNTEER</a>
+                            <a href="Donate Page.html">DONATE</a>
+                        </div>
+                    </div>
+                    <div class="login">
+                        <button onclick="window.location.href='Login Page.html';">LOGIN</button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!--HEADER, END OF CODE-->
+
+        <div id = "dsec1formbg">
+            <div id = "dsec1formdesc">
+                <div id = "dsec1formdheading">Donate Now to Help More People in Need</div>
+                <div id = "dsec1formdsubheading">Your donation will go primarily towards disaster relief and rescue 
+                    operations. We appreciate every penny of yours.</div>
+            </div>
+            <div id = "dsec1formborder">
+                <form id = "donform">
+                    <div id = "dsec1formheading">DONATE</div>
+                    <div class = "dradiobuttonsection">
+                        <label class = "dradiobuttonlabel">
+                            <input type = "radio" id = "dtonetime" name = "donatetype" checked>
+                            <div class = "dradiobuttonA">One-time</div>
+                        </label>
+                        <label class = "dradiobuttonlabel">
+                            <input type = "radio" id = "dtmonthly" name = "donatetype">
+                            <div class = "dradiobuttonA">Monthly</div>
+                        </label>
+                    </div>
+                    <div class = "dradiobuttonsection">
+                        <label class = "dradiobuttonlabel">
+                            <input type = "radio" id = "da10" name = "donateamount" checked>
+                            <div class = "dradiobuttonB">$10</div>
+                        </label>
+                        <label class = "dradiobuttonlabel">
+                            <input type = "radio" id = "da50" name = "donateamount">
+                            <div class = "dradiobuttonB">$50</div>
+                        </label>
+                        <label class = "dradiobuttonlabel">
+                            <input type = "radio" id = "da200" name = "donateamount">
+                            <div class = "dradiobuttonB">$200</div>
+                        </label>
+                        <input type = "text" class = "dradiotextfield" placeholder = "$Other" id = "daother" name = "donateamount">
+                    </div>
+                    <div class = "dsec1formdescd">Personal Information:</div>
+                    <div>
+                        <div>
+                            <input type = "text" class = "dtextfieldA" placeholder = "First Name" id = "dfirstname" name = "dfirstname">
+                            <input type = "text" class = "dtextfieldA" placeholder = "Last Name" id = "dlastname" name = "dlastname">
+                        </div>
+                        <input type = "text" class = "dtextfieldB" placeholder = "Email Address" id = "demail" name = "demail">
+                    </div>
+                    <div>
+                        <label class = "dcheckboxsquare">
+                            <input type = "checkbox" class = "dcheckboxori" id = "danony" name = "danony">
+                            <div class = "dcheckbox"></div>
+                            <div class = "dcheckboxdesc">Click here if you want to donate anonymously.</div>
+                        </label>
+                    </div>
+                    <div class = "dsec1formdescd">Payment Method:</div>
+                    <div class = "dradiobuttonsection">
+                        <label class = "dradiobuttonlabel">
+                            <input type = "radio" id = "dpcreditdebit" name = "dpaymentmethod" checked>
+                            <div class = "dradiobuttonC">
+                                <div>Credit or Debit Card</div>
+                                <img src = "../Images/DonatePageImages/DonateCreditorDebit.svg">
+                            </div>
+                        </label>
+                        <label class = "dradiobuttonlabel">
+                            <input type = "radio" id = "dppaypal" name = "dpaymentmethod">
+                            <div class = "dradiobuttonC">
+                                <div>PayPal</div>
+                                <img src = "../Images/DonatePageImages/DonatePayPal.svg">
+                            </div>
+                        </label>
+                    </div>
+                    <div>
+                        <label class = "dcheckboxsquare">
+                            <input type = "checkbox" class = "dcheckboxori" id = "dchecktc" name = "dchecktc">
+                            <div class = "dcheckbox"></div>
+                            <div class = "dcheckboxdesc">Click here to indicate that you have read and agree to 
+                                the <a href = "T&C.html">terms & conditions</a>.</div>
+                        </label>
+                    </div>
+                    <div><button type = "submit" id = "dnextbutton">NEXT</button></div>
+                </form>
+            </div>
+        </div>
+
+        <div id = "dsec2bg">
+            <div>
+                <div id = "dsec2climatlogo"><img src = "../Images/DonatePageImages/DonateLogoClimat.svg"></div>
+                <div>
+                    <div class = "dsec2desc">A Trustworthy Charitable Organization</div>
+                    <div class = "dsec2desc">Accredited by:</div>
+                </div>
+                <div id = "dsec2watchdogcontainer">
+                    <div class = "dsec2watchdogitem"><img src = "../Images/DonatePageImages/DonateLogoGuideStar.svg"></div>
+                    <div class = "dsec2watchdogitem"><img src = "../Images/DonatePageImages/DonateLogoGreatNonProfit.svg"></div>
+                    <div class = "dsec2watchdogitem"><img src = "../Images/DonatePageImages/DonateLogoCharityWatch.svg"></div>
+                    <div class = "dsec2watchdogitem"><img src = "../Images/DonatePageImages/DonateLogoCharityNav.svg"></div>
+                </div>
+            </div>
+            <div id = "dsec2border">
+                <div id = "dsec2textA"><b>90%</b> of your donation goes directly to our mission. </div>
+                <div id = "dsec2statcontainer">
+                    <div class = "dsec2statitem">
+                        <div class = "dsec2statimage"><img src = "../Images/DonatePageImages/DonateStatsImage1.svg"></div>
+                        <div class = "dsec2textB"><b>30%</b> for <b>Rescue Operations</b></div>
+                    </div>
+                    <div class = "dsec2statitem">
+                        <div class = "dsec2statimage"><img src = "../Images/DonatePageImages/DonateStatsImage2.svg"></div>
+                        <div class = "dsec2textB"><b>48%</b> for <b>Post-Disaster Reconstrcution</b></div>
+                    </div>
+                    <div class = "dsec2statitem">
+                        <div class = "dsec2statimage"><img src = "../Images/DonatePageImages/DonateStatsImage3.svg"></div>
+                        <div class = "dsec2textB"><b>12%</b> for <b>Research & development</b></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "faqbg">
+            <div class = "faqborder">
+                <div class = "faqtitle">DONATION FAQs</div>
+                <div class = "faqqacontainer">
+                    <div class = "faqqacolumn">
+                        <ul>
+                            <li class = "faqquestion">What is my donation primarily used for?</li>
+                            <div class = "faqanswer">Your donation will be used for: 
+                                <ol>
+                                    <li>Rescue Operations: Provide more rescue personnel and equipment for rescue.</li>
+                                    <li>Post-Disaster Reconstruction: Accelerate housing and infrastructure rebuilding.</li>
+                                    <li>Research & Development: Provide additional funding to facilitate the development 
+                                        of rescue strategies and prevention methods.</li>
+                                </ol>
+                            </div>
+                            <div class = "faqqaspace"></div>
+                            <li class = "faqquestion">Is there a minimum or maximum amount for each donation?</li>
+                            <div class = "faqanswer">There is no minimum or maximum donation amount per donation. We appreciate 
+                                and will put every penny of your contribution to good use. However, for donations over $10,000, 
+                                we recommend that you contact our advisors for verification and confirmation.</div>
+                            <div class = "faqqaspace"></div>
+                            <li class = "faqquestion">Can I donate anonymously?</li>
+                            <div class = "faqanswer">Yes. If you wish to donate anonymously, you can indicate that on the donation 
+                                form. Your personal information will be kept confidential.</div>
+                            <div class = "faqqaspace"></div>
+                            <li class = "faqquestion">Will my donation be deducted for any administrative costs?</li>
+                            <div class = "faqanswer">We strive to maximize the impact of your donation. However, a small portion of 
+                                your donation may be used to cover administrative and processing costs.</div>
+                        </ul>
+                    </div>
+                    <div class = "faqqacolumn">
+                        <ul>
+                            <li class = "faqquestion">How do I cancel my recurring donation?</li>
+                            <div class = "faqanswer">You can cancel your monthly donation subscription at any time by sending an 
+                                email to our official email or calling our advisors for assistance. </div>
+                            <div class = "faqqaspace"></div>
+                            <li class = "faqquestion">Is it safe for me to donate to Climat Foundation online?</li>
+                            <div class = "faqanswer">Yes. We implement Transport Layer Security (TLS) to encrypt all sensitive user 
+                                data to keep data sent over the network secure.</div>
+                            <div class = "faqqaspace"></div>
+                            <li class = "faqquestion">Is my donation tax-deductible?</li>
+                            <div class = "faqanswer">Donations to Climat Foundation are tax-deductible only in countries that 
+                                recognize Climat Foundation as an NGO.</div>
+                            <div class = "faqqaspace"></div>
+                            <li class = "faqquestion">What information do I need to provide to make a tax-deductible donation?</li>
+                            <div class = "faqanswer">Information required for tax-deductible donations includes the donor's full 
+                                name on passport, passport number, and full mailing address for current residence.</div>
+                            <div class = "faqqaspace"></div>
+                            <li class = "faqquestion">Will I receive a donation receipt?</li>
+                            <div class = "faqanswer">Yes. We will send the donation receipt to your email, according to the 
+                                contact information you provided. The receipt will contain all details for tax purposes.</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
+        <footer>
+            <div class="footer">
+                <div class="row">
+                    <ul>
+                        <li>
+                            <h3 style="color:inherit;"><strong>PAGES</strong></h3>
+                        </li>
+                    </ul>
+                </div>
+                <div class="nav">
+                    <div class="column">
+                        <ul>
+                            <li><a href="Home Page.html">HOME</a></li>
+                            <li><a href="About Us.html">ABOUT US</a></li>
+                            <li><a href="Ongoing Crises.html">ONGOING CRISES</a></li>
+                            <li><a href="Gallery.html">GALLERY</a></li>
+                            <li><a href="Login Page.html">LOGIN</a></li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <ul>
+                            <li><a href="Partners.html">PARTNERS</a></li>
+                            <li><a href="T&C.html">T&C</a></li>
+                            <li><a href="Volunteer Page.html">VOLUNTEER</a></li>
+                            <li><a href="Donate Page.html">DONATE</a></li>
+                            <li><a href="Contact Us.html">CONTACT US</a></li>
+                        </ul>
+                    </div>
+                    <div class="column"></div>
+                </div>
+                <div class = "row">
+                    <ul>
+                        <li>
+                            <p class="copyright">&copy;Copyright 2009 &ndash; 2023 Climat Foundation.</p>
+                            <p class="copyright">Your generous donations help us continue our vital work. Contribute today and be a part of the solution.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contact">
+                <div class="info-details">
+                    <h3><strong>ADDRESS</strong></h3>
+                    <p>Heinrich-Heine-Allee
+                        18, 40213 Düsseldorf,
+                        Germany</p>
+                    <h3><strong>EMAIL</strong></h3>
+                    <p>heinrichgschmidth@gmail.com</p>
+                    <h3><strong>CONTACT</strong></h3>
+                    <p>+(49) 09920 65 34 48</p>
+                </div>
+                <div class="socials">
+                    <img class="icon" src="../Images/FB.svg">
+                    <img class="icon" src="../Images/Insta.svg">
+                    <img class="icon" src="../Images/Twitt.svg">
+                    <img class="icon" src="../Images/VK.svg">
+                    <img class="icon" src="../Images/Pin.svg">
+                </div>
+            </div>
+        </footer>
+        <!--FOOTER, END OF CODE-->
+
+        <script>
+            const donform = document.getElementById('donform');
+            const dfirstname = document.getElementById('dfirstname');
+            const dlastname = document.getElementById('dlastname');
+            const demail = document.getElementById('demail');
+
+            donform.addEventListener('submit', (ed) => {
+                ed.preventDefault();
+                validatedoninputs();
+            });
+
+            function validatedoninputs() {
+                const dfirstnamec = dfirstname.value.trim();
+                const dlastnamec = dlastname.value.trim();
+                const demailc = demail.value.trim();
+                if ((dfirstnamec === '') || (dlastnamec === '') || (demailc === '')) {
+                    alert('One of the required fields is empty or contains invalid data.\nPlease try again.');
+                } else {
+                    alert('Information submitted. Thank you for your donation.\nReturning to the Home Page.');
+                    setTimeout(function() {
+                        window.location.href = "Home Page.html";
+                    }, 1000);
+                }
+            }
+        </script>
+    </body>
+
+</html>
