@@ -53,11 +53,11 @@ color: #799ecf;
 /**BUTTONS**/
 div button{
 color:#ffffff;
-background-color:#000040;
-border: 2px solid #000040;
+background: #33363F;
+border: 2px solid #33363F;
 padding: 1em 1em;
 margin: 0% 5%;
-border-radius: 12px;
+border-radius: 5px;
 transition: color 0.5s, background-color 1s;
 text-align: center;
 }
@@ -72,7 +72,7 @@ min-width: 250px;
 nav button:hover, .dropdown:hover button, div.buttons-choice button:hover{
 cursor: pointer;
 background-color: #ffffff;
-color:#000040;
+color:#33363F;
 }
 
 /**CONTAINERS**/
@@ -183,8 +183,8 @@ header a{
   transform: translate(-50%, -50%);
 }
 
-nav div.left{
-  margin-right: 15%;
+nav div.right{
+  margin-left: 20%;
   flex: 1 1 40%;
 }
 }
