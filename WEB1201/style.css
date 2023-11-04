@@ -35,13 +35,15 @@ display: block;
 /**TEXT**/
 h1, h2, h3, h4{
 font-family: "League Spartan";
-color:#000040;
+color:#000000;
 }
 
 p, a {
-color:#000040;
-font-family: "Roboto", sans-serif;
-text-decoration: none;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400; 
+  color: #000000;
 }
 
 a:hover{
@@ -176,7 +178,8 @@ header a{
 }
 
 .logo{
-  min-width: 100%;
+  max-width: 100%;
+  max-height: 99%;
   position: absolute;
   top: 50%;
   left: 50%;
