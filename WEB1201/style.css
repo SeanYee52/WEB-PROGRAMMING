@@ -63,7 +63,7 @@ text-align: center;
 }
 
 div.buttons, div.buttons-choice{
-flex: 1 1 40%;
+flex: 1 1 5%;
 display: flex;
 align-items: baseline;
 min-width: 250px;
@@ -184,7 +184,7 @@ header a{
 }
 
 nav div.right{
-  margin-left: 20%;
+  margin-left: 40%;
   flex: 1 1 40%;
 }
 }
@@ -258,7 +258,6 @@ font-weight: bold;
 
 /**NAV BUTTONS**/
 div.login {
-flex: 1 1 20%;
 margin: 0% 1%;
 }
 
