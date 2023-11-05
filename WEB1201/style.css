@@ -44,6 +44,7 @@ p, a {
   font-style: normal;
   font-weight: 400; 
   color: #000000;
+  text-decoration: none;
 }
 
 a:hover{
@@ -267,8 +268,8 @@ margin: 0% 1%;
 /**FOOTER**/
 footer{
   background-color: #222222;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: auto;
   min-height: 50%;
   width: 100%;
   font-size: 130%;
@@ -278,20 +279,6 @@ footer{
 }
 
 /**NAVIGATION PART OF FOOTER (& COPYRIGHT)**/
-footer div div.nav{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-footer div.footer{
-  background-color: inherit;
-  color: #ffffff;
-  display: flex;
-  justify-content: stretch;
-}
 
 .nav .column{
   flex: 1 1 25%;
