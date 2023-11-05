@@ -279,15 +279,6 @@ footer{
 }
 
 /**NAVIGATION PART OF FOOTER (& COPYRIGHT)**/
-footer div div.nav{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-
 
 .nav .column{
   flex: 1 1 25%;
