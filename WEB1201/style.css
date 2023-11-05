@@ -267,7 +267,7 @@ margin: 0% 1%;
 
 /**FOOTER**/
 footer{
-  background-color: #222222;
+  background-color: #C9C9C9;
   display: grid;
   grid-template-columns: auto;
   min-height: 50%;
@@ -299,7 +299,6 @@ footer div p{
 }
 
 .copyright{
-  color: inherit; 
   font-size: 70%
 }
 
