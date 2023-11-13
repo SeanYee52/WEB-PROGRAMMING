@@ -324,11 +324,12 @@ footer div.contact h3{
 }
 
 div.socials{
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
+  display: grid;
   padding: 4% 5% 0%;
   margin: 0% 5%;
+  align-items: center;
+  align-self: center;
+  grid-template-columns: 50px 50px 50px 50px 50px
 }
 
 .info-details{
@@ -349,6 +350,7 @@ div.socials{
 footer div.footer{
   flex: 2 2 75%;
   flex-flow: column nowrap;
+  display: flex;
 }
 
 footer div.contact{
@@ -361,6 +363,7 @@ footer div div.nav{
 
 .footer .row{
   flex: 1 1 30%;
+  align-self: center;
 }
 }
 
@@ -368,6 +371,7 @@ footer div div.nav{
 footer div.footer{
   flex: 2 2 60%;
   flex-flow: column wrap;
+  display: flex;
 }
 
 footer div.contact{
@@ -376,6 +380,7 @@ footer div.contact{
 
 .footer .row{
   flex: 1 1 0%;
+  align-self: center;
 }
 }
 
