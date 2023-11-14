@@ -271,7 +271,7 @@ footer{
   background-color: #C9C9C9;
   display: grid;
   grid-template-columns: auto;
-  min-height: 50%;
+  min-height: 30%;
   width: 100%;
   font-size: 130%;
   padding: 0%;
@@ -325,11 +325,12 @@ footer div.contact h3{
 
 div.socials{
   display: grid;
-  padding: 4% 5% 0%;
+  flex: 1 1 25%;
   margin: 0% 5%;
   align-items: center;
+  justify-items: center;
   align-self: center;
-  grid-template-columns: 50px 50px 50px 50px 50px
+  grid-template-columns: 50px 50px 50px 50px 50px;
 }
 
 .info-details{
@@ -362,8 +363,10 @@ footer div div.nav{
 }
 
 .footer .row{
-  flex: 1 1 30%;
+  flex: 1 1 25%;
   align-self: center;
+  align-content: center;
+  display: grid;
 }
 }
 
@@ -381,6 +384,8 @@ footer div.contact{
 .footer .row{
   flex: 1 1 0%;
   align-self: center;
+  align-content: center;
+  display: grid;
 }
 }
 
