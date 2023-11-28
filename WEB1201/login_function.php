@@ -17,7 +17,7 @@ function redirect_user ($page) {
 
 } // End of redirect_user() function.
 
-function check_login_user($dbc, $email = '', $pass = '') {
+function check_login($dbc, $email = '', $pass = '') {
 
 	$errors = array(); // Initialize error array.
 
@@ -48,7 +48,7 @@ function check_login_user($dbc, $email = '', $pass = '') {
 			$row = mysqli_fetch_array ($r, MYSQLI_ASSOC);
 	
 			// Return true and the record:
-			return array(true, $row);
+			return array(1, $row);
 			
 		} else { // Not a match in user table!
 			
@@ -61,7 +61,7 @@ function check_login_user($dbc, $email = '', $pass = '') {
                 $row = mysqli_fetch_array ($r, MYSQLI_ASSOC);
         
                 // Return true and the record:
-                return array(true, $row);
+                return array(2, $row);
                 
             } else { // Not a match in admin table!
                 $errors[] = 'The email address and password entered do not match those on file.';
@@ -71,7 +71,7 @@ function check_login_user($dbc, $email = '', $pass = '') {
 	} // End of empty($errors) IF.
 	
 	// Return false and the errors:
-	return array(false, $errors);
+	return array(0, $errors);
 
 } // End of check_login() function.
 
