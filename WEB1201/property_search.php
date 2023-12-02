@@ -12,6 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $rooms = mysqli_real_escape_string($dbc, trim($_POST["rooms"]));
     $square_feet = mysqli_real_escape_string($dbc, trim($_POST["square_feet"]));
     $property_type = mysqli_real_escape_string($dbc, trim($_POST["property_type"]));
+   
+}
+else {
+	$q = "SELECT name, type, no_of_bedrooms + no_of_bathrooms AS rooms, floor_size, price, sustainability_rating FROM property ORDER BY sustainability_rating LIMIT $start, $display";		
+	$r = @mysqli_query ($dbc, $q); // Run the query.
+}
 
 // Number of records to show per page:
 $display = 5;
@@ -40,30 +46,6 @@ if (isset($_GET['s']) && is_numeric($_GET['s'])) {
 	$start = 0;
 }
 
-// Determine the sort...
-// Default is by registration date.
-$sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'rd';
-
-// Determine the sorting order:
-switch($sort){
-	case 'ln':
-		$order_by = 'last_name ASC';
-		break;
-	case 'fn':
-		$order_by = 'first_name ASC';
-		break;
-	case 'rd':
-		$order_by = 'registration_date ASC';
-		break;
-	default:
-		$order_by = 'registration_date ASC';
-		$sort = 'rd';
-		break;
-}
-
-// Define the query:
-$q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, user_id FROM users ORDER BY $order_by LIMIT $start, $display";		
-$r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
 echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
@@ -121,8 +103,7 @@ if ($pages > 1) {
 	
 	echo '</p>'; // Close the paragraph.
 	
-} // End of links section.    
-}
+} // End of links section. 
 ?>
 
 <form id="propertyForm" action="property_search.php" method="POST">
