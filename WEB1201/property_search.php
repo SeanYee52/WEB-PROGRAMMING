@@ -19,11 +19,11 @@ function buildWhereClause($inputs)
     }
 
     if (!empty($inputs['rooms'])) {
-        $conditions[] = "(no_of_bedrooms + no_of_bathrooms) = " . $inputs['rooms'];
+        $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms'];
     }
 
     if (!empty($inputs['floor_size'])) {
-        $conditions[] = "square_feet >= " . $inputs['floor_size'];
+        $conditions[] = "floor_size >= " . $inputs['floor_size'];
     }
 
     if (!empty($inputs['min_price'])) {
@@ -38,6 +38,7 @@ function buildWhereClause($inputs)
         $conditions[] = "sustainability_rating >= " . $inputs['rating'];
     }
 
+	//Forms Where Clauses
     if (!empty($conditions)) {
         return "WHERE " . implode(" AND ", $conditions);
     } else {
@@ -51,7 +52,7 @@ $searchInputs = array(
     'state' => isset($_POST['state']) ? $_POST['state'] : null,
     'property_type' => isset($_POST['property_type']) ? $_POST['property_type'] : null,
     'rooms' => isset($_POST['rooms']) ? intval($_POST['rooms']) : null,
-    'floor_size' => isset($_POST['floor_size']) ? intval($_POST['floor_size']) : null,
+    'floor_size' => isset($_POST['square_feet']) ? intval($_POST['square_feet']) : null,
     'min_price' => isset($_POST['min_price']) ? floatval($_POST['min_price']) : null,
     'max_price' => isset($_POST['max_price']) ? floatval($_POST['max_price']) : null,
     'rating' => isset($_POST['rating']) ? floatval($_POST['rating']) : null,
@@ -72,7 +73,7 @@ if ($result) {
         echo "<h2>" . $property['name'] . "</h2>";
         echo "<p>State: " . $property['state'] . "</p>";
         echo "<p>Type: " . $property['type'] . "</p>";
-        echo "<p>Rooms: " . $property['no_of_bedrooms'] . " bedrooms, " . $property['no_of_bathrooms'] . " bathrooms</p>";
+        echo "<p>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</p>";
         echo "<p>Floor Size: " . $property['floor_size'] . " sq. ft.</p>";
         echo "<p>Price: $" . $property['price'] . "</p>";
         echo "<p>Rating: " . $property['sustainability_rating'] . "</p>";
@@ -89,10 +90,10 @@ if ($result) {
     <input type="text" id="title" name="title">
 
     <label for="minprice">Minimum Price:</label>
-    <input type="number" id="minprice" name="minprice">
+    <input type="number" id="min_price" name="min_price">
 
-    <label for="maxprice">Minimum Price:</label>
-    <input type="number" id="maxprice" name="maxprice">
+    <label for="maxprice">Maximum Price:</label>
+    <input type="number" id="max_price" name="max_price">
 
     <label for="state">State:</label>
     <input type="text" id="state" name="state">
