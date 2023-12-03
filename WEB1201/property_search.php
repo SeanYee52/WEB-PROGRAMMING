@@ -15,11 +15,11 @@ function buildWhereClause($inputs)
     }
 
     if (!empty($inputs['property_type'])) {
-        $conditions[] = "type = '" . $inputs['property_type'] . "'";
+        $conditions[] = "property_type = '" . $inputs['property_type'] . "'";
     }
 
     if (!empty($inputs['rooms'])) {
-        $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms'];
+        $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms']; //To calculate total rooms
     }
 
     if (!empty($inputs['floor_size'])) {
