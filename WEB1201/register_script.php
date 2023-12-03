@@ -38,27 +38,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (empty($errors)) { // If everything's OK.
 	
 		// Register the user in the database...
+		//  Test for unique email address:
+		$q = "SELECT user_id FROM user WHERE email = '$e'";
+		$r = @mysqli_query($dbc, $q);
 		
-		// Make the query:
-		$q = "INSERT INTO user (username, email, password, join_date) VALUES ('$fn', '$e', SHA1('$p'), NOW() )";		
-		$r = @mysqli_query ($dbc, $q); // Run the query.
-		if ($r) { // If it ran OK.
+		if (mysqli_num_rows($r) == 0) {
+
+			// Make the query:
+			$q = "INSERT INTO user (username, email, password, join_date) VALUES ('$fn', '$e', SHA1('$p'), NOW() )";		
+			$r = @mysqli_query ($dbc, $q); // Run the query.
+			if ($r) { // If it ran OK.
 		
-			// Print a message:
-			echo '<h1>Thank you!</h1>
-		<p>You are now registered successfully.</p><p><br /></p>';	
+				// Print a message:
+				echo '<h1>Thank you!</h1>
+				<p>You are now registered successfully.</p><p><br /></p>';	
 		
-		} else { // If it did not run OK.
+			} else { // If it did not run OK.
 			
-			// Public message:
-			echo '<h1>System Error</h1>
-			<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
+				// Public message:
+				echo '<h1>System Error</h1>
+				<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
 			
-			// Debugging message:
-			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
+				// Debugging message:
+				echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
 						
-		} // End of if ($r) IF.
-		
+			} // End of if ($r) IF.
+				
+			} else { // Already registered.
+				echo '<p class="error">The email address has already been registered.</p>';
+			}
+
 		mysqli_close($dbc); // Close the database connection.
 
 		exit();
