@@ -38,7 +38,7 @@ function check_login($dbc, $email = '', $pass = '') {
 	if (empty($errors)) { // If everything's OK.
 
 		// Retrieve the user_id and first_name for that email/password combination:
-		$q = "SELECT user_id FROM users WHERE username='$n' AND pass=SHA1('$p')";		
+		$q = "SELECT user_id, username FROM user WHERE username='$n' AND password=SHA1('$p')";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		
 		// Check the result:
@@ -52,7 +52,7 @@ function check_login($dbc, $email = '', $pass = '') {
 			
 		} else { // Not a match in user table!
 			
-            $q = "SELECT user_id FROM admin WHERE name='$n' AND pass=SHA1('$p')";
+            $q = "SELECT admin_id, name FROM admin WHERE name='$n' AND password=SHA1('$p')";
             $r = @mysqli_query ($dbc, $q); // Run the query.
             
             if (mysqli_num_rows($r) == 1) {
