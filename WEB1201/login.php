@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['username'] = $data['username'];
 		
 		// Redirect:
-		redirect_user('loggedin.php');		
+		redirect_user('loggedin.php');	//placeholder php file for now, send to home page	
 			
 	}
     elseif ($check == 2){
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['name'] = $data['name'];
 		
 		// Redirect:
-		redirect_user('loggedin.php');
+		redirect_user('loggedin.php'); //placeholder php file for now, send to admin page
     } 
     else { // Unsuccessful!
 

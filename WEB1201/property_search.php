@@ -1,109 +1,88 @@
 <?php
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+include ("mysqli_connect.php");
 
-    include ('mysqli_connect.php');
+// Function to build the WHERE clause based on provided inputs
+function buildWhereClause($inputs)
+{
+    $conditions = array();
 
-    // Retrieve form data
-    $title = mysqli_real_escape_string($dbc, trim($_POST["title"]));
-    $minprice = mysqli_real_escape_string($dbc, trim($_POST["minprice"]));
-    $maxprice = mysqli_real_escape_string($dbc, trim($_POST["maxprice"]));
-    $state = mysqli_real_escape_string($dbc, trim($_POST["state"]));
-    $rooms = mysqli_real_escape_string($dbc, trim($_POST["rooms"]));
-    $square_feet = mysqli_real_escape_string($dbc, trim($_POST["square_feet"]));
-    $property_type = mysqli_real_escape_string($dbc, trim($_POST["property_type"]));
-   
+    if (!empty($inputs['title'])) {
+		$conditions[] = "name LIKE '%" . $inputs['title'] . "%'";
+    }
+
+    if (!empty($inputs['state'])) {
+		$conditions[] = "state = '" . $inputs['state'] . "'";
+    }
+
+    if (!empty($inputs['property_type'])) {
+        $conditions[] = "property_type = '" . $inputs['property_type'] . "'";
+    }
+
+    if (!empty($inputs['rooms'])) {
+        $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms']; //To calculate total rooms
+    }
+
+    if (!empty($inputs['floor_size'])) {
+        $conditions[] = "floor_size >= " . $inputs['floor_size'];
+    }
+
+    if (!empty($inputs['min_price'])) {
+        $conditions[] = "price >= " . $inputs['min_price'];
+    }
+
+    if (!empty($inputs['max_price'])) {
+        $conditions[] = "price <= " . $inputs['max_price'];
+    }
+
+    if (!empty($inputs['rating'])) {
+        $conditions[] = "sustainability_rating >= " . $inputs['rating'];
+    }
+
+	//Forms Where Clauses
+    if (!empty($conditions)) {
+        return "WHERE " . implode(" AND ", $conditions);
+    } else {
+        return "";
+    }
 }
-else {
-	$q = "SELECT name, type, no_of_bedrooms + no_of_bathrooms AS rooms, floor_size, price, sustainability_rating FROM property ORDER BY sustainability_rating LIMIT $start, $display";		
-	$r = @mysqli_query ($dbc, $q); // Run the query.
-}
 
-// Number of records to show per page:
-$display = 5;
+// Retrieve search inputs
+$searchInputs = array(
+    'title' => isset($_POST['title']) ? '%' . $_POST['title'] . '%' : null,
+    'state' => isset($_POST['state']) ? $_POST['state'] : null,
+    'property_type' => isset($_POST['property_type']) ? $_POST['property_type'] : null,
+    'rooms' => isset($_POST['rooms']) ? intval($_POST['rooms']) : null,
+    'floor_size' => isset($_POST['square_feet']) ? intval($_POST['square_feet']) : null,
+    'min_price' => isset($_POST['min_price']) ? floatval($_POST['min_price']) : null,
+    'max_price' => isset($_POST['max_price']) ? floatval($_POST['max_price']) : null,
+    'rating' => isset($_POST['rating']) ? floatval($_POST['rating']) : null,
+);
 
-// Determine how many pages there are...
-if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
-	$pages = $_GET['p'];
-} else { // Need to determine.
- 	// Count the number of records:
-	$q = "SELECT COUNT(property_id) FROM property";
-	$r = @mysqli_query ($dbc, $q);
-	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
-	$records = $row[0];
-	// Calculate the number of pages...
-	if ($records > $display) { // More than 1 page.
-		$pages = ceil ($records/$display);
-	} else {
-		$pages = 1;
-	}
-} // End of p IF.
+// Build the WHERE clause based on the inputs
+$whereClause = buildWhereClause($searchInputs);
 
-// Determine where in the database to start returning results...
-if (isset($_GET['s']) && is_numeric($_GET['s'])) {
-	$start = $_GET['s'];
+// Construct the SQL query
+$sql = "SELECT * FROM property $whereClause";
+
+// Execute the SQL query
+$result = @mysqli_query($dbc, $sql);
+
+// Display the search results
+if ($result) {
+    while ($property = mysqli_fetch_assoc($result)) {
+        echo "<h2>" . $property['name'] . "</h2>";
+        echo "<p>State: " . $property['state'] . "</p>";
+        echo "<p>Type: " . $property['type'] . "</p>";
+        echo "<p>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</p>";
+        echo "<p>Floor Size: " . $property['floor_size'] . " sq. ft.</p>";
+        echo "<p>Price: $" . $property['price'] . "</p>";
+        echo "<p>Rating: " . $property['sustainability_rating'] . "</p>";
+        echo "<hr>";
+    }
 } else {
-	$start = 0;
+    echo "No properties found matching the criteria.";
 }
 
-
-// Table header:
-echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
-<tr>
-	<td align="left"><b>Edit</b></td>
-	<td align="left"><b>Delete</b></td>
-	<td align="left"><b><a href="view_users.php?sort=ln">Last Name</a></b></td>
-	<td align="left"><b><a href="view_users.php?sort=fn">First Name</a></b></td>
-	<td align="left"><b><a href="view_users.php?sort=rd">Date Registered</a></b></td>
-</tr>
-';
-
-// Fetch and print all the records....
-$bg = '#eeeeee'; 
-while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
-		echo '<tr bgcolor="' . $bg . '">
-		<td align="left"><a href="edit_user.php?id='. $row['user_id'] .'">Edit</a></td>
-		<td align="left"><a href="delete_user.php?id='. $row['user_id'] .'">Delete</a></td>
-		<td align="left">' . $row['last_name'] .  '</td>
-		<td align="left">' . $row['first_name'] . '</td>
-		<td align="left">' . $row['dr'] . '</td>
-	</tr>
-	';
-} // End of WHILE loop.
-
-echo '</table>';
-mysqli_free_result ($r);
-mysqli_close($dbc);
-
-// Make the links to other pages, if necessary.
-if ($pages > 1) {
-	
-	echo '<br /><p>';
-	$current_page = ($start/$display) + 1;
-	
-	// If it's not the first page, make a Previous button:
-	if ($current_page != 1) {
-		echo '<a href="view_users.php?s=' . ($start - $display) . '&p=' . $pages . '&sort=' . $sort . '">Previous</a> ';
-	}
-	
-	// Make all the numbered pages:
-	for ($i = 1; $i <= $pages; $i++) {
-		if ($i != $current_page) {
-			echo '<a href="view_users.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">' . $i . '</a> ';
-		} else {
-			echo $i . ' ';
-		}
-	} // End of FOR loop.
-	
-	// If it's not the last page, make a Next button:
-	if ($current_page != $pages) {
-		echo '<a href="view_users.php?s=' . ($start + $display) . '&p=' . $pages . '&sort=' . $sort . '">Next</a>';
-	}
-	
-	echo '</p>'; // Close the paragraph.
-	
-} // End of links section. 
 ?>
 
 <form id="propertyForm" action="property_search.php" method="POST">
@@ -111,10 +90,10 @@ if ($pages > 1) {
     <input type="text" id="title" name="title">
 
     <label for="minprice">Minimum Price:</label>
-    <input type="number" id="minprice" name="minprice">
+    <input type="number" id="min_price" name="min_price">
 
-    <label for="maxprice">Minimum Price:</label>
-    <input type="number" id="maxprice" name="maxprice">
+    <label for="maxprice">Maximum Price:</label>
+    <input type="number" id="max_price" name="max_price">
 
     <label for="state">State:</label>
     <input type="text" id="state" name="state">
@@ -125,7 +104,7 @@ if ($pages > 1) {
     <label for="square_feet">Square Feet:</label>
     <input type="number" id="square_feet" name="square_feet">
 
-    <label for="year_built">Year Built:</label>
+    <label for="year_built">Sustainability Rating:</label>
     <input type="number" id="year_built" name="year_built">
 
     <label for="property_type">Property Type:</label>
