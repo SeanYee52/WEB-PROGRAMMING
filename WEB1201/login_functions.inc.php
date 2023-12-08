@@ -64,7 +64,7 @@ function check_login($dbc, $email = '', $pass = '') {
                 return array(2, $row);
                 
             } else { // Not a match in admin table!
-                $errors[] = 'The email address and password entered do not match those on file.';
+                $errors[] = 'The username and password entered do not match those on file.';
             }
 		}
 		

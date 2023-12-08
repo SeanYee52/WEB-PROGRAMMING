@@ -1,13 +1,68 @@
+<form id="propertyForm" action="property_search.php" method="POST">
+    <label for="state">State:</label>
+    <select id="state" name="state">
+        <option value="">All States</option>
+        <option value="Johor">Johor</option>
+        <option value="Kedah">Kedah</option>
+        <option value="Kelantan">Kelantan</option>
+        <option value="Melaka">Melaka</option>
+        <option value="Negeri Sembilan">Negeri Sembilan</option>
+        <option value="Pahang">Pahan</option>
+        <option value="Penang">Penang</option>
+        <option value="Perak">Perak</option>
+        <option value="Perlis">Perlis</option>
+        <option value="Sabah">Sabah</option>
+        <option value="Sarawak">Sarawak</option>
+        <option value="Selangor">Selangor</option>
+        <option value="Terengganu">Terengganu</option>
+        <option value="Kuala Lumpur">Kuala Lumpur</option>
+        <option value="Labuan">Labuan</option>
+        <option value="Putrajaya">Putrajaya</option>
+    </select>
+
+    <label for="title">Address:</label>
+    <input type="text" id="title" name="title">
+
+    <label for="minprice">Minimum Price:</label>
+    <input type="number" id="min_price" name="min_price">
+
+    <label for="maxprice">Maximum Price:</label>
+    <input type="number" id="max_price" name="max_price">
+
+    <label for="state">State:</label>
+    <input type="text" id="state" name="state">
+
+    <label for="rooms">Number of Rooms:</label>
+    <input type="number" id="rooms" name="rooms">
+
+    <label for="square_feet">Square Feet:</label>
+    <input type="number" id="square_feet" name="square_feet">
+
+    <label for="year_built">Sustainability Rating:</label>
+    <input type="number" id="year_built" name="year_built">
+
+    <label for="property_type">Property Type:</label>
+    <select id="property_type" name="property_type">
+        <option value="">Any Residential</option>
+        <option value="apartment">Apartment</option>
+        <option value="condo">Condominium</option>
+        <option value="townhouse">Townhouse</option>
+        <option value="bungalow">Bungalow</option>
+    </select>
+
+    <input type="submit" name="submit" value="Search" />
+</form>
+
 <?php
 include ("mysqli_connect.php");
 
-// Function to build the WHERE clause based on provided inputs
+//Function to build the WHERE clause based on provided inputs
 function buildWhereClause($inputs)
 {
     $conditions = array();
 
     if (!empty($inputs['title'])) {
-		$conditions[] = "name LIKE '%" . $inputs['title'] . "%'";
+		$conditions[] = "address LIKE '%" . $inputs['title'] . "%'";
     }
 
     if (!empty($inputs['state'])) {
@@ -38,6 +93,10 @@ function buildWhereClause($inputs)
         $conditions[] = "sustainability_rating >= " . $inputs['rating'];
     }
 
+    if (!empty($inputs['type'])) {
+        $conditions[] = "listing_type = '". $inputs['type'] . "'";
+    }
+
 	//Forms Where Clauses
     if (!empty($conditions)) {
         return "WHERE " . implode(" AND ", $conditions);
@@ -46,7 +105,7 @@ function buildWhereClause($inputs)
     }
 }
 
-// Retrieve search inputs
+//Retrieve search inputs
 $searchInputs = array(
     'title' => isset($_POST['title']) ? '%' . $_POST['title'] . '%' : null,
     'state' => isset($_POST['state']) ? $_POST['state'] : null,
@@ -56,64 +115,64 @@ $searchInputs = array(
     'min_price' => isset($_POST['min_price']) ? floatval($_POST['min_price']) : null,
     'max_price' => isset($_POST['max_price']) ? floatval($_POST['max_price']) : null,
     'rating' => isset($_POST['rating']) ? floatval($_POST['rating']) : null,
+    'type' => isset($_GET['type']) ? $_GET['type'] : null
 );
 
-// Build the WHERE clause based on the inputs
+//Pagination variables
+$resultsPerPage = 5;
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$offset = ($page - 1) * $resultsPerPage;
+
+//Build the WHERE clause based on the inputs
 $whereClause = buildWhereClause($searchInputs);
 
-// Construct the SQL query
-$sql = "SELECT * FROM property $whereClause";
+//Construct the SQL query
+$q = "SELECT * FROM property $whereClause";
+$result = @mysqli_query($dbc, $q);
 
-// Execute the SQL query
-$result = @mysqli_query($dbc, $sql);
+//Display the search results
 
-// Display the search results
+if (mysqli_num_rows($result) >= 5) {
+    $q = "SELECT * FROM property $whereClause LIMIT $resultsPerPage OFFSET $offset";
+    $result = @mysqli_query($dbc, $q);
+}
+
 if ($result) {
     while ($property = mysqli_fetch_assoc($result)) {
-        echo "<h2>" . $property['name'] . "</h2>";
+        echo "<h2>" . $property['address'] . "</h2>";
         echo "<p>State: " . $property['state'] . "</p>";
-        echo "<p>Type: " . $property['type'] . "</p>";
+        echo "<p>Type: " . $property['property_type'] . "</p>";
         echo "<p>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</p>";
         echo "<p>Floor Size: " . $property['floor_size'] . " sq. ft.</p>";
         echo "<p>Price: $" . $property['price'] . "</p>";
         echo "<p>Rating: " . $property['sustainability_rating'] . "</p>";
+
+        $q = "SELECT * FROM property_image WHERE property_id = ".$property['property_id'].";";
+        $r = @mysqli_query($dbc, $q);
+
+        if ($r){
+            while ($image = mysqli_fetch_assoc($r)){
+                echo '<img style="width:300px;height:300px;object-fit: cover;" src="'. $image["img_dir"] . '">';
+            }
+        }
+
         echo "<hr>";
     }
+
+    // Add pagination links
+    $q = "SELECT COUNT(*) AS total FROM property $whereClause";
+    $result = @mysqli_query($dbc, $q);
+    $row = mysqli_fetch_assoc($result);
+    $totalPages = ceil($row['total'] / $resultsPerPage);
+
+    echo "<div class='pagination'>";
+    for ($i = 1; $i <= $totalPages; $i++) {
+        echo "<a href='?page=$i'>$i</a>";
+    }
+    echo "</div>";
 } else {
     echo "No properties found matching the criteria.";
 }
 
 ?>
 
-<form id="propertyForm" action="property_search.php" method="POST">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title">
-
-    <label for="minprice">Minimum Price:</label>
-    <input type="number" id="min_price" name="min_price">
-
-    <label for="maxprice">Maximum Price:</label>
-    <input type="number" id="max_price" name="max_price">
-
-    <label for="state">State:</label>
-    <input type="text" id="state" name="state">
-
-    <label for="rooms">Number of Rooms:</label>
-    <input type="number" id="rooms" name="rooms">
-
-    <label for="square_feet">Square Feet:</label>
-    <input type="number" id="square_feet" name="square_feet">
-
-    <label for="year_built">Sustainability Rating:</label>
-    <input type="number" id="year_built" name="year_built">
-
-    <label for="property_type">Property Type:</label>
-    <select id="property_type" name="property_type">
-        <option value="apartment">Apartment</option>
-        <option value="condo">Condominium</option>
-        <option value="townhouse">Townhouse</option>
-        <option value="bungalow">Bungalow</option>
-    </select>
-
-    <input type="submit" name="submit" value="Search" />
-</form>
