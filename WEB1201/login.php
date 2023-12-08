@@ -3,6 +3,9 @@
 // The script uses sessions.
 session_start();
 
+require ('login_functions.inc.php');
+
+
 if(isset($_SESSION["user_id"])){
 	redirect_user('user_page.php');
 }
@@ -13,12 +16,8 @@ else{
 	// Check if the form has been submitted:
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-		// Need two helper files:
-		require ('login_functions.inc.php');
-			
-		// Need the database connection:
 		require ('mysqli_connect.php');
-		
+
 		// Check the login:
 		list ($check, $data) = check_login($dbc, $_POST['username'], $_POST['pass']);
 		

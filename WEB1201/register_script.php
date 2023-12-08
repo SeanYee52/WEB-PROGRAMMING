@@ -1,7 +1,15 @@
 <?php
 // This script performs an INSERT query to add a record to the users table.
 
+require ('login_functions.inc.php');
+
 session_start();
+if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
+	redirect_user("user_page.php");
+}
+elseif (isset($_SESSION["admin_id"]) && isset($_SESSION["name"])){
+	redirect_user("admin_register.php");
+}
 
 // Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
