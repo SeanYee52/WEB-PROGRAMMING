@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     include_once("mysqli_connect.php");
 
-    $error = array();
+    $errors = array();
 
     if (!empty($_POST["description"])){
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     }
     else{
-        $error[]="Please enter a description";
+        $errors[]="Please enter a description";
     }
 
     include("user_page.php");

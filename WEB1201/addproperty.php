@@ -187,8 +187,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <h3>Property Information</h3>
                     <label for="listing_type">For Sale / For Rent:</label>
                     <select id="listing_type" name="listing_type" required>
-                        <option value="sale">For Sale</option>
-                        <option value="rent">For Rent</option>
+                        <option value="Sale">For Sale</option>
+                        <option value="Rent">For Rent</option>
                     </select>
 
                     <br><label for="property_type">Property Type:</label>

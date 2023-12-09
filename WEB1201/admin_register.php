@@ -1,7 +1,17 @@
 <?php
 // This script performs an INSERT query to add a record to the users table.
 
-$page_title = 'Register';
+// Redirect function
+include_once ("login_functions.inc.php");
+
+// Check if admin is properly logged in
+session_start();
+if (!isset($_SESSION["admin_id"]) || !isset($_SESSION["name"])){
+	redirect_user("login.php");
+}
+
+// Initialising variables
+$username = "username";
 
 // Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -10,36 +20,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$errors = array(); // Initialize an error array.
 
-	// Check for a first name:
-	if (empty($_POST['username'])) {
-		$errors[] = 'You forgot to enter your username.';
-	} else {
-		$fn = mysqli_real_escape_string($dbc, trim($_POST['username']));
+	// Validate username
+    if (empty($_POST['username'])) {
+        $errors[] = "Username is required";
+    }
+	else{
+		$username = mysqli_real_escape_string($dbc, $_POST['username']);
+		// Test for unique admin username
+        $q = "SELECT admin_id FROM admin WHERE name= '$username'";
+        $r = @mysqli_query($dbc, $q);
+        if (mysqli_num_rows($r) != 0){
+            $errors[]= "This admin username has already been registered";
+        }
 	}
 
-	// Check for a password and match against the confirmed password:
-	if (!empty($_POST['pass1'])) {
-		if ($_POST['pass1'] != $_POST['pass2']) {
-			$errors[] = 'Your password did not match the confirmed password.';
-		} else {
-			$p = mysqli_real_escape_string($dbc, trim($_POST['pass1']));
-		}
-	} else {
-		$errors[] = 'You forgot to enter your password.';
+	// Validate password
+    if (empty($_POST['pass1'])) {
+        $errors[] = "Password is required";
+    }
+	else{
+		$password = mysqli_real_escape_string($dbc, $_POST['pass1']);
 	}
+
+    // Validate confirm password
+    if (empty($_POST['pass2'])) {
+        $errors[] = "Confirm password is required";
+    } 
+    elseif ($password !== $_POST['pass2']) {
+        $errors[] = "Password and confirm password do not match";
+    }
+
+	// Validate Password Requirements
+	// Requirement 1: At least 8 characters long
+    if (strlen($password) < 8) {
+        $errors[] = "Password must be at least 8 characters long";
+    }
+    // Requirement 2: A combination of uppercase and lowercase letters
+    if (!preg_match('/[a-z]/', $password) || !preg_match('/[A-Z]/', $password)) {
+        $errors[] = "Password must contain a combination of uppercase and lowercase letters";
+    }
+    // Requirement 3: At least 1 number
+    if (!preg_match('/\d/', $password)) {
+        $errors[] = "Password must contain at least 1 number";
+    }
+    // Requirement 4: At least 1 special character
+    if (!preg_match('/.*[!@#$%^&*()_+{}|:"<>?`~\-=[\];\',.\/\\\\].*/', $password)) {
+        $errors[] = "Password must contain at least 1 special character";
+    }
 
 	if (empty($errors)) { // If everything's OK.
 	
-		// Register the user in the database...
+		// Register the admin in the database...
 		
 		// Make the query:
-		$q = "INSERT INTO admin (name, password) VALUES ('$fn', SHA1('$p'))";		
+		$q = "INSERT INTO admin (name, password) VALUES ('$username', SHA1('$password'))";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
+		
 		if ($r) { // If it ran OK.
 		
+			$q = "SELECT admin_id FROM admin WHERE name = '$username'";
+            $r = @mysqli_query ($dbc, $q);
+
+            $row = mysqli_fetch_assoc($r);
 			// Print a message:
-			echo '<h1>Thank you!</h1>
-		<p>You are now registered successfully.</p><p><br /></p>';	
+            $_SESSION['admin_id'] = $row['admin_id'];
+			$_SESSION['name'] = $username;
+			redirect_user("admin_page.php");
 		
 		} else { // If it did not run OK.
 			
@@ -71,9 +117,116 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 } // End of the main Submit conditional.
 ?>
-<form action="admin_register_script.php" method="post">
-	<p>Username: <input type="text" name="username" size="15" maxlength="20" value="<?php if (isset($_POST['username'])) echo $_POST['username']; ?>" /></p>
-	<p>Password: <input type="password" name="pass1" size="10" maxlength="40" value="<?php if (isset($_POST['pass1'])) echo $_POST['pass1']; ?>" /></p>
-	<p>Confirm Password: <input type="password" name="pass2" size="10" maxlength="20" value="<?php if (isset($_POST['pass2'])) echo $_POST['pass2']; ?>" /></p>
-	<p><input type="submit" name="submit" value="Register" /></p>
-</form>
+
+<html lang = "en">
+    <head>
+        <title>Template</title>
+        <meta charset = "utf-8">
+        <link rel = "stylesheet" type = "text/css" href = "style.css">
+    </head>
+
+    <body>
+         <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
+         <header>
+            <a href="home.php"><img  class="logo" src="../Images/Logo.svg"></a>
+            <nav>
+                <div class="right">
+                    <div>
+                        <a href="about_us.php">ABOUT US</a>
+                    </div>
+                    <div>
+                        <a href="property_search.php?type=sale">BUY</a>
+                    </div>
+                    <div>
+                        <a href="property_search.php?type=rent">RENT</a>
+                    </div>
+                    <div>
+                        <a href="addproperty.php">ADVERTISE</a>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="login">
+                        <button
+                            <?php
+                            if (isset($_SESSION["user_id"]) && $_SESSION["username"]){
+                                echo 'onclick="window.location.href=';
+                                echo "'user_page.php';";
+                                echo ';">MY ACCOUNT';
+                            }
+                            elseif (isset($_SESSION['admin_id']) && $_SESSION['name']){
+                                echo 'onclick="window.location.href=';
+                                echo "'admin_page.php';";
+                                echo ';">ADMIN PAGE';
+                            }
+                            else{
+                                echo 'onclick="window.location.href=';
+                                echo "'login.php';";
+                                echo ';">LOGIN';
+                            }
+                            ?>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!--HEADER, END OF CODE-->
+
+		<div >
+			<?php
+			if (!empty($errors)) {
+				echo '<h1>Error!</h1>
+				<p class="error">The following error(s) occurred:<br />';
+				foreach ($errors as $msg) { // Print each error.
+					echo " - $msg<br />\n";
+				}
+				echo '</p><p>Please try again.</p><p><br /></p>';
+			}
+			?>
+			<form action="admin_register.php" method="post">
+				<p>Username: <input type="text" id="username" name="username" required value="<?php echo $username;?>"></p>
+				
+				<p>Password: <input type="password" id="password" name="pass1" required></p>
+
+				<p>Confirm Password: <input type="password" id="confirm_password" name="pass2" required></p>
+
+				<br><button type="submit">Register</button>
+			</form>
+		</div>
+
+        <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
+        <footer>
+            <div class="footer">
+                <div class="row">
+                    <img src="../Images/Logo.svg" style = "min-width: 10%; max-width: 10%; margin-left: auto; margin-right: auto;">
+                </div>
+                <div class="footer-links">
+                    <a href="home.php">HOME</a>
+                    <a href="property_search.php?type=sale">BUY</a>
+                    <a href="property_search.php?type=rent">RENT</a>
+                    <a href="addproperty.php">ADVERTISE</a>
+                    <a href="login.php">LOGIN</a>
+                    <a href="about_us.php">ABOUT US</a>
+                    <a href="t&c.php">T&C</a>
+                </div>
+                <div class="socials">
+                    <img class="icon" src="../Images/FB.svg">
+                    <img class="icon" src="../Images/Insta.svg">
+                    <img class="icon" src="../Images/Twitt.svg">
+                    <img class="icon" src="../Images/VK.svg">
+                    <img class="icon" src="../Images/Pin.svg">
+                </div>
+                <div class = "row">
+                    <ul>
+                        <li>
+                            <p class="copyright">&copy;Copyright 20023 EcoEstate. All rights reserved.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+        </footer>
+        <!--FOOTER, END OF CODE-->
+
+    </body>
+
+</html>

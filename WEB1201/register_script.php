@@ -3,6 +3,7 @@
 
 require ('login_functions.inc.php');
 
+// Check if user already logged in
 session_start();
 if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
 	redirect_user("user_page.php");
@@ -39,14 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 	else{
 		$email = mysqli_real_escape_string($dbc, $_POST['email']);
+        //  Test for unique email address
+        $q = "SELECT user_id FROM user WHERE email = '$email'";
+        $r = @mysqli_query($dbc, $q);
+        if (mysqli_num_rows($r) != 0){
+            $errors[]= "The email address has already been registered";
+        }
 	}
 
-    //  Test for unique email address
-	$q = "SELECT user_id FROM user WHERE email = '$email'";
-	$r = @mysqli_query($dbc, $q);
-    if (mysqli_num_rows($r) != 0){
-        $errors[]= "The email address has already been registered";
-    }
 
     // Validate phone number
 	$phone_regex = "/^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$/"; //Includes optional +60, only accepts Malaysian phone numbers
@@ -101,11 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!preg_match('/.*[!@#$%^&*()_+{}|:"<>?`~\-=[\];\',.\/\\\\].*/', $password)) {
         $errors[] = "Password must contain at least 1 special character";
     }
-	
-	// Register the user in the database...
-	//  Test for unique email address
-	$q = "SELECT user_id FROM user WHERE email = '$email'";
-	$r = @mysqli_query($dbc, $q);
 		
 	if (empty($errors)) {
 
@@ -264,4 +260,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </body>
 
 </html>
-

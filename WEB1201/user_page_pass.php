@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     include_once("mysqli_connect.php");
 
-    $error = array();
+    $errors = array();
 
     // Validate password
     if (empty($_POST['pass1'])) {
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $errors[] = "Password must contain at least 1 special character";
     }
 
-    if(empty($error)){
+    if(empty($errors)){
         $q = "UPDATE user SET password = SHA1('$password') WHERE user_id = $user_id;";
         $r = @mysqli_query($dbc, $q);
     }

@@ -122,7 +122,7 @@
         <!--HEADER, END OF CODE-->
 
         <?php
-         if (!empty($error)) {
+         if (!empty($errors)) {
             echo '<h1>Error!</h1>
             <p class="error">The following error(s) occurred:<br />';
             foreach ($error as $msg) { // Print each error.

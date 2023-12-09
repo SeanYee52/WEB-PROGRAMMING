@@ -185,7 +185,7 @@ $result = @mysqli_query($dbc, $q);
 
 //Display the search results
 
-if (mysqli_num_rows($result) >= 5) {
+if (mysqli_num_rows($result) >= $resultsPerPage) {
     $q = "SELECT * FROM property $whereClause LIMIT $resultsPerPage OFFSET $offset";
     $result = @mysqli_query($dbc, $q);
 }

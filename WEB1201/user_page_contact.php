@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     include_once("mysqli_connect.php");
 
-    $error = array();
+    $errors = array();
 
     // Validate email
     if (empty($_POST['email'])) {
         $error[] = "Email is required";
     } elseif (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-        $error[] = "Invalid email format";
+        $errors[] = "Invalid email format";
     }
 	else{
 		$email = mysqli_real_escape_string($dbc, $_POST['email']);
@@ -32,16 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     // Validate phone number
 	$phone_regex = "/^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$/"; //Includes optional +60, only accepts Malaysian phone numbers
     if (empty($_POST['phone'])) {
-        $error[] = "Phone number is required";
+        $errors[] = "Phone number is required";
     }
 	elseif (!preg_match($phone_regex, $_POST['phone'])) {
-		$error[] = "Phone number is invalid";
+		$errors[] = "Phone number is invalid";
 	}
 	else{
 		$phone = mysqli_real_escape_string($dbc, trim($_POST['phone']));
 	}
 
-    if(empty($error)){
+    if(empty($errors)){
         $q = "UPDATE user SET email = '$email', phone_no = '$phone' WHERE user_id = $user_id;";
         $r = @mysqli_query($dbc, $q);
     }

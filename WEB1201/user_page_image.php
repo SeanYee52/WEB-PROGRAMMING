@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     include_once("mysqli_connect.php");
 
-    $error = array();
+    $errors = array();
 
     // Upload and handle photos
     $targetDirectory = "../Images/";
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     }
     else{
-        $error[]="Please upload a photo";
+        $errors[]="Please upload a photo";
     }
 
     include("user_page.php");
