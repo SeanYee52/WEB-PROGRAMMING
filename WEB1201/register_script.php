@@ -11,6 +11,11 @@ elseif (isset($_SESSION["admin_id"]) && isset($_SESSION["name"])){
 	redirect_user("admin_register.php");
 }
 
+// Initialising variables
+$username = "username";
+$email = "email";
+$phone = "+60XXXXXXXXX";
+
 // Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -36,18 +41,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$email = mysqli_real_escape_string($dbc, $_POST['email']);
 	}
 
+    //  Test for unique email address
+	$q = "SELECT user_id FROM user WHERE email = '$email'";
+	$r = @mysqli_query($dbc, $q);
+    if (mysqli_num_rows($r) != 0){
+        $errors[]= "The email address has already been registered";
+    }
+
     // Validate phone number
 	$phone_regex = "/^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$/"; //Includes optional +60, only accepts Malaysian phone numbers
-    if (empty($phone)) {
+    if (empty($_POST['phone'])) {
         $errors[] = "Phone number is required";
     }
-	elseif (!preg_match($phone_regex, $phone)) {
+	elseif (!preg_match($phone_regex, $_POST['phone'])) {
 		$errors[] = "Phone number is invalid";
 	}
 	else{
-		$phone = mysqli_real_escape_string($dbc, $phone);
+		$phone = mysqli_real_escape_string($dbc, trim($_POST['phone']));
 	}
 	
+    //  Test for unique phone number
+	$q = "SELECT user_id FROM user WHERE phone_no = '$phone'";
+	$r = @mysqli_query($dbc, $q);
+    if (mysqli_num_rows($r) != 0){
+        $errors[]= "The email address has already been registered";
+    }
+
+
     // Validate password
     if (empty($_POST['pass1'])) {
         $errors[] = "Password is required";
@@ -59,7 +79,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate confirm password
     if (empty($_POST['pass2'])) {
         $errors[] = "Confirm password is required";
-    } elseif ($password !== $_POST['pass2']) {
+    } 
+    elseif ($password !== $_POST['pass2']) {
         $errors[] = "Password and confirm password do not match";
     }
 
@@ -77,48 +98,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors[] = "Password must contain at least 1 number";
     }
     // Requirement 4: At least 1 special character
-    if (!preg_match('/^[!@#$%^&*()_+{}|:"<>?`~\-=\[\];\',.\/\\\\]+/', $password)) {
+    if (!preg_match('/.*[!@#$%^&*()_+{}|:"<>?`~\-=[\];\',.\/\\\\].*/', $password)) {
         $errors[] = "Password must contain at least 1 special character";
+        echo "THERE'S SOMETHING WRONG WITH THIS REGEX";
     }
-
-	if (empty($errors)) { // If everything's OK.
 	
-		// Register the user in the database...
-		//  Test for unique email address
-		$q = "SELECT user_id FROM user WHERE email = '$e'";
-		$r = @mysqli_query($dbc, $q);
+	// Register the user in the database...
+	//  Test for unique email address
+	$q = "SELECT user_id FROM user WHERE email = '$email'";
+	$r = @mysqli_query($dbc, $q);
 		
-		if (mysqli_num_rows($r) == 0) {
+	if (mysqli_num_rows($r) == 0) {
 
-			// Make the query:
-			$q = "INSERT INTO user (username, email, password, join_date) VALUES ('$fn', '$e', SHA1('$p'), NOW() )";		
-			$r = @mysqli_query ($dbc, $q); // Run the query.
-			if ($r) { // If it ran OK.
+		// Make the query:
+		$q = "INSERT INTO user (username, email, phone_no, password, join_date) VALUES ('$username', '$email', '$phone', SHA1('$password'), NOW() )";		
+		$r = @mysqli_query ($dbc, $q); // Run the query.
+		if ($r) { // If it ran OK.
 		
-				// Print a message:
-				echo '<h1>Thank you!</h1>
-				<p>You are now registered successfully.</p><p><br /></p>';	
+			// Print a message:
+            $_SESSION['user_id'] = $data['user_id'];
+			$_SESSION['username'] = $data['username'];
+			echo '<h1>Thank you!</h1>
+			<p>You are now registered successfully.</p><p><br /></p>';
+            sleep(5);
+            redirect_user("user_page.php");	
 		
-			} else { // If it did not run OK.
+		} else { // If it did not run OK.
 			
-				// Public message:
-				echo '<h1>System Error</h1>
-				<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
+			// Public message:
+			echo '<h1>System Error</h1>
+			<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
 			
-				// Debugging message:
-				echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
+			// Debugging message:
+			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
 						
-			} // End of if ($r) IF.
-				
-			} else { // Already registered.
-				echo '<p class="error">The email address has already been registered.</p>';
-			}
+		} // End of if ($r) IF.
 
 		mysqli_close($dbc); // Close the database connection.
 
 		exit();
 
-		
 	}
 	
 	mysqli_close($dbc); // Close the database connection.
@@ -136,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
          <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
          <header>
-            <a href="Home Page.html"><img  class="logo" src="../Images/Logo.svg"></a>
+            <a href="home.php"><img  class="logo" src="../Images/Logo.svg"></a>
             <nav>
                 <div class="right">
                     <div>
@@ -191,11 +210,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 			?>
 			<form action="register_script.php" method="post">
-					<p>Username: <input type="text" id="username" name="username" required></p>
+					<p>Username: <input type="text" id="username" name="username" required value="<?php echo $username;?>"></p>
 				
-					<p>Email Address: <input type="email" id="email" name="email" required></p>
+					<p>Email Address: <input type="email" id="email" name="email" required value="<?php echo $email;?>"></p>
 
-					<p>Phone Number: <input type="tel" id="phone" name="phone" required></p>
+					<p>Phone Number: <input type="tel" id="phone" name="phone" required value="<?php echo $phone;?>"></p>
 
 					<p>Password: <input type="password" id="password" name="pass1" required></p>
 

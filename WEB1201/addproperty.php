@@ -1,5 +1,25 @@
 <?php
 session_start();
+error_reporting(E_ERROR | E_WARNING | E_PARSE); 
+
+function redirect_user ($page) {
+
+	// Start defining the URL...
+	// URL is http:// plus the host name plus the current directory:
+	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	
+	// Remove any trailing slashes:
+	$url = rtrim($url, '/\\');
+	
+	// Add the page:
+	$url .= '/' . $page;
+	
+	// Redirect the user:
+	header("Location: $url");
+	exit(); // Quit the script.
+
+} // End of redirect_user() function.
+
 if (isset($_SESSION["user_id"])){
     $user_id = $_SESSION["user_id"];
 }
@@ -60,64 +80,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $uploadedPhotos[] = $targetFile;
         }
     }
-
-
-	if (empty($errors)) { // If everything's OK.
 	
-		// Register the user in the database...
+	// Register the property in the database...
 		
-		// Make the query:
-		$q = "INSERT INTO property
-            (address, city, state, property_type, listing_type, price, floor_size, user_id, description, furnished, no_of_bedrooms, no_of_bathrooms, no_of_carparks, upload_date, construction_date, certificates)
-            VALUES('$address', '$city', '$state', '$property_type', '$listing_type', $asking_price, $floor_size, $user_id, '$description', '$furnishing', $bedrooms, $bathrooms, $car_parks, '$upload_date', $year_completion, '$green_building_certification');";
-		$r = @mysqli_query ($dbc, $q); // Run the query.
-		if ($r) { // If it ran OK.
+	// Make the query:
+	$q = "INSERT INTO property
+        (address, city, state, property_type, listing_type, price, floor_size, user_id, description, furnished, no_of_bedrooms, no_of_bathrooms, no_of_carparks, upload_date, construction_date, certificates)
+        VALUES('$address', '$city', '$state', '$property_type', '$listing_type', $asking_price, $floor_size, $user_id, '$description', '$furnishing', $bedrooms, $bathrooms, $car_parks, '$upload_date', $year_completion, '$green_building_certification');";
+	$r = @mysqli_query ($dbc, $q); // Run the query.
+	if ($r) { // If it ran OK.
             
-            include ("property_feature.php");
-            include ("property_image.php");
-            include ("property_approval.php");
+        include ("property_feature.php"); //For features
+        include ("property_image.php"); //For images
+        include ("property_approval.php"); //For admin approval
 
-            $q = "SELECT property_id FROM property WHERE user_id = $user_id AND upload_date = '$upload_date'"; //get property_id of the recent property
-            $r = @mysqli_query($dbc, $q);
-            $property_id = mysqli_fetch_assoc($r)["property_id"];
+        $q = "SELECT property_id FROM property WHERE user_id = $user_id AND upload_date = '$upload_date'"; //get property_id of the recent property
+        $r = @mysqli_query($dbc, $q);
+        $property_id = mysqli_fetch_assoc($r)["property_id"];
 
-            $check1 = add_features($dbc, $property_id, $facilities);
-            $check2 = send_approval($dbc, $property_id, $assessment_date);
-            $check3 = add_img($dbc, $property_id, $uploadedPhotos);
-            echo "adding features:". $check1 ."<br>adding approval". $check2 ."";
-			// Print a message:
-			echo '<h1>Thank you!</h1>
-		    <p>You are now registered successfully.</p><p><br /></p>';	
+        $check1 = add_features($dbc, $property_id, $facilities);
+        $check2 = send_approval($dbc, $property_id, $assessment_date);
+        $check3 = add_img($dbc, $property_id, $uploadedPhotos);
+		// Print a message:
+		echo '<h1>Thank you!</h1>
+		<p>You are now registered successfully.</p><p><br /></p>';	
 		
-		} else { // If it did not run OK.
+	} else { // If it did not run OK.
 			
-			// Public message:
-			echo '<h1>System Error</h1>
-			<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
+		// Public message:
+		echo '<h1>System Error</h1>
+		<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
 			
-			// Debugging message:
-			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
+		// Debugging message:
+		echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
 						
-		} // End of if ($r) IF.
+	} // End of if ($r) IF.
 		
-		mysqli_close($dbc); // Close the database connection.
-
-		exit();
-		
-	} else { // Report the errors.
-	
-		echo '<h1>Error!</h1>
-		<p class="error">The following error(s) occurred:<br />';
-		foreach ($errors as $msg) { // Print each error.
-			echo " - $msg<br />\n";
-		}
-		echo '</p><p>Please try again.</p><p><br /></p>';
-		
-	} // End of if (empty($errors)) IF.
-	
 	mysqli_close($dbc); // Close the database connection.
 
-} // End of the main Submit conditional.
+	exit();
+		
+}
 ?>
 <html lang = "en">
     <head>
@@ -129,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <body>
          <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
          <header>
-            <a href="Home Page.html"><img  class="logo" src="../Images/Logo.svg"></a>
+            <a href="home.php"><img  class="logo" src="../Images/Logo.svg"></a>
             <nav>
                 <div class="right">
                     <div>
@@ -149,7 +152,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="login">
                         <button
                             <?php
-                            session_start();
                             if (isset($_SESSION["user_id"]) && $_SESSION["username"]){
                                 echo 'onclick="window.location.href=';
                                 echo "'user_page.php';";
@@ -252,10 +254,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ?>
 
                     <br><label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="4" required></textarea>
+                    <textarea id="description" name="description" rows="1" required></textarea>
 
                     <br><label for="green_building_certification">Green Building Certification:</label>
-                    <textarea id="green_building_certification" name="green_building_certification" rows="4"></textarea>
+                    <textarea id="green_building_certification" name="green_building_certification" rows="1"></textarea>
 
                     <br><label for="photos">Photos (Upload File):</label>
                     <input type="file" id="photos" name="photos[]" accept="image/*" multiple>

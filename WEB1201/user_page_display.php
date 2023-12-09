@@ -37,10 +37,9 @@
         img.profile-pic:hover, #popup:hover{
             filter: brightness(50%);
             color: #777777;
-            font-weight: bolder;
         }
 
-        #popup-image, #popup-name, #popup-about, #popup-contact {
+        #popup-image, #popup-name, #popup-about, #popup-contact, #popup-pass, #popup-delete {
             display: none;
             position: fixed;
             top: 50%;
@@ -63,9 +62,15 @@
             z-index: 999;
         }
 
-        #popup{
+        #popup, #popup h2, #popup p{
             cursor: pointer;
-            transition: color 2s, font-weight 2s;
+            font-family: Roboto;
+        }
+
+        #popup:hover, #popup h2:hover, #popup p:hover{
+            cursor: pointer;
+            font-weight:bolder;
+            color: #799ecf;
         }
 
     </style>
@@ -116,6 +121,17 @@
         </header>
         <!--HEADER, END OF CODE-->
 
+        <?php
+         if (!empty($error)) {
+            echo '<h1>Error!</h1>
+            <p class="error">The following error(s) occurred:<br />';
+            foreach ($error as $msg) { // Print each error.
+                echo " - $msg<br />\n";
+            }
+            echo '</p><p>Please try again.</p><p><br /></p>';
+        }
+        ?>
+
         <section>
             <section class="banner">
                 <section style="max-width: 30%; margin: 20px auto 20px 20px">
@@ -125,15 +141,23 @@
                     <p><strong>User ID:</strong> ECOR<?php echo $user_id;?></p>
                 </section>
             </section>
-            <p id="popup" onclick="openPopupFormAbout()"><strong>About Me:</strong><?php echo $about_me;?></p>
+            <p id="popup" onclick="openPopupFormAbout()"><strong>About Me:</strong> <?php echo $about_me;?></p>
             <!-- User Page Banner -->
 
             <!-- Contact Information -->
             <div id="popup" class="contact-info" onclick="openPopupFormContact()">
+                <hr>
                 <h2>Contact Information</h2>
-                <p><strong>Email:</strong> <a href="mailto:<?php echo $email; ?>"><?php echo $email; ?></a></p>
+                <p><strong>Email:</strong> <?php echo $email; ?></p>
                 <p><strong>Phone Number:</strong> <a href="tel:<?php echo $phone_no; ?>"><?php echo $phone_no; ?></a></p>
             </div>
+        </section>
+
+        <section>
+            <h2>Account Settings</h2>
+            <h3 id="popup" onclick="openPopupFormPass()">Change Password</h3>
+            <h3 id="popup" onclick="openPopupFormDelete()">Delete Account</h3>
+            <h3><a style="font-size: inherit; font-weight:inherit;" href="user_page.php?logout=true">Logout</a><h3>
         </section>
 
         <!-- Popup Edit -->
@@ -141,7 +165,7 @@
 
         <div id="popup-image">
             <h2>Change Profile Picture</h2>
-            <form action="user_page.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_image.php" method="post"enctype="multipart/form-data">
                 <!-- Your form fields go here -->
                 <p>Select one image to upload as your profile image</p>
                 <input type="file" id="photos" name="photos[]" accept="image/*">
@@ -153,7 +177,7 @@
 
         <div id="popup-name">
             <h2>Change Username</h2>
-            <form action="user_page.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_name.php" method="post"enctype="multipart/form-data">
                 <!-- Your form fields go here -->
                 <p>Enter a new username</p>
                 <input type="text" name="username" size="20" maxlength="40" />
@@ -165,7 +189,7 @@
 
         <div id="popup-about">
             <h2>Change About Me</h2>
-            <form action="user_page.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_about.php" method="post"enctype="multipart/form-data">
                 <!-- Your form fields go here -->
                 <p>Describe Yourself:</p>
                 <textarea id="description" name="description" rows="1" required></textarea>
@@ -177,7 +201,7 @@
 
         <div id="popup-contact">
             <h2>Change Contact</h2>
-            <form action="user_page.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_contact.php" method="post"enctype="multipart/form-data">
                 <!-- Your form fields go here -->
                 <p>New Email Address: <input type="email" id="email" name="email" required></p>
 
@@ -186,6 +210,30 @@
                 <br><br><button type="submit">Submit</button>
             </form>
             <button onclick="closePopupForm()">Close</button>
+        </div>
+
+        <div id="popup-pass">
+            <h2>Change Password</h2>
+            <form action="user_page_pass.php" method="post"enctype="multipart/form-data">
+                <!-- Your form fields go here -->
+                <p>New Password: <input type="password" id="password" name="pass1" required></p>
+
+				<p>Confirm New Password: <input type="password" id="confirm_password" name="pass2" required></p>
+
+                <br><br><button type="submit">Submit</button>
+            </form>
+            <button onclick="closePopupForm()">Close</button>
+        </div>
+
+        <div id="popup-delete">
+            <h2>Delete Account</h2>
+            <form action="user_page_delete.php" method="post"enctype="multipart/form-data">
+                <!-- Your form fields go here -->
+                <p>Are You Sure You Want To Delete Your Account</p>
+
+                <br><br><button type="submit" value="delete">Yes</button>
+            </form>
+            <button onclick="closePopupForm()">No</button>
         </div>
 
         <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
@@ -243,11 +291,23 @@
             document.getElementById("overlay").style.display = "block";
         }
 
+        function openPopupFormPass() {
+            document.getElementById("popup-pass").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function openPopupFormDelete() {
+            document.getElementById("popup-delete").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
         function closePopupForm() {
             document.getElementById("popup-image").style.display = "none";
             document.getElementById("popup-name").style.display = "none";
             document.getElementById("popup-about").style.display = "none";
             document.getElementById("popup-contact").style.display = "none";
+            document.getElementById("popup-pass").style.display = "none";
+            document.getElementById("popup-delete").style.display = "none";
             document.getElementById("overlay").style.display = "none";
         }
         </script>

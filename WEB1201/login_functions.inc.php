@@ -21,14 +21,14 @@ function check_login($dbc, $email = '', $pass = '') {
 
 	$errors = array(); // Initialize error array.
 
-// Validate the email address:
+	// Validate the username
 	if (empty($_POST['username'])){
 		$errors[] = 'You forgot to enter your username';
 	} else{
 		$n = mysqli_real_escape_string($dbc, trim($_POST['username']));
 	}
 	
-	// Validate the password:
+	// Validate the password
 	if (empty($_POST['pass'])){
 		$errors[] = 'You forgot to enter your password';
 	} else{

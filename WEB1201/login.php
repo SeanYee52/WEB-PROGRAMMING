@@ -2,6 +2,7 @@
 // This page processes the login form submission.
 // The script uses sessions.
 session_start();
+error_reporting(E_ERROR | E_WARNING | E_PARSE); 
 
 require ('login_functions.inc.php');
 
@@ -28,7 +29,7 @@ else{
 			$_SESSION['username'] = $data['username'];
 			
 			// Redirect:
-			redirect_user('loggedin.php');	//placeholder php file for now, send to home page	
+			redirect_user('user_page.php');	//placeholder php file for now, send to home page	
 				
 		}
 		elseif ($check == 2){

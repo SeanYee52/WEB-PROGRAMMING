@@ -25,7 +25,7 @@ if (isset($errors) && !empty($errors)) {
     <body>
          <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
          <header>
-            <a href="Home Page.html"><img  class="logo" src="../Images/Logo.svg"></a>
+            <a href="home.php"><img  class="logo" src="../Images/Logo.svg"></a>
             <nav>
                 <div class="right">
                     <div>
@@ -45,7 +45,6 @@ if (isset($errors) && !empty($errors)) {
                     <div class="login">
                         <button
                             <?php
-                            session_start();
                             if (isset($_SESSION["user_id"]) && $_SESSION["username"]){
                                 echo 'onclick="window.location.href=';
                                 echo "'user_page.php';";
