@@ -4,6 +4,8 @@
 session_start();
 // Redirect function
 include_once("login_functions.inc.php");
+// Database connection
+include_once("mysqli_connect.php");
 
 // Check if admin is logging out
 if ($_SERVER["REQUEST_METHOD"] === 'GET'){
@@ -40,7 +42,8 @@ if (mysqli_num_rows($r) == 0) {
 }
 else{
 
-    include("user_page_display.php");
+    include("admin_page_display.php");
+    include("admin_property.php");
 
 }
 ?>

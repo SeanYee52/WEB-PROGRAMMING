@@ -38,7 +38,7 @@ else{
 			$_SESSION['name'] = $data['name'];
 			
 			// Redirect:
-			redirect_user('loggedin.php'); //placeholder php file for now, send to admin page
+			redirect_user('admin_page.php'); //placeholder php file for now, send to admin page
 		} 
 		else { // Unsuccessful!
 
