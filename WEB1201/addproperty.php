@@ -66,20 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $green_building_certification = mysqli_real_escape_string($dbc, trim($_POST["green_building_certification"]));
     $assessment_date = mysqli_real_escape_string($dbc, trim($_POST["assessment_date"]));
 
-    // Upload and handle photos
-    $targetDirectory = "../Images/";
-    $uploadedPhotos = array();
-
-    if (!empty($_FILES["photos"]["name"])) {
-        $totalPhotos = count($_FILES["photos"]["name"]); //Count number of photos
-        
-        //Upload photos accordingly
-        for ($i = 0; $i < $totalPhotos; $i++) {
-            $targetFile = $targetDirectory . basename($_FILES["photos"]["name"][$i]); //Specifies image folder
-            move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $targetFile); //Uploads photo to folder
-            $uploadedPhotos[] = $targetFile;
-        }
-    }
+    
 	
 	// Register the property in the database...
 		
@@ -97,6 +84,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $q = "SELECT property_id FROM property WHERE user_id = $user_id AND upload_date = '$upload_date'"; //get property_id of the recent property
         $r = @mysqli_query($dbc, $q);
         $property_id = mysqli_fetch_assoc($r)["property_id"];
+
+        // Upload and handle photos
+        $targetDirectory = "../Images/";
+        $uploadedPhotos = array();
+
+        if (!empty($_FILES["photos"]["name"])) {
+            $totalPhotos = count($_FILES["photos"]["name"]); //Count number of photos
+            
+            //Upload photos accordingly
+            for ($i = 0; $i < $totalPhotos; $i++) {
+                $temp = explode(".", $_FILES["photos"]["name"][$i]);
+                $newfilename = 'ECOR' . $property_id . $i . '.' . end($temp);
+                $targetFile = $targetDirectory . $newfilename; //Specifies image folder
+                move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $targetFile); //Uploads photo to folder
+                $uploadedPhotos[] = $targetFile;
+            }
+        }
 
         $check1 = add_features($dbc, $property_id, $facilities);
         $check2 = send_approval($dbc, $property_id, $assessment_date);

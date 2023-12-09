@@ -78,7 +78,7 @@
 <body>
     <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
     <header>
-            <a href="Home Page.html"><img  class="logo" src="../Images/Logo.svg"></a>
+            <a href="home.php"><img  class="logo" src="../Images/Logo.svg"></a>
             <nav>
                 <div class="right">
                     <div>

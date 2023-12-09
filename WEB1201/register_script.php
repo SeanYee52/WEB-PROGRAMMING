@@ -100,7 +100,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Requirement 4: At least 1 special character
     if (!preg_match('/.*[!@#$%^&*()_+{}|:"<>?`~\-=[\];\',.\/\\\\].*/', $password)) {
         $errors[] = "Password must contain at least 1 special character";
-        echo "THERE'S SOMETHING WRONG WITH THIS REGEX";
     }
 	
 	// Register the user in the database...
@@ -108,16 +107,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$q = "SELECT user_id FROM user WHERE email = '$email'";
 	$r = @mysqli_query($dbc, $q);
 		
-	if (mysqli_num_rows($r) == 0) {
+	if (empty($errors)) {
 
 		// Make the query:
 		$q = "INSERT INTO user (username, email, phone_no, password, join_date) VALUES ('$username', '$email', '$phone', SHA1('$password'), NOW() )";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		if ($r) { // If it ran OK.
 		
+            $q = "SELECT user_id, username FROM user WHERE email = '$email'";
+            $r = @mysqli_query ($dbc, $q);
+
+            $row = mysqli_fetch_assoc($r);
 			// Print a message:
-            $_SESSION['user_id'] = $data['user_id'];
-			$_SESSION['username'] = $data['username'];
+            $_SESSION['user_id'] = $row['user_id'];
+			$_SESSION['username'] = $row['username'];
 			echo '<h1>Thank you!</h1>
 			<p>You are now registered successfully.</p><p><br /></p>';
             sleep(5);
