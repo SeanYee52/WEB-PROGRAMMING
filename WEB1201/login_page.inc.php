@@ -68,15 +68,27 @@ if (isset($errors) && !empty($errors)) {
         </header>
         <!--HEADER, END OF CODE-->
 
-		<div>
-		<h1>Login</h1>
-		<form action="login.php" method="post">
-			<p>Username: <input type="text" name="username" size="20" maxlength="40" /> </p>
-			<p>Password: <input type="password" name="pass" size="20" maxlength="40" /></p>
-			<button type="submit">Login</button>
-		</form>
-		<p>Not Registered? <a href="register_script.php">Click Here</a></p>
-		</div>
+        <!--Login Page Content Section-->
+		<div class="formbg">
+            <div class="formsidedesc">
+                <div class = "titletest">ECOESTATE</div>
+                <div>A platform to find your dream home while protecting the planet.</div>
+            </div>
+            <div class="formborder">
+                <div>
+                    <div>Welcome Back To</div>
+                    <div>ECOESTATE</div>
+                </div>
+                <div>
+                    <form action="login.php" method="post">
+                        <div>Username: <input type="text" name="username" size="20" maxlength="40" /></div>
+                        <div>Password: <input type="password" name="pass" size="20" maxlength="40" /></div>
+                        <div><button type="submit">Login</button></div>
+                    </form>
+                    <div>Not registered yet? <a href="register_script.php">Click Here</a></div>
+                </div>
+            </div>
+        </div>
 
         <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
         <footer>
