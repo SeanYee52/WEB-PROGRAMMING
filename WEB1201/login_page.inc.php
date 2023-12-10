@@ -71,22 +71,25 @@ if (isset($errors) && !empty($errors)) {
         <!--Login Page Content Section-->
 		<div class="formbg">
             <div class="formsidedesc">
-                <div class = "titletest">ECOESTATE</div>
-                <div>A platform to find your dream home while protecting the planet.</div>
+                <div><img src="../Images/EcoEstateImages/EcoEstateLogoWhite.svg" width="380" height ="100"></div>
+                <div class="formsidedesctext">A platform to find your dream home while protecting the planet.</div>
             </div>
             <div class="formborder">
                 <div>
-                    <div>Welcome Back To</div>
-                    <div>ECOESTATE</div>
+                    <div class="formborderdesc">Welcome Back</div>
+                    <div class="formborderdesc">To</div>
+                    <div><img src="../Images/EcoEstateImages/EcoEstateLogo.svg" width="200" height ="36" class="formborderlogo"></div>
                 </div>
                 <div>
                     <form action="login.php" method="post">
-                        <div>Username: <input type="text" name="username" size="20" maxlength="40" /></div>
-                        <div>Password: <input type="password" name="pass" size="20" maxlength="40" /></div>
-                        <div><button type="submit">Login</button></div>
+                        <div class="formques">Username</div>
+                        <div><input class="formquesbox" type="text" name="username" size="20" maxlength="40" /></div>
+                        <div class="formques">Password</div>
+                        <div><input class="formquesbox" type="password" name="pass" size="20" maxlength="40" /></div>
+                        <div><button type="submit" class="formsubmitbutton">Login</button></div>
                     </form>
-                    <div>Not registered yet? <a href="register_script.php">Click Here</a></div>
                 </div>
+                <div class="formlink">No account yet? <a href="register_script.php" class="formlinkad">Click Here</a></div>
             </div>
         </div>
 

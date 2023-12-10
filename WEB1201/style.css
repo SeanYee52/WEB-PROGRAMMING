@@ -391,23 +391,97 @@ footer div.contact{
 
 
 
+
+
+
+
+
+
 /**Login Page Content Section**/
 .formbg{
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 600px;
-  background-color: #0c02c4;
+  background-image: url(../Images/EcoEstateImages/LoginPageBg.svg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
-.titletest{
-  color:#0c02c4;
+.formsidedesc{
+  margin-right: 120px;
 }
 
-/**
-ENSURE THAT YOU PROPERLY DOCUMENT YOUR CODINGS.
-THERE MUST BE PROPER SECTIONING IN YOUR CODE.
-**/
+.formsidedesctext{
+  font-family: "Roboto";
+  color: #ffffff;
+  font-size: 26px;
+  max-width: 600px;
+  padding-left: 20px;
+}
+
+.formborder{
+  background-color: #ffffff;
+  opacity: 0.8;
+  border-radius: 20px;
+  width: 300px;
+  height: 380px;
+  padding: 30px;
+}
+
+.formborderdesc{
+  font-family: "Roboto";
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 2px;
+}
+
+.formborderlogo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.formques{
+  font-family: "Roboto";
+  font-size: 16px;
+}
+
+.formquesbox{
+  font-family: "Roboto";
+  font-size: 16px;
+  width: 302px;
+  height: 30px;
+  border: 2px dotted #222222;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.formsubmitbutton{
+  width: 160px;
+  height: 36px;
+  border-radius: 6px;
+  font-family: "Roboto";
+  font-size: 16px;
+  box-shadow: 0 0 4px #000000;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
+
+.formlink{
+  font-family: "Roboto";
+  font-size: 12px;
+  text-align: center;
+}
+
+.formlinkad{
+  font-family: "Roboto";
+  font-size: 12px;
+  font-weight: bold;
+  text-decoration: underline;
+}
