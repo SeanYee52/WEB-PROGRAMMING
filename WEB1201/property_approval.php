@@ -23,10 +23,7 @@ function give_approval ($dbc, $admin_id, $property_id) {
     $r = mysqli_query($dbc, $q);
 
     if($r){
-        return 1;
-    }
-    else {
-        return ;
+        redirect_user("admin_page.php");
     }
 }
 

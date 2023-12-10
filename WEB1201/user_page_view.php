@@ -33,6 +33,12 @@
             transition: filter 2s;
         }
 
+        img.property-pic{
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+
         #popup-image, #popup-name, #popup-about, #popup-contact, #popup-pass, #popup-delete {
             display: none;
             position: fixed;
@@ -66,6 +72,23 @@
             font-weight:bolder;
             color: #799ecf;
         }
+
+        section.property{
+            display: flex;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+
+        div.property{
+            width: 33%; /* Each column takes up 50% of the container */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        div.pagination{
+            flex: 100%;
+        }
+
 
     </style>
 </head>
@@ -129,7 +152,7 @@
         <section>
             <section class="banner">
                 <section style="max-width: 30%; margin: 20px auto 20px 20px">
-                    <img id="popup" class="profile-pic" src="<?php echo $profile_img; ?>" alt="User Profile Picture">
+                    <img class="profile-pic" src="<?php echo $profile_img; ?>" alt="User Profile Picture">
                     <h1 style="font-size: 32px;"><?php echo $username; ?></h1>
                     <p><strong>Join Date:</strong> <?php echo $join_date;?></p>
                     <p><strong>User ID:</strong> ECOR<?php echo $user_id;?></p>
@@ -147,9 +170,67 @@
             </div>
         </section>
 
+        <section class="property">
+            <h2 style="flex: 100%;">Associated Properties</h2>
+                <?php
+                    //Pagination variables
+                    $resultsPerPage = 3;
+                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                    $offset = ($page - 1) * $resultsPerPage;
+
+                    //Construct the SQL query
+                    $q = "SELECT * FROM property WHERE user_id = $user_id";
+                    $result = @mysqli_query($dbc, $q);
+
+                    //Display the search results
+                    if (mysqli_num_rows($result) >= $resultsPerPage) {
+                        $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset ";
+                        $result = @mysqli_query($dbc, $q);
+                    }
+
+                    if (mysqli_num_rows($result) != 0) {
+                        while ($property = mysqli_fetch_assoc($result)) {
+
+                            echo '<div class="property">';
+                        
+                            $q = "SELECT * FROM property_image WHERE property_id = " . $property['property_id'] . " LIMIT 1;";
+                            $r = @mysqli_query($dbc, $q);
+                            $image = mysqli_fetch_assoc($r);
+
+                            echo "<img class='property-pic' src='" . $image['img_dir'] . "'>";
+                            echo "<h3>" . $property['address'] . ", " . $property['city'] . "</h3>";
+                            echo "<p>" . $property['state'] . "</p>";
+                            echo "<p>RM " . $property['price'] . "</p>";
+                            echo "<p>For " . $property['listing_type'] . "</p>";
+                            echo "<p>" . $property['property_type'] . "</p>";
+                            echo "<p>" . $property['floor_size'] . " sq. ft</p>";
+                            echo "<p>Upload Date: " . $property['upload_date'] . "</p>";
+                            echo "<p>Approved Date: N/A";
+
+                            echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
+                            echo '</div>';
+                        }
+                    
+                        // Add pagination links
+                        $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
+                        WHERE property_approval.admin_id IS NULL";
+                        $result = @mysqli_query($dbc, $q);
+                        $row = mysqli_fetch_assoc($result);
+                        $totalPages = ceil($row['total'] / $resultsPerPage);
+                    
+                        echo "<div class='pagination'>";
+                        for ($i = 1; $i <= $totalPages; $i++) {
+                            echo "<a href='?page=$i'>$i</a>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>No property to approve</p>";
+                    }
+                ?>
+        </section>
+
         <section>
             <h2>Account Settings</h2>
-            <h3>Change Password</h3>
             <h3 id="popup" onclick="openPopupFormDelete()">Delete Account</h3>
         </section>
 

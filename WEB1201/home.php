@@ -4,6 +4,31 @@
         <title>Template</title>
         <meta charset = "utf-8">
         <link rel = "stylesheet" type = "text/css" href = "style.css">
+        <style>
+
+            div.top-section{
+                width: 100%;
+            }
+
+            div.properties{
+                display: flex;
+                width: 80%;
+                flex-wrap: wrap;
+            }
+
+            div.property{
+                width: 33%; /* Each column takes up 50% of the container */
+                padding: 10px;
+                box-sizing: border-box;
+            }
+
+            img.property-pic{
+                width: 300px;
+                height: 300px;
+                object-fit: cover;
+            }
+
+        </style>
     </head>
 
     <body>
@@ -55,11 +80,41 @@
 
         <!--Home Page Content Section-->
 		<div class="homebg">
-            <div>
+            <div class="top-section">
                 <div class="homedesctitle">Sustainable and Affordable Property</div>
                 <div class="homedesc">We serve as a platform dedicated to connecting home buyers, tenants, 
                     property developers, and real estate agents interested in 
                     sustainable housing development.</div>
+            </div>
+            <div class="properties">
+                <?php
+
+                    //Database
+                    include("mysqli_connect.php");
+
+                    //Construct the SQL query
+                    $q = "SELECT * FROM property 
+                    WHERE property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL AND approval_date IS NOT NULL)
+                    ORDER BY upload_date DESC LIMIT 3";
+                    $result = @mysqli_query($dbc, $q);
+
+                    if (mysqli_num_rows($result) != 0) {
+                        while ($property = mysqli_fetch_assoc($result)) {
+
+                            echo '<div class="property">';
+                        
+                            $q = "SELECT * FROM property_image WHERE property_id = " . $property['property_id'] . " LIMIT 1;";
+                            $r = @mysqli_query($dbc, $q);
+                            $image = mysqli_fetch_assoc($r);
+
+                            echo "<img class='property-pic' src='" . $image['img_dir'] . "'>";
+                            echo "<h3>" . $property['address'] . ", " . $property['city'] . "</h3>";
+                            echo "<p>" . $property['state'] . "</p>";
+                            echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">Learn More</a>';
+                            echo '</div>';
+                        }
+                    }
+                ?>
             </div>
         </div>
 
