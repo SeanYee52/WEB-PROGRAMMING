@@ -7,10 +7,10 @@ error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require ('login_functions.inc.php');
 
 
-if(isset($_SESSION["user_id"])){
+if(isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
 	redirect_user('user_page.php');
 }
-elseif (isset($_SESSION["admin_id"])){
+elseif (isset($_SESSION["admin_id"]) && isset($_SESSION["name"])){
 	redirect_user('admin_page.php');
 }
 else{
@@ -29,7 +29,7 @@ else{
 			$_SESSION['username'] = $data['username'];
 			
 			// Redirect:
-			redirect_user('user_page.php');	//placeholder php file for now, send to home page	
+			redirect_user('user_page.php');	// send to user page
 				
 		}
 		elseif ($check == 2){
@@ -38,7 +38,7 @@ else{
 			$_SESSION['name'] = $data['name'];
 			
 			// Redirect:
-			redirect_user('admin_page.php'); //placeholder php file for now, send to admin page
+			redirect_user('admin_page.php'); // send to admin page
 		} 
 		else { // Unsuccessful!
 

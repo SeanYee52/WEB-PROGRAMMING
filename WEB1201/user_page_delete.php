@@ -8,6 +8,9 @@ include_once("login_functions.inc.php");
 if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
     $user_id = $_SESSION["user_id"];
 }
+elseif(isset($_SESSION["admin_id"]) && isset($_SESSION["name"])){
+    $user_id = $_POST['user_id'];
+}
 else{
     redirect_user("login.php"); // Redirect to login.php if not logged in
 }
@@ -20,14 +23,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $q = "DELETE FROM user WHERE user_id = $user_id;";
     $r = @mysqli_query($dbc, $q);
 
+    mysqli_close($dbc);
+
     if($r){
-        session_unset();
-        session_destroy();
+        if($_SESSION["user_id"] == $user_id){
+            session_unset();
+            session_destroy();
 
-        echo "Account deleted sucessfully";
-        sleep(5);
+            echo "Account deleted sucessfully";
+            sleep(5);
 
-        redirect_user("home.php");
+            redirect_user("home.php");
+        }
+        else{
+            redirect_user("admin_page.php");
+        }
     }
 }
 ?>

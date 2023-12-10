@@ -105,9 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $check1 = add_features($dbc, $property_id, $facilities);
         $check2 = send_approval($dbc, $property_id, $assessment_date);
         $check3 = add_img($dbc, $property_id, $uploadedPhotos);
-		// Print a message:
-		echo '<h1>Thank you!</h1>
-		<p>You are now registered successfully.</p><p><br /></p>';	
+        
+        redirect_user("show_property.php?id=$property_id");
 		
 	} else { // If it did not run OK.
 			
@@ -273,7 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="file" id="photos" name="photos[]" accept="image/*" class="queuploadtext" multiple>
 
                         <br><div class="quecolrowdb"><label for="assessment_date" class="quetitle">Preferred Date for Sustainability Assessment:</label></div>
-                        <input class ="quedatebox" type="date" name="assessment_date" id="assessment_date" min="<?php $current_date = getdate(); echo "$current_date[mday]-$current_date[mon]-$current_date[year]" ?>">
+                        <input class ="quedatebox" type="date" name="assessment_date" id="assessment_date" min="<?php $current_date = getdate(time() + 604800); echo "$current_date[year]-$current_date[mon]-$current_date[mday]" ?>">
                     </div>
                     <div><button type="submit" class="formsubmitbutton">Submit</button></div>
                 </form>

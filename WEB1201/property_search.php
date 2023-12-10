@@ -51,7 +51,7 @@
         </header>
         <!--HEADER, END OF CODE-->
 
-<form id="propertyForm" action="property_search.php" method="POST">
+<form id="propertyForm" action="property_search.php?type=<?php echo $_GET['type']?>" method="POST">
     <label for="state">State:</label>
     <select id="state" name="state">
         <option value="">All States</option>
@@ -186,43 +186,68 @@ $result = @mysqli_query($dbc, $q);
 //Display the search results
 
 if (mysqli_num_rows($result) >= $resultsPerPage) {
-    $q = "SELECT * FROM property $whereClause LIMIT $resultsPerPage OFFSET $offset";
+    $q = "SELECT * FROM property $whereClause ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset";
     $result = @mysqli_query($dbc, $q);
 }
 
-if ($result) {
+if (mysqli_num_rows($result) > 0) {
     while ($property = mysqli_fetch_assoc($result)) {
-        echo "<h2>" . $property['address'] . "</h2>";
-        echo "<p>State: " . $property['state'] . "</p>";
-        echo "<p>Type: " . $property['property_type'] . "</p>";
-        echo "<p>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</p>";
-        echo "<p>Floor Size: " . $property['floor_size'] . " sq. ft.</p>";
-        echo "<p>Price: $" . $property['price'] . "</p>";
-        echo "<p>Rating: " . $property['sustainability_rating'] . "</p>";
 
-        $q = "SELECT * FROM property_image WHERE property_id = ".$property['property_id'].";";
+        $property_id = $property['property_id'];
+
+        // Check if approved
+        $q = "SELECT * FROM property_approval WHERE property_id = $property_id AND approval_date IS NOT NULL";
         $r = @mysqli_query($dbc, $q);
+        $count = 0; // To check whether to show pages or not
 
-        if ($r){
-            while ($image = mysqli_fetch_assoc($r)){
-                echo '<img style="width:300px;height:300px;object-fit: cover;" src="'. $image["img_dir"] . '">';
+        if(mysqli_num_rows($r) > 0){
+            echo "<h2>" . $property['address'] . "</h2>";
+            echo "<p>State: " . $property['state'] . "</p>";
+            echo "<p>Type: " . $property['property_type'] . "</p>";
+            echo "<p>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</p>";
+            echo "<p>Floor Size: " . $property['floor_size'] . " sq. ft.</p>";
+            echo "<p>Price: $" . $property['price'] . "</p>";
+
+            $build_rate = $property['building_rating'];
+            $renew_rate = $property['renewable_rating'];
+            $energy_rate = $property['energy_rating'];
+            $water_rate = $property['water_rating'];
+            $total_rate = ($build_rate + $renew_rate + $energy_rate + $water_rate) / 4; // Average rating
+            echo "<p>Rating: " . $total_rate . "</p>";
+            
+
+            $q = "SELECT * FROM property_image WHERE property_id = $property_id LIMIT 1;";
+            $r = @mysqli_query($dbc, $q);
+
+            if ($r){
+                while ($image = mysqli_fetch_assoc($r)){
+                    echo '<img style="width:300px;height:300px;object-fit: cover;" src="'. $image["img_dir"] . '">';
+                }
             }
+
+            echo '<br><a href="show_property.php?id=' . $property_id. '">Learn More</a>';
+            echo "<hr>";
+            $count ++;
         }
-
-        echo "<hr>";
     }
 
-    // Add pagination links
-    $q = "SELECT COUNT(*) AS total FROM property $whereClause";
-    $result = @mysqli_query($dbc, $q);
-    $row = mysqli_fetch_assoc($result);
-    $totalPages = ceil($row['total'] / $resultsPerPage);
+    if ($count > 0){
+        // Add pagination links
+        $q = "SELECT COUNT(*) AS total FROM property $whereClause";
+        $result = @mysqli_query($dbc, $q);
+        $row = mysqli_fetch_assoc($result);
+        $totalPages = ceil($row['total'] / $resultsPerPage);
 
-    echo "<div class='pagination'>";
-    for ($i = 1; $i <= $totalPages; $i++) {
-        echo "<a href='?page=$i'>$i</a>";
+        echo "<div class='pagination'>";
+        for ($i = 1; $i <= $totalPages; $i++) {
+            echo "<a href='?page=$i&type=" . $searchInputs['type'] . "'>$i</a>";
+        }
+        echo "</div>";
     }
-    echo "</div>";
+    else{
+        echo "No properties found matching the criteria.";
+    }
+    
 } else {
     echo "No properties found matching the criteria.";
 }
