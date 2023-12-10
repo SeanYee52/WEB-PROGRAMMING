@@ -34,6 +34,8 @@ else{
 $q = "SELECT * FROM user WHERE user_id = $user_id;";
 $r = @mysqli_query($dbc, $q);
 
+mysqli_close($dbc);
+
 if (mysqli_num_rows($r) == 0) {
 
     echo "Error, please log in again";

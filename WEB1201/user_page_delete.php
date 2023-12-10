@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $q = "DELETE FROM user WHERE user_id = $user_id;";
     $r = @mysqli_query($dbc, $q);
 
+    mysqli_close($dbc);
+
     if($r){
         session_unset();
         session_destroy();
