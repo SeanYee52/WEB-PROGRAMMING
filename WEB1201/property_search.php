@@ -198,7 +198,12 @@ if ($result) {
         echo "<p>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</p>";
         echo "<p>Floor Size: " . $property['floor_size'] . " sq. ft.</p>";
         echo "<p>Price: $" . $property['price'] . "</p>";
-        echo "<p>Rating: " . $property['sustainability_rating'] . "</p>";
+        $build_rate = $property['building_rating'];
+        $renew_rate = $property['renewable_rating'];
+        $energy_rate = $property['energy_rating'];
+        $water_rate = $property['water_rating'];
+        $total_rate = ($build_rate + $renew_rate + $energy_rate + $water_rate) / 4; // Average rating
+        echo "<p>Rating: " . $total_rate . "</p>";
 
         $q = "SELECT * FROM property_image WHERE property_id = ".$property['property_id'].";";
         $r = @mysqli_query($dbc, $q);
