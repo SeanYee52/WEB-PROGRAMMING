@@ -22,7 +22,6 @@
             background-attachment: fixed; 
             background-size: 100% 100%;
             margin:0;
-            transition: background-color 2s;
         }
 
         img.profile-pic{
@@ -32,6 +31,12 @@
             object-fit: cover;
             transition: filter 2s;
             cursor: pointer;
+        }
+
+        img.property-pic{
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
         }
 
         img.profile-pic:hover, #popup:hover{
@@ -154,32 +159,39 @@
         </section>
 
         <section>
-        <h2>Pending Approval</h2>
+        <h2>Associated Properties</h2>
                 <?php
+                    //Pagination variables
+                    $resultsPerPage = 3;
+                    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+                    $offset = ($page - 1) * $resultsPerPage;
+
                     //Construct the SQL query
-                    $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                    WHERE property_approval.admin_id IS NULL ORDER BY property_approval.assessment_date";
+                    $q = "SELECT * FROM property WHERE user_id = $user_id";
                     $result = @mysqli_query($dbc, $q);
 
                     //Display the search results
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
-                        $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                        WHERE property_approval.admin_id IS NULL ORDER BY property_approval.assessment_date LIMIT $resultsPerPage OFFSET $offset1 ";
+                        $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset ";
                         $result = @mysqli_query($dbc, $q);
                     }
 
                     if (mysqli_num_rows($result) != 0) {
                         while ($property = mysqli_fetch_assoc($result)) {
-                            $q = "SELECT * FROM user WHERE user_id IN (SELECT user_id FROM property WHERE property_id = " . $property['property_id'] . ");";
-                            $r = @mysqli_query($dbc, $q);
-                            $user = mysqli_fetch_assoc($r);
 
                             echo '<section class="property">';
-                            echo "<h2>" . $property['address'] . ", " . $property['state'] . "</h2>";
-                            echo "<img class='profile-pic' src='" . $user['profile_img_dir'] . "'>";
-                            echo "<p>" . $user['username'] . "</p>";
-                            echo "<p>ECOR" . $user['user_id'] . "</p>";
-                            echo "<p>Type: For " . $property['listing_type'] . "</p>";
+                            
+
+                            $q = "SELECT * FROM property_image WHERE property_id = " . $property['property_id'] . " LIMIT 1;";
+                            $r = @mysqli_query($dbc, $q);
+                            $image = mysqli_fetch_assoc($r);
+
+                            echo "<img class='property-pic' src='" . $image['img_dir'] . "'>";
+                            echo "<h2>" . $property['address'] . ", " . $property['city'] . "</h2>";
+                            echo "<p>" . $property['state'] . "</p>";
+                            echo "<p>" . $property['price'] . "</p>";
+                            echo "<p>For " . $property['listing_type'] . "</p>";
+                            echo "<p>" . $property['property_type'] . "</p>";
                             echo "<p>Upload Date: " . $property['upload_date'] . "</p>";
                             echo "<p>Approved Date: N/A";
                             echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
@@ -195,7 +207,7 @@
                     
                         echo "<div class='pagination'>";
                         for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<a href='?page1=$i&page2=$page2'>$i</a>";
+                            echo "<a href='?page=$i'>$i</a>";
                         }
                         echo "</div>";
                     } else {
