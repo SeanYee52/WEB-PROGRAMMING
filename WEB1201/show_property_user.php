@@ -212,6 +212,40 @@
                 text-align: left;
             }
 
+            #popup-delete{
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #ffffff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+
+            #overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            #popup-click{
+                cursor: pointer;
+                font-family: Roboto;
+            }
+
+            #popup-click:hover{
+                cursor: pointer;
+                font-weight:bolder;
+                color: #799ecf;
+            }
+
         </style>
     </head>
 
@@ -321,7 +355,6 @@
                         echo "<span>Sustainability: $total_rate</span>"
                         ?>
                     </div>
-                    <button class="save-button">Save Details</button>
                 </div>
             </div>
             <div class="bottom">
@@ -533,6 +566,29 @@
             </div>
         </section>
 
+        <?php
+            if ($_SESSION['user_id'] == $user_id){
+            echo'<section>
+                    <h3 id="popup-click" onclick="openPopupFormDelete()">Delete Property</h3>
+                </section>';
+            echo $user_id;
+            }
+        ?>
+
+        <!-- Popup Edit -->
+        <div id="overlay" onclick="closePopupForm()"></div>
+
+        <div id="popup-delete">
+            <h2>Delete Property</h2>
+                <form action="property_delete.php" method="post">
+                    <!-- Your form fields go here -->
+                    <p>Are You Sure You Want To Delete This Property?</p>
+
+                    <br><br><button name="property_id" type="submit" value="<?php echo $property_id;?>">Yes</button>
+                </form>
+            <button onclick="closePopupForm()">No</button>
+        </div>
+
         <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
         <footer>
             <div class="footer">
@@ -594,6 +650,16 @@
                 }
                 x[slideIndex-1].style.display = "block";
                 dots[slideIndex-1].className += " w3-opacity-off";
+            }
+
+            function openPopupFormDelete() {
+                document.getElementById("popup-delete").style.display = "block";
+                document.getElementById("overlay").style.display = "block";
+            }
+
+            function closePopupForm() {
+                document.getElementById("popup-delete").style.display = "none";
+                document.getElementById("overlay").style.display = "none";
             }
         </script>
 

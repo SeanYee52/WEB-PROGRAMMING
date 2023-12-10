@@ -175,7 +175,7 @@
         </section>
 
         <section class="property">
-        <h2 style="flex: 100%;">Associated Properties</h2>
+            <h2 style="flex: 100%;">Associated Properties</h2>
                 <?php
                     //Pagination variables
                     $resultsPerPage = 3;

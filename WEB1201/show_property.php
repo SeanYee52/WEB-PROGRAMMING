@@ -100,10 +100,18 @@ if ((!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) && (!isset($
 }
 elseif (isset($_SESSION['admin_id'])){
     $admin_id = $_SESSION['admin_id'];
-    include_once("show_property_admin.php");
+
+    // Admin approval
+    if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['approve'])){
+        include_once("property_approval.php");
+        give_approval($dbc, $admin_id, $property_id);
+    }
+    else{
+        include_once("show_property_admin.php");
+    }
+
 }
 else{
-    $user_id = $_SESSION['user_id'];
     include_once("show_property_user.php");
 }
 
