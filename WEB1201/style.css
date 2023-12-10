@@ -640,3 +640,29 @@ footer div.contact{
   color: #ba0404;
   font-weight: 300;
 }
+
+/**Home Page Content Section**/
+.homebg{
+  background-color: #F1F1F1;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.homedesctitle{
+  font-family: "Roboto";
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  padding: 20px;
+}
+
+.homedesc{
+  font-family: "Roboto";
+  font-size: 20px;
+  color: #000000;
+  width: 1000px;
+  text-align: center;
+  padding: 20px;
+}
