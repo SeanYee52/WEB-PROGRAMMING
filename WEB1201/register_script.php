@@ -197,7 +197,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </header>
         <!--HEADER, END OF CODE-->
 
-		<div >
+        <!--Register Page Content Section-->
+		<div class="formbg">
+            <div class="formsidedesc">
+                <div><img src="../Images/EcoEstateImages/EcoEstateLogoWhite.svg" width="380" height ="100"></div>
+                <div class="formsidedesctext">A platform to find your dream home while protecting the planet.</div>
+            </div>
 			<?php
 			if (!empty($errors)) {
 				echo '<h1>Error!</h1>
@@ -208,19 +213,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				echo '</p><p>Please try again.</p><p><br /></p>';
 			}
 			?>
-			<form action="register_script.php" method="post">
-					<p>Username: <input type="text" id="username" name="username" required value="<?php echo $username;?>"></p>
-				
-					<p>Email Address: <input type="email" id="email" name="email" required value="<?php echo $email;?>"></p>
-
-					<p>Phone Number: <input type="tel" id="phone" name="phone" required value="<?php echo $phone;?>"></p>
-
-					<p>Password: <input type="password" id="password" name="pass1" required></p>
-
-					<p>Confirm Password: <input type="password" id="confirm_password" name="pass2" required></p>
-
-					<br><button type="submit">Register</button>
-			</form>
+            <div class="formborderreg">
+                <div>
+                    <div class="formborderdesc">Join To Learn More</div>
+                    <div class="formborderdesc">Eco-friendly Choices</div>
+                    <div class="formborderdesc">From</div>
+                    <div><img src="../Images/EcoEstateImages/EcoEstateLogo.svg" width="200" height ="36" class="formborderlogo"></div>
+                </div>
+                <div>
+                    <form action="register_script.php" method="post">
+                        <div class="formques">Username</div>
+                        <div><input class="formquesbox" type="text" id="username" name="username" required value="<?php echo $username;?>"></div>
+                        <div class="formques">Email Address</div>
+                        <div><input class="formquesbox" type="email" id="email" name="email" required value="<?php echo $email;?>"></div>
+                        <div class="formques">Phone Number</div>
+                        <div><input class="formquesbox" type="tel" id="phone" name="phone" required value="<?php echo $phone;?>"></div>
+                        <div class="formques">Password</div>
+                        <div><input class="formquesbox" type="password" id="password" name="pass1" required></div>
+                        <div class="formques">Confirm Password</div>
+                        <div><input class="formquesbox" type="password" id="confirm_password" name="pass2" required></div>
+                        <div><button type="submit" class="formsubmitbutton">Register</button></div>
+                    </form>
+                </div>
+                <div class="formlink">Own an account? <a href="login_page.inc.php" class="formlinkad">Login</a></div>
+            </div>
 		</div>
 
         <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->

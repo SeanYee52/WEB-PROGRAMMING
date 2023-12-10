@@ -402,7 +402,8 @@ footer div.contact{
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 600px;
+  min-height: 800px;
+  min-width: 1200px;
   background-image: url(../Images/EcoEstateImages/LoginPageBg.svg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -484,4 +485,14 @@ footer div.contact{
   font-size: 12px;
   font-weight: bold;
   text-decoration: underline;
+}
+
+/**Register Page Content Section**/
+.formborderreg{
+  background-color: #ffffff;
+  opacity: 0.8;
+  border-radius: 20px;
+  width: 300px;
+  height: 600px;
+  padding: 30px;
 }
