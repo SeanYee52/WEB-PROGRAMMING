@@ -78,6 +78,22 @@
             color: #799ecf;
         }
 
+        section.property{
+            display: flex;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+
+        div.property{
+            width: 33%; /* Each column takes up 50% of the container */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        div.pagination{
+            flex: 100%;
+        }
+
     </style>
 </head>
 <body>
@@ -158,8 +174,8 @@
             </div>
         </section>
 
-        <section>
-        <h2>Associated Properties</h2>
+        <section class="property">
+        <h2 style="flex: 100%;">Associated Properties</h2>
                 <?php
                     //Pagination variables
                     $resultsPerPage = 3;
@@ -179,23 +195,24 @@
                     if (mysqli_num_rows($result) != 0) {
                         while ($property = mysqli_fetch_assoc($result)) {
 
-                            echo '<section class="property">';
-                            
-
+                            echo '<div class="property">';
+                        
                             $q = "SELECT * FROM property_image WHERE property_id = " . $property['property_id'] . " LIMIT 1;";
                             $r = @mysqli_query($dbc, $q);
                             $image = mysqli_fetch_assoc($r);
 
                             echo "<img class='property-pic' src='" . $image['img_dir'] . "'>";
-                            echo "<h2>" . $property['address'] . ", " . $property['city'] . "</h2>";
+                            echo "<h3>" . $property['address'] . ", " . $property['city'] . "</h3>";
                             echo "<p>" . $property['state'] . "</p>";
-                            echo "<p>" . $property['price'] . "</p>";
+                            echo "<p>RM " . $property['price'] . "</p>";
                             echo "<p>For " . $property['listing_type'] . "</p>";
                             echo "<p>" . $property['property_type'] . "</p>";
+                            echo "<p>" . $property['floor_size'] . " sq. ft</p>";
                             echo "<p>Upload Date: " . $property['upload_date'] . "</p>";
                             echo "<p>Approved Date: N/A";
+
                             echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
-                            echo '</section>';
+                            echo '</div>';
                         }
                     
                         // Add pagination links
