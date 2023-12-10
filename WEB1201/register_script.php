@@ -203,16 +203,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div><img src="../Images/EcoEstateImages/EcoEstateLogoWhite.svg" width="380" height ="100"></div>
                 <div class="formsidedesctext">A platform to find your dream home while protecting the planet.</div>
             </div>
-			<?php
-			if (!empty($errors)) {
-				echo '<h1>Error!</h1>
-				<p class="error">The following error(s) occurred:<br />';
-				foreach ($errors as $msg) { // Print each error.
-					echo " - $msg<br />\n";
-				}
-				echo '</p><p>Please try again.</p><p><br /></p>';
-			}
-			?>
             <div class="formborderreg">
                 <div>
                     <div class="formborderdesc">Join To Learn More</div>
@@ -236,6 +226,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </form>
                 </div>
                 <div class="formlink">Own an account? <a href="login_page.inc.php" class="formlinkad">Login</a></div>
+                <?php
+                if (!empty($errors)) {
+                    echo '<p class="errorclass">The following error(s) occurred:<br />';
+                    foreach ($errors as $msg) { // Print each error.
+                        echo " - $msg<br />\n";
+                    }
+                    echo '</p><p class="errorclass">Please try again.</p><p><br /></p>';
+                }
+                ?>
             </div>
 		</div>
 
