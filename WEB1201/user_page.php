@@ -36,8 +36,6 @@ else{
 $q = "SELECT * FROM user WHERE user_id = $user_id;";
 $r = @mysqli_query($dbc, $q);
 
-mysqli_close($dbc);
-
 if (mysqli_num_rows($r) == 0) {
 
     echo "Error, please log in again";
@@ -63,13 +61,13 @@ else{
     $banner_img = $user["banner_img_dir"];
 
     if(!isset($_SESSION["user_id"])){
-        include("user_page_display.php"); // Admin viewing profile
+        include("user_page_view.php"); // Admin viewing profile
     }
     elseif ($user_id == $_SESSION["user_id"]){
-        include("user_page_view.php"); // User viewing their own profile
+        include("user_page_display.php"); // User viewing their own profile
     }
     else{
-        include("user_page_display.php"); // User viewing other profile
+        include("user_page_view.php"); // User viewing other profile
     }
 }
 ?>
