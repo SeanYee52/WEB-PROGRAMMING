@@ -19,13 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] === 'GET'){
 }
 
 // Check if user is logged in
-if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
+// View other account
+if (isset($_GET['user_id'])){
+    $user_id = $_GET["user_id"];
+}
+// View their own account
+elseif (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
     $user_id = $_SESSION["user_id"];
 }
 else{
-    // Starts session
-    session_start();
-
     if(!isset($_SESSION["user_id"]) || !isset($_SESSION["username"])){
         redirect_user("login.php"); // Redirect to login.php if not logged in
     }
@@ -60,7 +62,14 @@ else{
     $profile_img = $user["profile_img_dir"];
     $banner_img = $user["banner_img_dir"];
 
-    include("user_page_display.php");
-
+    if(!isset($_SESSION["user_id"])){
+        include("user_page_display.php"); // Admin viewing profile
+    }
+    elseif ($user_id == $_SESSION["user_id"]){
+        include("user_page_view.php"); // User viewing their own profile
+    }
+    else{
+        include("user_page_display.php"); // User viewing other profile
+    }
 }
 ?>

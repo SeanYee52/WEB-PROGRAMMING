@@ -194,6 +194,7 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                             echo "<p>Type: For " . $property['listing_type'] . "</p>";
                             echo "<p>Upload Date: " . $property['upload_date'] . "</p>";
                             echo "<p>Approved Date: N/A";
+                            echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                             echo '</section>';
                         }
                     
@@ -247,6 +248,7 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                             echo "<p>Type: " . $property['listing_type'] . "</p>";
                             echo "<p>Upload Date: " . $property['upload_date'] . "</p>";
                             echo "<p>Approved Date: " . $approval['approval_date'] . "</p>";
+                            echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                             echo '</section>';
                         }
                     

@@ -527,7 +527,7 @@
                     </div>
                     <div class="column-2">
                         <p><?php echo $username;?></p>
-                        <a href="">View Profile</a>
+                        <a href="user_page.php?user_id=<?php echo $user_id;?>">View Profile</a>
                     </div>
                 </section>
             </div>

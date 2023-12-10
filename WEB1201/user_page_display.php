@@ -154,6 +154,57 @@
         </section>
 
         <section>
+        <h2>Pending Approval</h2>
+                <?php
+                    //Construct the SQL query
+                    $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
+                    WHERE property_approval.admin_id IS NULL ORDER BY property_approval.assessment_date";
+                    $result = @mysqli_query($dbc, $q);
+
+                    //Display the search results
+                    if (mysqli_num_rows($result) >= $resultsPerPage) {
+                        $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
+                        WHERE property_approval.admin_id IS NULL ORDER BY property_approval.assessment_date LIMIT $resultsPerPage OFFSET $offset1 ";
+                        $result = @mysqli_query($dbc, $q);
+                    }
+
+                    if (mysqli_num_rows($result) != 0) {
+                        while ($property = mysqli_fetch_assoc($result)) {
+                            $q = "SELECT * FROM user WHERE user_id IN (SELECT user_id FROM property WHERE property_id = " . $property['property_id'] . ");";
+                            $r = @mysqli_query($dbc, $q);
+                            $user = mysqli_fetch_assoc($r);
+
+                            echo '<section class="property">';
+                            echo "<h2>" . $property['address'] . ", " . $property['state'] . "</h2>";
+                            echo "<img class='profile-pic' src='" . $user['profile_img_dir'] . "'>";
+                            echo "<p>" . $user['username'] . "</p>";
+                            echo "<p>ECOR" . $user['user_id'] . "</p>";
+                            echo "<p>Type: For " . $property['listing_type'] . "</p>";
+                            echo "<p>Upload Date: " . $property['upload_date'] . "</p>";
+                            echo "<p>Approved Date: N/A";
+                            echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
+                            echo '</section>';
+                        }
+                    
+                        // Add pagination links
+                        $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
+                        WHERE property_approval.admin_id IS NULL";
+                        $result = @mysqli_query($dbc, $q);
+                        $row = mysqli_fetch_assoc($result);
+                        $totalPages = ceil($row['total'] / $resultsPerPage);
+                    
+                        echo "<div class='pagination'>";
+                        for ($i = 1; $i <= $totalPages; $i++) {
+                            echo "<a href='?page1=$i&page2=$page2'>$i</a>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<p>No property to approve</p>";
+                    }
+                ?>
+        </section>
+
+        <section>
             <h2>Account Settings</h2>
             <h3 id="popup" onclick="openPopupFormPass()">Change Password</h3>
             <h3 id="popup" onclick="openPopupFormDelete()">Delete Account</h3>
