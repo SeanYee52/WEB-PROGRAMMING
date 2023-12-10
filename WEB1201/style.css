@@ -666,3 +666,115 @@ footer div.contact{
   text-align: center;
   padding: 20px;
 }
+
+/**About Us Page Content Section**/
+.aboutusbg{
+  background-color: #F1F1F1;
+  min-width: 1200px;
+}
+
+.autext{
+  font-family: "Roboto";
+  font-size: 20px;
+  color: #000000;
+  padding-top: 20px;
+}
+
+.autextboldbf{
+  font-family: "Roboto";
+  font-size: 24px;
+  color: #000000;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.autextbold{
+  font-family: "Roboto";
+  font-size: 20px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.autextsmall{
+  font-family: "Roboto";
+  font-size: 18px;
+  color: #000000;
+}
+
+.aboutustitle{
+  font-family: "Roboto";
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  padding-top: 50px;
+  padding-left: 120px;
+}
+
+.aboutussecbg{
+  background-image: url(../Images/EcoEstateImages/AboutUsPageBg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-right: 100px;
+  margin-left: 100px;
+  border-radius: 20px;
+  padding: 50px;
+}
+
+.aboutussecbox{
+  background-color: #FFFFFF;
+  opacity: 0.8;
+  border-radius: 20px;
+  padding: 30px;
+  margin: 16px;
+  text-align: justify;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ausecbox{
+  background-color: #FFFFFF;
+  opacity: 0.8;
+  border-radius: 20px;
+  padding: 30px;
+  width: 300px;
+  margin: 16px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.ausecboxbf{
+  background-color: #FFFFFF;
+  opacity: 0.8;
+  border-radius: 20px;
+  padding: 30px;
+  width: 300px;
+  margin: 16px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ausecboxcontainer{
+  display: flex;
+}
+
+.benefitsecbg{
+  background-color: #ACACAC;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-right: 100px;
+  margin-left: 100px;
+  border-radius: 20px;
+  padding: 50px;
+}
+
+.logospace{
+  height: 16px;
+}
