@@ -29,6 +29,7 @@
                     <div class="login">
                         <button
                             <?php
+                            session_start();
                             if (isset($_SESSION["user_id"]) && $_SESSION["username"]){
                                 echo 'onclick="window.location.href=';
                                 echo "'user_page.php';";
