@@ -179,97 +179,103 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </header>
         <!--HEADER, END OF CODE-->
 
-        <div>
-            <div>
+        <!--Add Property Page Content Section-->
+        <div class="apformbg">
+            <div class="apformtitle">Add Advertised Property</div>
+            <div class="apformborder">
                 <form action="addproperty.php" method="post" enctype="multipart/form-data">
-
                     <!-- Property Information -->
-                    <h3>Property Information</h3>
-                    <label for="listing_type">For Sale / For Rent:</label>
-                    <select id="listing_type" name="listing_type" required>
-                        <option value="Sale">For Sale</option>
-                        <option value="Rent">For Rent</option>
-                    </select>
+                    <div class="apformsectitle">Property Information</div>
+                    <div class="apformsecbox">
+                        <div class="quecolrow"><label for="listing_type" class="quetitle">For Sale / For Rent:</label></div>
+                        <select id="listing_type" name="listing_type" class="queselectbox" required>
+                            <option value="Sale">For Sale</option>
+                            <option value="Rent">For Rent</option>
+                        </select>
 
-                    <br><label for="property_type">Property Type:</label>
-                    <select id="property_type" name="property_type" required>
-                        <option value="apartment">Apartment</option>
-                        <option value="condo">Condominium</option>
-                        <option value="townhouse">Townhouse</option>
-                        <option value="bungalow">Bungalow</option>
-                    </select>
+                        <br><div class="quecolrow"><label for="property_type" class="quetitle">Property Type:</label></div>
+                        <select id="property_type" name="property_type" class="queselectbox" required>
+                            <option value="apartment">Apartment</option>
+                            <option value="condo">Condominium</option>
+                            <option value="townhouse">Townhouse</option>
+                            <option value="bungalow">Bungalow</option>
+                        </select>
 
-                    <br><label for="state">State:</label>
-                    <select id="state" name="state" required>
-                        <option value="Johor">Johor</option>
-                        <option value="Kedah">Kedah</option>
-                        <option value="Kelantan">Kelantan</option>
-                        <option value="Melaka">Melaka</option>
-                        <option value="Negeri Sembilan">Negeri Sembilan</option>
-                        <option value="Pahang">Pahan</option>
-                        <option value="Penang">Penang</option>
-                        <option value="Perak">Perak</option>
-                        <option value="Perlis">Perlis</option>
-                        <option value="Sabah">Sabah</option>
-                        <option value="Sarawak">Sarawak</option>
-                        <option value="Selangor">Selangor</option>
-                        <option value="Terengganu">Terengganu</option>
-                        <option value="Kuala Lumpur">Kuala Lumpur</option>
-                        <option value="Labuan">Labuan</option>
-                        <option value="Putrajaya">Putrajaya</option>
-                    </select>
+                        <br><div class="quecolrow"><label for="state" class="quetitle">State:</label></div>
+                        <select id="state" name="state" class="queselectbox" required>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Melaka">Melaka</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahan</option>
+                            <option value="Penang">Penang</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Perlis">Perlis</option>
+                            <option value="Sabah">Sabah</option>
+                            <option value="Sarawak">Sarawak</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Kuala Lumpur">Kuala Lumpur</option>
+                            <option value="Labuan">Labuan</option>
+                            <option value="Putrajaya">Putrajaya</option>
+                        </select>
 
-                    <br><label for="city">Suburb / City / Town:</label>
-                    <input type="text" id="city" name="city" required>
+                        <br><div class="quecolrow"><label for="city" class="quetitle">Suburb / City / Town:</label></div>
+                        <input type="text" id="city" name="city" class="queansbox" required>
 
-                    <br><label for="address">Address:</label>
-                    <input type="text" id="address" name="address" required>
+                        <br><div class="quecolrow"><label for="address" class="quetitle">Address:</label></div>
+                        <input type="text" id="address" name="address" class="queansbox" required>
 
-                    <br><label for="asking_price">Asking Price:</label>
-                    <input type="number" id="asking_price" name="asking_price" required>
+                        <br><div class="quecolrow"><label for="asking_price" class="quetitle">Asking Price:</label></div>
+                        <input type="number" id="asking_price" name="asking_price" class="queansbox" required>
 
-                    <br><label for="floor_size">Floor Size (sq. ft.):</label>
-                    <input type="number" id="floor_size" name="floor_size" required>
+                        <br><div class="quecolrow"><label for="floor_size" class="quetitle">Floor Size (sq. ft.):</label></div>
+                        <input type="number" id="floor_size" name="floor_size" class="queansbox" required>
+                    </div>
 
                     <!-- Additional Information -->
-                    <h3>Additional Information</h3>
-                    <label for="year_completion">Year of Completion:</label>
-                    <input id="year_completion" name="year_completion" type="number" min="1900" max="<?php echo date("Y"); ?>" step="1" value="2016" />
+                    <div class="apformsectitle">Additional Information</div>
+                    <div class="apformsecbox">
+                        <div class="quecolrow"><label for="year_completion" class="quetitle">Year of Completion:</label></div>
+                        <input id="year_completion" name="year_completion" type="number" class="queansbox" min="1900" max="<?php echo date("Y"); ?>" step="1" value="2016" />
 
-                    <br><label for="furnishing">Furnished:</label>
-                    <select id="furnishing" name="furnishing" required>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                        <br><div class="quecolrow"><label for="furnishing" class="quetitle">Furnished:</label></div>
+                        <select id="furnishing" name="furnishing" class="queselectbox" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
 
-                    <br><label for="bedrooms">No. of Bedrooms:</label>
-                    <input type="number" id="bedrooms" name="bedrooms" required>
+                        <br><div class="quecolrow"><label for="bedrooms" class="quetitle">No. of Bedrooms:</label></div>
+                        <input type="number" id="bedrooms" name="bedrooms" class="queansbox" required>
 
-                    <br><label for="bathrooms">No. of Bathrooms:</label>
-                    <input type="number" id="bathrooms" name="bathrooms" required>
+                        <br><div class="quecolrow"><label for="bathrooms" class="quetitle">No. of Bathrooms:</label></div>
+                        <input type="number" id="bathrooms" name="bathrooms" class="queansbox" required>
 
-                    <br><label for="car_parks">No. of Car Parks:</label>
-                    <input type="number" id="car_parks" name="car_parks" required>
+                        <br><div class="quecolrow"><label for="car_parks" class="quetitle">No. of Car Parks:</label></div>
+                        <input type="number" id="car_parks" name="car_parks" class="queansbox" required>
 
-                    <br><label for="facilities">Facilities:</label>
-                    <?php
-                        include ("property_feature.php");
-                        all_features($dbc);
-                    ?>
+                        <br><div class="quecolrowrb"><label for="facilities" class="quetitle">Facilities:</label></div>
+                        <div class="queradioans">
+                            <?php
+                                include ("property_feature.php");
+                                all_features($dbc);
+                            ?>
+                        </div>
 
-                    <br><label for="description">Description:</label>
-                    <textarea id="description" name="description" rows="1" required></textarea>
+                        <br><div class="quecolrowtb1"><label for="description" class="quetitle">Description:</label></div>
+                        <textarea id="description" name="description" rows="1" class="queanstextbox" required></textarea>
 
-                    <br><label for="green_building_certification">Green Building Certification:</label>
-                    <textarea id="green_building_certification" name="green_building_certification" rows="1"></textarea>
+                        <br><div class="quecolrowtb2"><label for="green_building_certification" class="quetitle">Green Building Certification:</label></div>
+                        <textarea id="green_building_certification" name="green_building_certification" rows="1" class="queanstextbox"></textarea>
 
-                    <br><label for="photos">Photos (Upload File):</label>
-                    <input type="file" id="photos" name="photos[]" accept="image/*" multiple>
+                        <br><div class="quecolrow"><label for="photos" class="quetitle">Photos (Upload File):</label></div>
+                        <input type="file" id="photos" name="photos[]" accept="image/*" class="queuploadtext" multiple>
 
-                    <br><label for="assessment_date">Preferred Date for Sustainability Assessment:</label>
-                    <input type="date" name="assessment_date" id="assessment_date" min="<?php $current_date = getdate(); echo "$current_date[mday]-$current_date[mon]-$current_date[year]" ?>">
-
-                    <button type="submit">Submit</button>
+                        <br><div class="quecolrowdb"><label for="assessment_date" class="quetitle">Preferred Date for Sustainability Assessment:</label></div>
+                        <input class ="quedatebox" type="date" name="assessment_date" id="assessment_date" min="<?php $current_date = getdate(); echo "$current_date[mday]-$current_date[mon]-$current_date[year]" ?>">
+                    </div>
+                    <div><button type="submit" class="formsubmitbutton">Submit</button></div>
                 </form>
             </div>
         </div>

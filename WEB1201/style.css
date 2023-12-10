@@ -496,3 +496,139 @@ footer div.contact{
   height: 600px;
   padding: 30px;
 }
+
+/**Add Property Page Content Section**/
+.apformbg{
+  background-color: #F1F1F1;
+}
+
+.apformtitle{
+  font-family: "Roboto";
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  padding-top: 50px;
+  padding-left: 120px;
+}
+
+.apformborder{
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-right: 100px;
+  margin-left: 100px;
+  padding: 50px;
+  min-width: 1100px;
+}
+
+.apformsectitle{
+  font-family: "Roboto";
+  font-size: 28px;
+  font-weight: bold;
+  color: #000000;
+  padding-bottom: 20px;
+}
+
+.apformsecbox{
+  background-color: #FFF8F8;
+  border: 2px solid #000000;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.quetitle{
+  font-family: "Roboto";
+  font-size: 20px;
+  color: #000000
+}
+
+.queselectbox {
+  font-family: "Roboto";
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  background-color: #F2FDFF;
+  border: 2px solid #808080;
+  width: 240px;
+}
+
+.queansbox {
+  font-family: "Roboto";
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  background-color: #F2FDFF;
+  border: 2px solid #808080;
+  width: 240px;
+}
+
+.queanstextbox {
+  resize: none;
+  background-color: #F2FDFF;
+  border: 2px solid #808080;
+  width: 480px;
+  height: 60px;
+}
+
+.quecolrow{
+  display: inline-block;
+  width: 200px;
+  height: 40px;
+  padding: 1px;
+}
+
+.quecolrowrb{
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+  vertical-align: middle;
+}
+
+.quecolrowtb1{
+  display: inline-block;
+  width: 200px;
+  height: 80px;
+  vertical-align: middle;
+}
+
+.quecolrowtb2{
+  display: inline-block;
+  width: 200px;
+  height: 110px;
+  vertical-align: middle;
+}
+
+.quecolrowdb{
+  display: inline-block;
+  width: 200px;
+  height: 80px;
+  vertical-align: middle;
+}
+
+.queradioans{
+  display: inline-block;
+  width: 734px;
+  font-family: "Roboto";
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.queuploadtext{
+  font-family: "Roboto";
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+}
+
+.quedatebox {
+  font-family: "Roboto";
+  font-size: 16px;
+  color: #000000;
+  font-weight: 400;
+  background-color: #F2FDFF;
+  border: 2px solid #808080;
+  width: 240px;
+}
