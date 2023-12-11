@@ -89,7 +89,17 @@
             flex: 100%;
         }
 
+        .rating-container {
+            width: 75px;
+            height: 75px;
+            line-height: 45px;
+            border-radius: 50%; /* Half of the height for a rounded appearance */
+            overflow: hidden;
+        }
 
+        .rating-container p{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -219,6 +229,31 @@
                                 else{
                                     echo "<p>Approved Date: NOT APPROVED</p>";
                                 }
+
+                                // Sustainability Ratings
+                                $build_rate = $property['building_rating'];
+                                $renew_rate = $property['renewable_rating'];
+                                $energy_rate = $property['energy_rating'];
+                                $water_rate = $property['water_rating'];
+                                $total_rate = round(($build_rate + $renew_rate + $energy_rate + $water_rate) / 4, 1); // Average rating
+
+                                if ($total_rate >= 0 && $total_rate <= 1) {
+                                    $color= "#ff0000"; // Red
+                                } elseif ($total_rate > 1 && $total_rate <= 2) {
+                                    $color= "#ff6600"; // Orange
+                                } elseif ($total_rate > 2 && $total_rate <= 3) {
+                                    $color= "#ffcc00"; // Yellow
+                                } elseif ($total_rate > 3 && $total_rate <= 4) {
+                                    $color= "#99ff33"; // Light Green
+                                } elseif ($total_rate > 4 && $total_rate <= 5) {
+                                    $color= "#00cc00"; // Dark Green
+                                } else {
+                                    $color= "#ff0000"; // Default to red for invalid rating
+                                }
+
+                                echo '<div class="rating-container" style="background-color: ' . $color . ';">
+                                <p>' . $total_rate . '</p>
+                                </div>';
 
                                 echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                                 echo '</div>';
