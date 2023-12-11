@@ -91,8 +91,8 @@
     <label for="square_feet">Square Feet:</label>
     <input type="number" id="square_feet" name="square_feet">
 
-    <label for="year_built">Sustainability Rating:</label>
-    <input type="number" id="year_built" name="year_built">
+    <label for="rating">Sustainability Rating:</label>
+    <input type="number" id="rating" name="rating">
 
     <label for="property_type">Property Type:</label>
     <select id="property_type" name="property_type">

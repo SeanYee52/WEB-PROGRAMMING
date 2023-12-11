@@ -220,13 +220,13 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                 <?php
                     //Construct the SQL query
                     $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                    WHERE property_approval.admin_id IS NOT NULL ORDER BY property_approval.approval_date;";
+                    WHERE property_approval.admin_id = $admin_id ORDER BY property_approval.approval_date;";
                     $result = @mysqli_query($dbc, $q);
 
                     //Display the search results
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                        WHERE property_approval.admin_id IS NOT NULL ORDER BY property_approval.approval_date LIMIT $resultsPerPage OFFSET $offset2;";
+                        WHERE property_approval.admin_id = $admin_id ORDER BY property_approval.approval_date LIMIT $resultsPerPage OFFSET $offset2;";
                         $result = @mysqli_query($dbc, $q);
                     }
 
@@ -236,7 +236,7 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                             $r = @mysqli_query($dbc, $q);
                             $user = mysqli_fetch_assoc($r);
 
-                            $q = "SELECT approval_date FROM property_approval WHERE property_id = " . $property['property_id'] . ";";
+                            $q = "SELECT approval_date FROM property_approval WHERE property_id = " . $property['property_id'] . " AND admin_id = $admin_id;";
                             $r = @mysqli_query($dbc, $q);
                             $approval = mysqli_fetch_assoc($r);
 
@@ -254,7 +254,7 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                     
                         // Add pagination links
                         $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                        WHERE property_approval.admin_id IS NULL";
+                        WHERE property_approval.admin_id = $admin_id";
                         $result = @mysqli_query($dbc, $q);
                         $row = mysqli_fetch_assoc($result);
                         $totalPages = ceil($row['total'] / $resultsPerPage);
