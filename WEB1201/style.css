@@ -913,7 +913,7 @@ footer div.contact{
   padding-left: 80px;
   padding-right: 80px;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 60px;
 }
 
 .propertyresult{
@@ -958,4 +958,9 @@ footer div.contact{
   font-family: "Roboto";
   font-size: 16px;
   padding: 14px;
+}
+
+.nomatchproperty{
+  font-family: "Roboto";
+  font-size: 20px;
 }

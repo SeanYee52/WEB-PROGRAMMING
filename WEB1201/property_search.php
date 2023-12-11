@@ -283,7 +283,7 @@
                 }
                 
             } else {
-                echo "No properties found matching the criteria.";
+                echo "<div class='nomatchproperty'>No properties found matching the criteria.</div>";
             }
 
             ?>
