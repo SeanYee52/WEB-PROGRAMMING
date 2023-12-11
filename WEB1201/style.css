@@ -743,7 +743,7 @@ footer div.contact{
   opacity: 0.8;
   border-radius: 20px;
   padding: 30px;
-  width: 300px;
+  width: 30%;
   margin: 16px;
   display: flex;
   align-items: center;
@@ -756,7 +756,7 @@ footer div.contact{
   opacity: 0.8;
   border-radius: 20px;
   padding: 30px;
-  width: 300px;
+  width: 30%;
   margin: 16px;
   display: flex;
   align-items: center;
