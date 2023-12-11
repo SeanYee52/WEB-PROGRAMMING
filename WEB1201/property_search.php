@@ -1,11 +1,12 @@
 <html lang = "en">
     <head>
-        <title>Template</title>
+        <title>Search Property</title>
         <meta charset = "utf-8">
         <link rel = "stylesheet" type = "text/css" href = "style.css">
     </head>
 
     <body>
+        <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
         <header>
             <a href="home.php"><img  class="logo" src="../Images/Logo.svg"></a>
             <nav>
@@ -51,217 +52,245 @@
         </header>
         <!--HEADER, END OF CODE-->
 
-<form id="propertyForm" action="property_search.php?type=<?php echo $_GET['type']?>" method="POST">
-    <label for="state">State:</label>
-    <select id="state" name="state">
-        <option value="">All States</option>
-        <option value="Johor">Johor</option>
-        <option value="Kedah">Kedah</option>
-        <option value="Kelantan">Kelantan</option>
-        <option value="Melaka">Melaka</option>
-        <option value="Negeri Sembilan">Negeri Sembilan</option>
-        <option value="Pahang">Pahan</option>
-        <option value="Penang">Penang</option>
-        <option value="Perak">Perak</option>
-        <option value="Perlis">Perlis</option>
-        <option value="Sabah">Sabah</option>
-        <option value="Sarawak">Sarawak</option>
-        <option value="Selangor">Selangor</option>
-        <option value="Terengganu">Terengganu</option>
-        <option value="Kuala Lumpur">Kuala Lumpur</option>
-        <option value="Labuan">Labuan</option>
-        <option value="Putrajaya">Putrajaya</option>
-    </select>
+        <!--Search Property Page Content Section-->
+        <div class="spbg">
+            <div class="spsearchbox">
+                <form id="propertyForm" action="property_search.php?type=<?php echo $_GET['type']?>" method="POST">
+                    <div class="spsearchbar1">
+                        <select class="spsb1drop" id="state" name="state">
+                            <option value="">All States</option>
+                            <option value="Johor">Johor</option>
+                            <option value="Kedah">Kedah</option>
+                            <option value="Kelantan">Kelantan</option>
+                            <option value="Melaka">Melaka</option>
+                            <option value="Negeri Sembilan">Negeri Sembilan</option>
+                            <option value="Pahang">Pahang</option>
+                            <option value="Penang">Penang</option>
+                            <option value="Perak">Perak</option>
+                            <option value="Perlis">Perlis</option>
+                            <option value="Sabah">Sabah</option>
+                            <option value="Sarawak">Sarawak</option>
+                            <option value="Selangor">Selangor</option>
+                            <option value="Terengganu">Terengganu</option>
+                            <option value="Kuala Lumpur">Kuala Lumpur</option>
+                            <option value="Labuan">Labuan</option>
+                            <option value="Putrajaya">Putrajaya</option>
+                        </select>
+                        <input class="spsb1textbox" type="text" id="title" name="title" placeholder="Search by Address or Property Name">
+                        <input class="spsubmitbutton" type="submit" name="submit" value="Search" />
+                    </div>
+                    <div class="spsearchbar2">
+                        <div class="spsb2optionspace">
+                            <label class="spsb2optiontitle" for="property_type">Property Type</label>
+                            <div class="spsb2optiontitlespace"></div>
+                            <select class="spsb2optionbox" id="property_type" name="property_type">
+                                <option value="">Any Residential</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="condo">Condominium</option>
+                                <option value="townhouse">Townhouse</option>
+                                <option value="bungalow">Bungalow</option>
+                            </select>
+                        </div>
+                        <div class="spsb2optionspace">
+                            <label class="spsb2optiontitle" for="minprice">Minimum Price</label>
+                            <div class="spsb2optiontitlespace"></div>
+                            <input class="spsb2optionbox" type="number" id="min_price" name="min_price" placeholder="Any">
+                        </div>
+                        <div class="spsb2optionspace">
+                            <label class="spsb2optiontitle" for="maxprice">Maximum Price</label>
+                            <div class="spsb2optiontitlespace"></div>
+                            <input class="spsb2optionbox" type="number" id="max_price" name="max_price" placeholder="Any">
+                        </div>
+                        <div class="spsb2optionspace">
+                            <label class="spsb2optiontitle" for="square_feet">Floor Size</label>
+                            <div class="spsb2optiontitlespace"></div>
+                            <input class="spsb2optionbox" type="number" id="square_feet" name="square_feet" placeholder="Any">
+                        </div>
+                        <div class="spsb2optionspace">
+                            <label class="spsb2optiontitle" for="rooms">Number of Rooms</label>
+                            <div class="spsb2optiontitlespace"></div>
+                            <input class="spsb2optionbox" type="number" id="rooms" name="rooms" placeholder="Any">
+                        </div>
+                        <div class="spsb2optionspace">
+                            <label class="spsb2optiontitle" for="rating">Sustainability Rating</label>
+                            <div class="spsb2optiontitlespace"></div>
+                            <input class="spsb2optionbox" type="number" id="rating" name="rating" placeholder="Any">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-    <label for="title">Address:</label>
-    <input type="text" id="title" name="title">
+        <!--Search Property Page Content Section (Result)-->
+        <div class="spresultsec">
+            <?php
+            include ("mysqli_connect.php");
 
-    <label for="minprice">Minimum Price:</label>
-    <input type="number" id="min_price" name="min_price">
+            //Session timeout
+            if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+                // last request was more than 30 minutes ago
+                session_unset();     // unset $_SESSION variable for the run-time 
+                session_destroy();   // destroy session data in storage
+            }
+            $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
-    <label for="maxprice">Maximum Price:</label>
-    <input type="number" id="max_price" name="max_price">
+            //Function to build the WHERE clause based on provided inputs
+            function buildWhereClause($inputs)
+            {
+                $conditions = array();
 
-    <label for="state">State:</label>
-    <input type="text" id="state" name="state">
+                if (!empty($inputs['title'])) {
+                    $conditions[] = "address LIKE '%" . $inputs['title'] . "%'";
+                }
 
-    <label for="rooms">Number of Rooms:</label>
-    <input type="number" id="rooms" name="rooms">
+                if (!empty($inputs['state'])) {
+                    $conditions[] = "state = '" . $inputs['state'] . "'";
+                }
 
-    <label for="square_feet">Square Feet:</label>
-    <input type="number" id="square_feet" name="square_feet">
+                if (!empty($inputs['property_type'])) {
+                    $conditions[] = "property_type = '" . $inputs['property_type'] . "'";
+                }
 
-    <label for="rating">Sustainability Rating:</label>
-    <input type="number" id="rating" name="rating">
+                if (!empty($inputs['rooms'])) {
+                    $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms']; //To calculate total rooms
+                }
 
-    <label for="property_type">Property Type:</label>
-    <select id="property_type" name="property_type">
-        <option value="">Any Residential</option>
-        <option value="apartment">Apartment</option>
-        <option value="condo">Condominium</option>
-        <option value="townhouse">Townhouse</option>
-        <option value="bungalow">Bungalow</option>
-    </select>
+                if (!empty($inputs['floor_size'])) {
+                    $conditions[] = "floor_size >= " . $inputs['floor_size'];
+                }
 
-    <input type="submit" name="submit" value="Search" />
-</form>
+                if (!empty($inputs['min_price'])) {
+                    $conditions[] = "price >= " . $inputs['min_price'];
+                }
 
-<?php
-include ("mysqli_connect.php");
+                if (!empty($inputs['max_price'])) {
+                    $conditions[] = "price <= " . $inputs['max_price'];
+                }
 
-//Session timeout
-if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
-    // last request was more than 30 minutes ago
-    session_unset();     // unset $_SESSION variable for the run-time 
-    session_destroy();   // destroy session data in storage
-}
-$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+                if (!empty($inputs['rating'])) {
+                    $conditions[] = "sustainability_rating >= " . $inputs['rating'];
+                }
 
-//Function to build the WHERE clause based on provided inputs
-function buildWhereClause($inputs)
-{
-    $conditions = array();
+                if (!empty($inputs['type'])) {
+                    $conditions[] = "listing_type = '". $inputs['type'] . "'";
+                }
 
-    if (!empty($inputs['title'])) {
-		$conditions[] = "address LIKE '%" . $inputs['title'] . "%'";
-    }
-
-    if (!empty($inputs['state'])) {
-		$conditions[] = "state = '" . $inputs['state'] . "'";
-    }
-
-    if (!empty($inputs['property_type'])) {
-        $conditions[] = "property_type = '" . $inputs['property_type'] . "'";
-    }
-
-    if (!empty($inputs['rooms'])) {
-        $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms']; //To calculate total rooms
-    }
-
-    if (!empty($inputs['floor_size'])) {
-        $conditions[] = "floor_size >= " . $inputs['floor_size'];
-    }
-
-    if (!empty($inputs['min_price'])) {
-        $conditions[] = "price >= " . $inputs['min_price'];
-    }
-
-    if (!empty($inputs['max_price'])) {
-        $conditions[] = "price <= " . $inputs['max_price'];
-    }
-
-    if (!empty($inputs['rating'])) {
-        $conditions[] = "sustainability_rating >= " . $inputs['rating'];
-    }
-
-    if (!empty($inputs['type'])) {
-        $conditions[] = "listing_type = '". $inputs['type'] . "'";
-    }
-
-	//Forms Where Clauses
-    if (!empty($conditions)) {
-        return "WHERE " . implode(" AND ", $conditions);
-    } else {
-        return "";
-    }
-}
-
-//Retrieve search inputs
-$searchInputs = array(
-    'title' => isset($_POST['title']) ? '%' . $_POST['title'] . '%' : null,
-    'state' => isset($_POST['state']) ? $_POST['state'] : null,
-    'property_type' => isset($_POST['property_type']) ? $_POST['property_type'] : null,
-    'rooms' => isset($_POST['rooms']) ? intval($_POST['rooms']) : null,
-    'floor_size' => isset($_POST['square_feet']) ? intval($_POST['square_feet']) : null,
-    'min_price' => isset($_POST['min_price']) ? floatval($_POST['min_price']) : null,
-    'max_price' => isset($_POST['max_price']) ? floatval($_POST['max_price']) : null,
-    'rating' => isset($_POST['rating']) ? floatval($_POST['rating']) : null,
-    'type' => isset($_GET['type']) ? $_GET['type'] : null
-);
-
-//Pagination variables
-$resultsPerPage = 5;
-$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-$offset = ($page - 1) * $resultsPerPage;
-
-//Build the WHERE clause based on the inputs
-$whereClause = buildWhereClause($searchInputs);
-
-//Construct the SQL query
-$q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC;";
-$result = @mysqli_query($dbc, $q);
-
-//Display the search results
-
-if (mysqli_num_rows($result) >= $resultsPerPage) {
-    $q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC LIMIT $resultsPerPage OFFSET $offset";
-    $result = @mysqli_query($dbc, $q);
-}
-
-if (mysqli_num_rows($result) > 0) {
-
-    $count = 0; // To check whether to show pages or not
-
-    while ($property = mysqli_fetch_assoc($result)) {
-
-        $property_id = $property['property_id'];
-
-        // Check if approved
-        $q = "SELECT * FROM property_approval WHERE property_id = $property_id AND approval_date IS NOT NULL";
-        $r = @mysqli_query($dbc, $q);
-
-        if(mysqli_num_rows($r) > 0){
-            echo "<h2>" . $property['address'] . "</h2>";
-            echo "<p>State: " . $property['state'] . "</p>";
-            echo "<p>Type: " . $property['property_type'] . "</p>";
-            echo "<p>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</p>";
-            echo "<p>Floor Size: " . $property['floor_size'] . " sq. ft.</p>";
-            echo "<p>Price: $" . $property['price'] . "</p>";
-
-            $build_rate = $property['building_rating'];
-            $renew_rate = $property['renewable_rating'];
-            $energy_rate = $property['energy_rating'];
-            $water_rate = $property['water_rating'];
-            $total_rate = ($build_rate + $renew_rate + $energy_rate + $water_rate) / 4; // Average rating
-            echo "<p>Rating: " . $total_rate . "</p>";
-            
-
-            $q = "SELECT * FROM property_image WHERE property_id = $property_id LIMIT 1;";
-            $r = @mysqli_query($dbc, $q);
-
-            if ($r){
-                while ($image = mysqli_fetch_assoc($r)){
-                    echo '<img style="width:300px;height:300px;object-fit: cover;" src="'. $image["img_dir"] . '">';
+                //Forms Where Clauses
+                if (!empty($conditions)) {
+                    return "WHERE " . implode(" AND ", $conditions);
+                } else {
+                    return "";
                 }
             }
 
-            echo '<br><a href="show_property.php?id=' . $property_id. '">Learn More</a>';
-            echo "<hr>";
-            $count ++;
-        }
-    }
+            //Retrieve search inputs
+            $searchInputs = array(
+                'title' => isset($_POST['title']) ? '%' . $_POST['title'] . '%' : null,
+                'state' => isset($_POST['state']) ? $_POST['state'] : null,
+                'property_type' => isset($_POST['property_type']) ? $_POST['property_type'] : null,
+                'rooms' => isset($_POST['rooms']) ? intval($_POST['rooms']) : null,
+                'floor_size' => isset($_POST['square_feet']) ? intval($_POST['square_feet']) : null,
+                'min_price' => isset($_POST['min_price']) ? floatval($_POST['min_price']) : null,
+                'max_price' => isset($_POST['max_price']) ? floatval($_POST['max_price']) : null,
+                'rating' => isset($_POST['rating']) ? floatval($_POST['rating']) : null,
+                'type' => isset($_GET['type']) ? $_GET['type'] : null
+            );
 
-    if ($count > $resultsPerPage){
-        // Add pagination links
-        $q = "SELECT COUNT(*) AS total FROM property $whereClause";
-        $result = @mysqli_query($dbc, $q);
-        $row = mysqli_fetch_assoc($result);
-        $totalPages = ceil($row['total'] / $resultsPerPage);
+            //Pagination variables
+            $resultsPerPage = 5;
+            $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+            $offset = ($page - 1) * $resultsPerPage;
 
-        echo "<div class='pagination'>";
-        for ($i = 1; $i <= $totalPages; $i++) {
-            echo "<a href='?page=$i&type=" . $searchInputs['type'] . "'>$i</a>";
-        }
-        echo "</div>";
-    }
-    
-} else {
-    echo "No properties found matching the criteria.";
-}
+            //Build the WHERE clause based on the inputs
+            $whereClause = buildWhereClause($searchInputs);
 
-?>
-<!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
-<footer>
+            //Construct the SQL query
+            $q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC;";
+            $result = @mysqli_query($dbc, $q);
+
+            //Display the search results
+
+            if (mysqli_num_rows($result) >= $resultsPerPage) {
+                $q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC LIMIT $resultsPerPage OFFSET $offset";
+                $result = @mysqli_query($dbc, $q);
+            }
+
+            if (mysqli_num_rows($result) > 0) {
+
+                $count = 0; // To check whether to show pages or not
+
+                while ($property = mysqli_fetch_assoc($result)) {
+
+                    $property_id = $property['property_id'];
+
+                    // Check if approved
+                    $q = "SELECT * FROM property_approval WHERE property_id = $property_id AND approval_date IS NOT NULL";
+                    $r = @mysqli_query($dbc, $q);
+
+                    if(mysqli_num_rows($r) > 0){
+
+                        echo "<div class='propertyresult'>";
+                        $q = "SELECT * FROM property_image WHERE property_id = $property_id LIMIT 1;";
+                        $r = @mysqli_query($dbc, $q);
+                        if ($r){
+                            while ($image = mysqli_fetch_assoc($r)){
+                                echo '<img style="width:380px;height:220px;object-fit: cover;" src="'. $image["img_dir"] . '">';
+                            }
+                        }
+
+                        echo "<div class='propertyresultdetail'>";
+                        echo "<div class='propertytitle'>" . $property['address'] . "</div>";
+                        echo "<div class='pdetailsecbox'>";
+                        echo "<div class='pdetailsec'>";
+                        echo "<div class='propertydetail'>State: " . $property['state'] . "</div>";
+                        echo "<div class='propertydetail'>Type: " . $property['property_type'] . "</div>";
+                        echo "<div class='propertydetail'>Rooms: " . $property['no_of_bedrooms'] + $property['no_of_bathrooms'] . "</div>";
+                        echo "</div>";
+                        echo "<div class='pdetailsec'>";
+                        echo "<div class='propertydetail'>Floor Size: " . $property['floor_size'] . " sq. ft.</div>";
+                        echo "<div class='propertydetail'>Price: $" . $property['price'] . "</div>";
+                        $build_rate = $property['building_rating'];
+                        $renew_rate = $property['renewable_rating'];
+                        $energy_rate = $property['energy_rating'];
+                        $water_rate = $property['water_rating'];
+                        $total_rate = ($build_rate + $renew_rate + $energy_rate + $water_rate) / 4; // Average rating
+                        echo "<div class='propertydetail'>Rating: " . $total_rate . "</div>";
+                        echo "</div>";
+                        echo "</div>";
+
+                        echo '<br><a class="learnmorebutton" href="show_property.php?id=' . $property_id. '">Learn More</a>';
+
+                        echo "</div>";
+                        echo "</div>";
+
+                        $count ++;
+
+                    }
+                }
+
+                if ($count > $resultsPerPage){
+                    // Add pagination links
+                    $q = "SELECT COUNT(*) AS total FROM property $whereClause";
+                    $result = @mysqli_query($dbc, $q);
+                    $row = mysqli_fetch_assoc($result);
+                    $totalPages = ceil($row['total'] / $resultsPerPage);
+
+                    echo "<div class='pagination'>";
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        echo "<a href='?page=$i&type=" . $searchInputs['type'] . "'>$i</a>";
+                    }
+                    echo "</div>";
+                }
+                
+            } else {
+                echo "No properties found matching the criteria.";
+            }
+
+            ?>
+        </div>
+
+        <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
+        <footer>
             <div class="footer">
                 <div class="row">
                     <img src="../Images/Logo.svg" style = "min-width: 10%; max-width: 10%; margin-left: auto; margin-right: auto;">
@@ -290,8 +319,7 @@ if (mysqli_num_rows($result) > 0) {
                     </ul>
                 </div>
             </div>
-            
         </footer>
         <!--FOOTER, END OF CODE-->
-</body>
+    </body>
 </html>

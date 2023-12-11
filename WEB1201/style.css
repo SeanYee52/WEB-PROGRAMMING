@@ -812,3 +812,150 @@ footer div.contact{
 .tcspace{
   height: 100px;
 }
+
+/**Search Property Page Content Section**/
+.spbg{
+  background-color: #ffffff;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-right: 60px;
+  padding-left: 60px;
+}
+
+.spsearchbox{
+  margin: 10px;
+}
+
+.spsearchbar1{
+  background-color: #F2F2F2;
+  border-radius: 10px;
+  padding-top: 38px;
+  padding-bottom: 38px;
+  padding-left: 60px;
+  padding-right: auto;
+  box-shadow: 0 0 1px #000000;
+}
+
+.spsb1drop{
+  background-color: #ffffff;
+  width: 16%;
+  height: 40px;
+  border-radius: 10px;
+  font-family: "Roboto";
+  font-size: 16px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: 30px;
+  border-color: transparent;
+  box-shadow: 0 0 2px #000000;
+}
+
+.spsb1textbox{
+  background-color: #ffffff;
+  width: 60%;
+  height: 40px;
+  border-radius: 10px;
+  font-family: "Roboto";
+  font-size: 16px;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: 30px;
+  border-color: transparent;
+  box-shadow: 0 0 2px #000000;
+}
+
+.spsubmitbutton{
+  background-color: #33363F;
+  color: #ffffff;
+  width: 12%;
+  height: 40px;
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-size: 16px;
+}
+
+.spsearchbar2{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.spsb2optiontitle{
+  font-family: "Roboto";
+  font-size: 16px;
+}
+
+.spsb2optiontitlespace {
+  height: 6px;
+}
+
+.spsb2optionbox{
+  background-color: #ffffff;
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  font-family: "Roboto";
+  font-size: 16px;
+  border-color: transparent;
+  box-shadow: 0 0 2px #000000;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.spsb2optionspace{
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+/**Search Property Page Content Section (Result)**/
+.spresultsec{
+  padding-left: 80px;
+  padding-right: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.propertyresult{
+  box-shadow: 0 0 1px #000000;
+  margin-bottom: 50px;
+  display: flex;
+}
+
+.propertyresultdetail{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.propertytitle{
+  font-family: "Roboto";
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.propertydetail{
+  font-family: "Roboto";
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.pdetailsecbox{
+  display: flex;
+  padding-top: 12px;
+  padding-bottom: 2px;
+}
+
+.pdetailsec{
+  width: 220px;
+}
+
+.learnmorebutton{
+  background-color: #33363F;
+  color: #ffffff;
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-size: 16px;
+  padding: 14px;
+}
