@@ -1,6 +1,6 @@
 <html lang = "en">
     <head>
-        <title>Template</title>
+        <title>Property Details Page</title>
         <meta charset = "utf-8">
         <link rel = "stylesheet" type = "text/css" href = "style.css">
         <style>
@@ -275,7 +275,6 @@
                 font-weight:bolder;
                 color: #799ecf;
             }
-
         </style>
     </head>
 
@@ -324,7 +323,8 @@
             </nav>
         </header>
         <!--HEADER, END OF CODE-->
-        
+
+        <!--Property Details Page Content Section-->
         <div class="images">
             <?php
                 // Images
@@ -375,11 +375,11 @@
                         for($i = 0; $i < 5; $i++){
                             // Prints Green Star
                             if(round($total_rate) > $i){
-                                echo '<img class="star-image" src="star.png" alt="G">';
+                                echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar1.svg" width="30" height="30" alt="G">';
                             }
                             // Pringts Grey Star
                             else{
-                                echo '<img class="star-image" src="star.png" alt="B">';
+                                echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                             }   
                         }
                         echo "<span>Sustainability: $total_rate</span>"
@@ -404,19 +404,19 @@
             </div>
             <div class="bottom">
                 <div class="column">
-                    <img src="image1.jpg" alt="Image 1">
+                    <div><img src="../Images/EcoEstateImages/pdlogo1.svg" width="30" height="30" alt="Image 1"></div>
                     <p><?php echo $bedrooms; ?></p>
                 </div>
                 <div class="column">
-                    <img src="image2.jpg" alt="Image 2">
+                    <div><img src="../Images/EcoEstateImages/pdlogo2.svg" width="30" height="30" alt="Image 2"></div>
                     <p><?php echo $bathrooms; ?></p>
                 </div>
                 <div class="column">
-                    <img src="image3.jpg" alt="Image 3">
+                    <div><img src="../Images/EcoEstateImages/pdlogo3.svg" width="30" height="30" alt="Image 3"></div>
                     <p><?php echo $carparks; ?></p>
                 </div>
                 <div class="column">
-                    <img src="image4.jpg" alt="Image 4">
+                    <div><img src="../Images/EcoEstateImages/pdlogo4.svg" width="30" height="30" alt="Image 4"></div>
                     <p><?php
                         if ($furnished == 'yes'){
                             echo 'Furnished';
@@ -427,23 +427,23 @@
                     ?></p>
                 </div>
                 <div class="column">
-                    <img src="image5.jpg" alt="Image 5">
+                    <div><img src="../Images/EcoEstateImages/pdlogo5.svg" width="30" height="30" alt="Image 5"></div>
                     <p><?php echo $construction_date;?></p>
                 </div>
                 <div class="column">
-                    <img src="image6.jpg" alt="Image 6">
+                    <div><img src="../Images/EcoEstateImages/pdlogo6.svg" width="30" height="30" alt="Image 6"></div>
                     <p><?php echo $floor_size;?></p>
                 </div>
                 <div class="column">
-                    <img src="image7.jpg" alt="Image 7">
+                    <div><img src="../Images/EcoEstateImages/pdlogo7.svg" width="30" height="30" alt="Image 7"></div>
                     <p>RM<?php echo $price;?></p>
                 </div>
                 <div class="column">
-                    <img src="image8.jpg" alt="Image 8">
+                    <div><img src="../Images/EcoEstateImages/pdlogo8.svg" width="30" height="30" alt="Image 8"></div>
                     <p><?php echo $property_type;?></p>
                 </div>
                 <div class="column">
-                    <img src="image9.jpg" alt="Image 9">
+                    <div><img src="../Images/EcoEstateImages/pdlogo9.svg" width="30" height="30" alt="Image 9"></div>
                     <p>For <?php echo $listing_type;?></p>
                 </div>
             </div>
@@ -494,11 +494,11 @@
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
                                     if(round($build_rate) > $i){
-                                        echo '<img class="star-image" src="star.png" alt="G">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar1.svg" width="30" height="30" alt="G">';
                                     }
                                     // Pringts Grey Star
                                     else{
-                                        echo '<img class="star-image" src="star.png" alt="B">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
                                 echo '<span id="popup-click" onclick="openPopupFormBuild()" >' . $build_rate . ' | ' .generateSustainabilityTier($build_rate) . '</span>';
@@ -509,11 +509,11 @@
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
                                     if(round($renew_rate) > $i){
-                                        echo '<img class="star-image" src="star.png" alt="G">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar1.svg" width="30" height="30" alt="G">';
                                     }
                                     // Pringts Grey Star
                                     else{
-                                        echo '<img class="star-image" src="star.png" alt="B">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
                                 echo '<span id="popup-click" onclick="openPopupFormRenew()">' .$renew_rate . ' | '  .generateSustainabilityTier($renew_rate) . '</span>';
@@ -524,11 +524,11 @@
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
                                     if(round($energy_rate) > $i){
-                                        echo '<img class="star-image" src="star.png" alt="G">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar1.svg" width="30" height="30" alt="G">';
                                     }
                                     // Pringts Grey Star
                                     else{
-                                        echo '<img class="star-image" src="star.png" alt="B">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
                                 echo '<span id="popup-click" onclick="openPopupFormEnergy()">'. $energy_rate . ' | ' .generateSustainabilityTier($energy_rate) . '</span>';
@@ -539,11 +539,11 @@
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
                                     if(round($water_rate) > $i){
-                                        echo '<img class="star-image" src="star.png" alt="G">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar1.svg" width="30" height="30" alt="G">';
                                     }
                                     // Pringts Grey Star
                                     else{
-                                        echo '<img class="star-image" src="star.png" alt="B">';
+                                        echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
                                 echo '<span id="popup-click" onclick="openPopupFormWater()">'. $water_rate . ' | ' .generateSustainabilityTier($water_rate) . '</span>';
@@ -715,7 +715,6 @@
                     </ul>
                 </div>
             </div>
-            
         </footer>
         <!--FOOTER, END OF CODE-->
 
