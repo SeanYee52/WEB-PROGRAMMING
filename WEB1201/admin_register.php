@@ -6,8 +6,18 @@ include_once ("login_functions.inc.php");
 
 // Check if admin is properly logged in
 session_start();
+
+//Session timeout
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    // last request was more than 30 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
+    redirect_user("home.php?redirect=1&timeout=1");
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
 if (!isset($_SESSION["admin_id"]) || !isset($_SESSION["name"])){
-	redirect_user("login.php");
+	redirect_user("login.php?redirect=1&!login=1");
 }
 
 // Initialising variables

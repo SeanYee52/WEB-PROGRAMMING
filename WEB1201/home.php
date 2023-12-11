@@ -151,6 +151,28 @@
             
         </footer>
         <!--FOOTER, END OF CODE-->
+        
+        <script>
+        <?php
+            if(isset($_GET['redirect'])){
+                if(isset($_GET['timeout'])){
+                    echo 'alert("Session has timeout, please log in again");';
+                }
+                elseif(isset($_GET['logout'])){
+                    echo 'alert("You have successfully logged out");';
+                }
+                elseif(isset($_GET['delete'])){
+                    echo 'alert("You have successfully deleted this account");';
+                }
+                elseif(isset($_GET['!property'])){
+                    echo 'alert("Property does not exist");';
+                }
+                elseif(isset($_GET['delete_property'])){
+                    echo 'alert("Property has been deleted");';
+                }
+            }
+        ?>
+        </script>
 
     </body>
 

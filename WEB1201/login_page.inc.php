@@ -122,6 +122,16 @@
         </footer>
         <!--FOOTER, END OF CODE-->
 
+        <script>
+        <?php
+            if(isset($_GET['redirect'])){
+                if(isset($_GET['!login'])){
+                    echo 'alert("You are not logged in, in order to access that page, please log in");';
+                }
+            }
+        ?>
+        </script>
+
     </body>
 
 </html>

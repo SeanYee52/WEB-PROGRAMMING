@@ -14,9 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] === 'GET'){
         session_start();
         session_unset();
         session_destroy();
-        redirect_user("home.php");
+        redirect_user("home.php?redirect=1&logout=1");
     }
 }
+
+//Session timeout
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    // last request was more than 30 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
+    redirect_user("home.php?redirect=1&timeout=1");
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
 // Check if user is logged in
 // View other account
@@ -29,7 +38,7 @@ elseif (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
 }
 else{
     if(!isset($_SESSION["user_id"]) || !isset($_SESSION["username"])){
-        redirect_user("login.php"); // Redirect to login.php if not logged in
+        redirect_user("login.php?redirect=1&!login=1"); // Redirect to login.php if not logged in
     }
 }
 

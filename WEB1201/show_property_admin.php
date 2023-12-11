@@ -242,6 +242,40 @@
                 color: #799ecf;
             }
 
+            #popup-build, #popup-renew, #popup-energy, #popup-water, #popup-delete {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #ffffff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+
+            #overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+
+            #popup-click{
+                cursor: pointer;
+                font-family: Roboto;
+            }
+
+            #popup-click:hover{
+                cursor: pointer;
+                font-weight:bolder;
+                color: #799ecf;
+            }
+
         </style>
     </head>
 
@@ -432,10 +466,10 @@
                         <hr>
                     </div>
                     <div class="left-column">
-                        <p>Building Materials</p>
-                        <p>Renewable Energy</p>
-                        <p>Energy Efficiency</p>
-                        <p>Water Efficiency</p>
+                        <p id="popup-click" onclick="openPopupFormBuild()">Building Materials</p>
+                        <p id="popup-click" onclick="openPopupFormRenew()">Renewable Energy</p>
+                        <p id="popup-click" onclick="openPopupFormEnergy()">Energy Efficiency</p>
+                        <p id="popup-click" onclick="openPopupFormWater()">Water Efficiency</p>
                     </div>
                     <div class="right-column">
                         <?php
@@ -467,7 +501,7 @@
                                         echo '<img class="star-image" src="star.png" alt="B">';
                                     }   
                                 }
-                                echo "<span>$build_rate | " .generateSustainabilityTier($build_rate) . "</span>";
+                                echo '<span id="popup-click" onclick="openPopupFormBuild()" >' . $build_rate . ' | ' .generateSustainabilityTier($build_rate) . '</span>';
                             ?>
                         </div>
                         <div>
@@ -482,7 +516,7 @@
                                         echo '<img class="star-image" src="star.png" alt="B">';
                                     }   
                                 }
-                                echo "<span>$renew_rate | " .generateSustainabilityTier($renew_rate) . "</span>";
+                                echo '<span id="popup-click" onclick="openPopupFormRenew()">' .$renew_rate . ' | '  .generateSustainabilityTier($renew_rate) . '</span>';
                             ?>
                         </div>
                         <div>
@@ -497,7 +531,7 @@
                                         echo '<img class="star-image" src="star.png" alt="B">';
                                     }   
                                 }
-                                echo "<span>$energy_rate | " .generateSustainabilityTier($energy_rate) . "</span>";
+                                echo '<span id="popup-click" onclick="openPopupFormEnergy()">'. $energy_rate . ' | ' .generateSustainabilityTier($energy_rate) . '</span>';
                             ?>
                         </div>
                         <div>
@@ -512,7 +546,7 @@
                                         echo '<img class="star-image" src="star.png" alt="B">';
                                     }   
                                 }
-                                echo "<span>$water_rate | " .generateSustainabilityTier($water_rate) . "</span>";
+                                echo '<span id="popup-click" onclick="openPopupFormWater()">'. $water_rate . ' | ' .generateSustainabilityTier($water_rate) . '</span>';
                             ?>
                         </div>
                     </div>
@@ -532,7 +566,7 @@
                         ?>
                     </ui>
                 </div>
-                <div class="bottom-right">Bottom Right
+                <div class="bottom-right">
                     <h1>Certificates</h1>
                     <hr>
                     <ul>
@@ -595,7 +629,61 @@
             <button onclick="closePopupForm()">No</button>
         </div>
 
+        <div id="popup-build">
+            <h2>Update Rating</h2>
+                <form action="show_property.php" method="post">
+                    <!-- Your form fields go here -->
+                    <p>Enter a new rating for building materials:</p>
 
+                    <input type="number" id="build" name="build" step="0.1" required>
+                    <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
+
+                    <br><br><button type="submit">Submit</button>
+                </form>
+            <button onclick="closePopupForm()">Close</button>
+        </div>
+
+        <div id="popup-renew">
+            <h2>Update Rating</h2>
+                <form action="show_property.php" method="post">
+                    <!-- Your form fields go here -->
+                    <p>Enter a new rating for renwable energy:</p>
+
+                    <input type="number" id="renew" name="renew" step="0.1" required>
+                    <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
+
+                    <br><br><button type="submit">Submit</button>
+                </form>
+            <button onclick="closePopupForm()">Close</button>
+        </div>
+
+        <div id="popup-energy">
+            <h2>Update Rating</h2>
+                <form action="show_property.php" method="post">
+                    <!-- Your form fields go here -->
+                    <p>Enter a new rating for energy efficiency:</p>
+
+                    <input type="number" id="energy" name="energy" step="0.1" equired>
+                    <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
+
+                    <br><br><button type="submit">Submit</button>
+                </form>
+            <button onclick="closePopupForm()">Close</button>
+        </div>
+
+        <div id="popup-water">
+            <h2>Update Rating</h2>
+                <form action="show_property.php" method="post">
+                    <!-- Your form fields go here -->
+                    <p>Enter a new rating for water efficiency:</p>
+
+                    <input type="number" id="water" name="water" step="0.1" required>
+                    <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
+
+                    <br><br><button type="submit">Submit</button>
+                </form>
+            <button onclick="closePopupForm()">Close</button>
+        </div>
 
         <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
         <footer>
@@ -665,8 +753,32 @@
                 document.getElementById("overlay").style.display = "block";
             }
 
+            function openPopupFormBuild() {
+                document.getElementById("popup-build").style.display = "block";
+                document.getElementById("overlay").style.display = "block";
+            }
+            
+            function openPopupFormRenew() {
+                document.getElementById("popup-renew").style.display = "block";
+                document.getElementById("overlay").style.display = "block";
+            }
+            
+            function openPopupFormEnergy() {
+                document.getElementById("popup-energy").style.display = "block";
+                document.getElementById("overlay").style.display = "block";
+            }
+
+            function openPopupFormWater() {
+                document.getElementById("popup-water").style.display = "block";
+                document.getElementById("overlay").style.display = "block";
+            }
+
             function closePopupForm() {
                 document.getElementById("popup-delete").style.display = "none";
+                document.getElementById("popup-build").style.display = "none";
+                document.getElementById("popup-renew").style.display = "none";
+                document.getElementById("popup-energy").style.display = "none";
+                document.getElementById("popup-water").style.display = "none";
                 document.getElementById("overlay").style.display = "none";
             }
         </script>

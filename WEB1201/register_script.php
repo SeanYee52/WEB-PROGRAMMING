@@ -117,8 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Print a message:
             $_SESSION['user_id'] = $row['user_id'];
 			$_SESSION['username'] = $row['username'];
-			echo '<h1>Thank you!</h1>
-			<p>You are now registered successfully.</p><p><br /></p>';
             sleep(5);
             redirect_user("user_page.php");	
 		

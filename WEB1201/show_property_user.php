@@ -521,7 +521,7 @@
                         ?>
                     </ui>
                 </div>
-                <div class="bottom-right">Bottom Right
+                <div class="bottom-right">
                     <h1>Certificates</h1>
                     <hr>
                     <ul>
@@ -577,17 +577,22 @@
 
         <!-- Popup Edit -->
         <div id="overlay" onclick="closePopupForm()"></div>
+        <?php
+            if($user_id == $_SESSION['user_id']){
+            echo'
+                <div id="popup-delete">
+                    <h2>Delete Property</h2>
+                        <form action="property_delete.php" method="post">
+                            <!-- Your form fields go here -->
+                            <p>Are You Sure You Want To Delete This Property?</p>
 
-        <div id="popup-delete">
-            <h2>Delete Property</h2>
-                <form action="property_delete.php" method="post">
-                    <!-- Your form fields go here -->
-                    <p>Are You Sure You Want To Delete This Property?</p>
-
-                    <br><br><button name="property_id" type="submit" value="<?php echo $property_id;?>">Yes</button>
-                </form>
-            <button onclick="closePopupForm()">No</button>
-        </div>
+                            <br><br><button name="property_id" type="submit" value="<?php echo $property_id;?>">Yes</button>
+                        </form>
+                    <button onclick="closePopupForm()">No</button>
+                </div>
+            ';
+            }
+        ?>
 
         <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
         <footer>

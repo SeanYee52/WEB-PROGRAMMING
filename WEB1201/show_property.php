@@ -12,8 +12,51 @@ session_start();
 if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])){
     $property_id = $_GET['id'];
 }
+elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])){
+    $property_id = $_POST['id'];
+}
 else{
     redirect_user("home.php");
+}
+
+//Session timeout
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    // last request was more than 30 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
+    redirect_user("home.php?redirect=1&timeout=1");
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
+// Admin update rating
+if(isset($_SESSION['admin_id']) && isset($_SESSION['name'])){
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $conditions = array();
+
+        // Checks for input
+        if(isset($_POST['build'])){
+            $conditions[] = "building_rating = " . $_POST['build'];
+        }
+        if(isset($_POST['renew'])){
+            $conditions[] = "renewable_rating = " . $_POST['renew'];
+        }
+        if(isset($_POST['energy'])){
+            $conditions[] = "energy_rating = " . $_POST['energy'];
+        }
+        if(isset($_POST['water'])){
+            $conditions[] = "water_rating = " . $_POST['water'];
+        }
+
+        // Update ratings
+        if (!empty($conditions)) {
+
+            $set_clause = "SET " . implode(", ", $conditions);
+            $q = "UPDATE property $set_clause WHERE property_id = $property_id";
+            $r = @mysqli_query($dbc, $q);
+
+        }
+    }
 }
 
 // Query
@@ -24,7 +67,7 @@ $r = @mysqli_query($dbc, $q);
 // If property does not exist
 if (mysqli_num_rows($r) == 0){
     echo '<script>alert("Property does not exist")</script>';
-    redirect_user("home.php");
+    redirect_user("home.php?redirect=1&!property=1");
 }
 // Assign variables to data from query
 else{
@@ -42,7 +85,7 @@ else{
     $renew_rate = $property['renewable_rating'];
     $energy_rate = $property['energy_rating'];
     $water_rate = $property['water_rating'];
-    $total_rate = ($build_rate + $renew_rate + $energy_rate + $water_rate) / 4; // Average rating
+    $total_rate = round(($build_rate + $renew_rate + $energy_rate + $water_rate) / 4, 1); // Average rating
 
     // Rooms
     $bedrooms = $property['no_of_bedrooms'];
@@ -96,7 +139,7 @@ else{
 if ((!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) && (!isset($_SESSION['admin_id']) || !isset($_SESSION['name']))){
     session_unset();
     session_destroy();
-    redirect_user("login.php");
+    redirect_user("login.php?redirect=1&!login=1");
 }
 elseif (isset($_SESSION['admin_id'])){
     $admin_id = $_SESSION['admin_id'];

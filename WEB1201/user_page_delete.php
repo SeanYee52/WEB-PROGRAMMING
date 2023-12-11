@@ -12,7 +12,7 @@ elseif(isset($_SESSION["admin_id"]) && isset($_SESSION["name"])){
     $user_id = $_POST['user_id'];
 }
 else{
-    redirect_user("login.php"); // Redirect to login.php if not logged in
+    redirect_user("login.php?redirect=1&!login=1"); // Redirect to login.php if not logged in
 }
 
 // Check if user is deleting profile
@@ -30,10 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             session_unset();
             session_destroy();
 
-            echo "Account deleted sucessfully";
             sleep(5);
 
-            redirect_user("home.php");
+            redirect_user("home.php?redirect=1&delete=1");
         }
         else{
             redirect_user("admin_page.php");

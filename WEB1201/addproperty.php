@@ -20,11 +20,20 @@ function redirect_user ($page) {
 
 } // End of redirect_user() function.
 
+//Session timeout
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    // last request was more than 30 minutes ago
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
+    redirect_user("home.php?redirect=1&timeout=1");
+}
+$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+
 if (isset($_SESSION["user_id"])){
     $user_id = $_SESSION["user_id"];
 }
 else{
-    redirect_user("login.php"); //temporary
+    redirect_user("login.php?redirect=1&!login=1");
 }
 
 require ("mysqli_connect.php");

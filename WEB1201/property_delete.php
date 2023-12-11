@@ -8,7 +8,7 @@ include_once("login_functions.inc.php");
 if (((!isset($_SESSION['user_id']) || !isset($_SESSION['username'])) && (!isset($_SESSION['admin_id']) || !isset($_SESSION['name'])))){
     session_unset();
     session_destroy();
-    redirect_user("login.php");
+    redirect_user("login.php?redirect=1&!login=1");
 }
 
 
@@ -27,14 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if($r){
         if(isset($_SESSION['user_id'])){
 
-            echo "Property Deleted Successfully";
+            echo '<script>alert("Property Deleted Successfully")</script>';
             sleep(5);
 
-            redirect_user("home.php");
+            redirect_user("home.php?redirect=1&property_delete=1");
         }
         else{
 
-            echo "Property Deleted Successfully";
+            echo '<script>alert("Property Deleted Successfully")</script>';
             sleep(5);
 
             redirect_user("admin_page.php");

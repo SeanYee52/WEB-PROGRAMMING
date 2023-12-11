@@ -9,7 +9,7 @@ if (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
     $user_id = $_SESSION["user_id"];
 }
 else{
-    redirect_user("login.php"); // Redirect to login.php if not logged in
+    redirect_user("login.php?redirect=1&!login=1"); // Redirect to login.php if not logged in
 }
 
 // Check if user is updating profile
