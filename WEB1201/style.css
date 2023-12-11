@@ -780,3 +780,35 @@ footer div.contact{
 .logospace{
   height: 16px;
 }
+
+/**T&C Page Content Section**/
+.tcbg{
+  background-color: #F1F1F1;
+  height: auto;
+}
+
+.tctitle{
+  font-family: "Roboto";
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  padding-top: 50px;
+  padding-left: 120px;
+}
+
+.tccontentborder{
+  font-family: "Roboto";
+  font-size: 18px;
+  color: #000000;
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 65%;
+  border: 2px solid #000000;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.tcspace{
+  height: 100px;
+}
