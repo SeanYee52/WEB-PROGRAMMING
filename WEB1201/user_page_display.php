@@ -196,10 +196,16 @@
                         while ($property = mysqli_fetch_assoc($result)) {
 
                             echo '<div class="property">';
-                        
+                            
+                            // Images
                             $q = "SELECT * FROM property_image WHERE property_id = " . $property['property_id'] . " LIMIT 1;";
                             $r = @mysqli_query($dbc, $q);
                             $image = mysqli_fetch_assoc($r);
+
+                            // Approval date
+                            $q = "SELECT approval_date FROM property_approval WHERE property_id = " . $property['property_id'] . " && approval_date IS NOT NULL;";
+                            $r = @mysqli_query($dbc, $q);
+                            $approval = mysqli_fetch_assoc($r);
 
                             echo "<img class='property-pic' src='" . $image['img_dir'] . "'>";
                             echo "<h3>" . $property['address'] . ", " . $property['city'] . "</h3>";
@@ -209,7 +215,13 @@
                             echo "<p>" . $property['property_type'] . "</p>";
                             echo "<p>" . $property['floor_size'] . " sq. ft</p>";
                             echo "<p>Upload Date: " . $property['upload_date'] . "</p>";
-                            echo "<p>Approved Date: N/A";
+
+                            if(mysqli_num_rows($r) > 0){
+                                echo "<p>Approved Date: " . $approval['approval_date'] . "</p>";
+                            }
+                            else{
+                                echo "<p>Approved Date: NOT APPROVED</p>";
+                            }
 
                             echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                             echo '</div>';
