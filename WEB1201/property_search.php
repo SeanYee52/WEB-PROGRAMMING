@@ -199,6 +199,9 @@ if (mysqli_num_rows($result) >= $resultsPerPage) {
 }
 
 if (mysqli_num_rows($result) > 0) {
+
+    $count = 0; // To check whether to show pages or not
+
     while ($property = mysqli_fetch_assoc($result)) {
 
         $property_id = $property['property_id'];
@@ -206,7 +209,6 @@ if (mysqli_num_rows($result) > 0) {
         // Check if approved
         $q = "SELECT * FROM property_approval WHERE property_id = $property_id AND approval_date IS NOT NULL";
         $r = @mysqli_query($dbc, $q);
-        $count = 0; // To check whether to show pages or not
 
         if(mysqli_num_rows($r) > 0){
             echo "<h2>" . $property['address'] . "</h2>";
@@ -239,7 +241,7 @@ if (mysqli_num_rows($result) > 0) {
         }
     }
 
-    if ($count > 0){
+    if ($count > $resultsPerPage){
         // Add pagination links
         $q = "SELECT COUNT(*) AS total FROM property $whereClause";
         $result = @mysqli_query($dbc, $q);
@@ -251,9 +253,6 @@ if (mysqli_num_rows($result) > 0) {
             echo "<a href='?page=$i&type=" . $searchInputs['type'] . "'>$i</a>";
         }
         echo "</div>";
-    }
-    else{
-        echo "No properties found matching the criteria.";
     }
     
 } else {

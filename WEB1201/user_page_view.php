@@ -187,6 +187,7 @@
                     $resultsPerPage = 3;
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                     $offset = ($page - 1) * $resultsPerPage;
+                    $pages = false; // Check if results exceeds limit
 
                     //Construct the SQL query
                     $q = "SELECT * FROM property WHERE user_id = $user_id";
@@ -196,6 +197,7 @@
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset ";
                         $result = @mysqli_query($dbc, $q);
+                        $pages = true;
                     }
 
                     if (mysqli_num_rows($result) != 0) {
@@ -259,29 +261,35 @@
                                 echo '</div>';
                             }
                         }
-                    
-                        // Add pagination links
-                        $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                        WHERE property_approval.admin_id IS NULL";
-                        $result = @mysqli_query($dbc, $q);
-                        $row = mysqli_fetch_assoc($result);
-                        $totalPages = ceil($row['total'] / $resultsPerPage);
-                    
-                        echo "<div class='pagination'>";
-                        for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<a href='?page=$i'>$i</a>";
+
+                        if(mysqli_num_rows($result) > $resultsPerPage){
+                            // Add pagination links
+                            $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
+                            WHERE property_approval.admin_id IS NULL";
+                            $result = @mysqli_query($dbc, $q);
+                            $row = mysqli_fetch_assoc($result);
+                            $totalPages = ceil($row['total'] / $resultsPerPage);
+                        
+                            echo "<div class='pagination'>";
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                echo "<a href='?page=$i'>$i</a>";
+                            }
+                            echo "</div>";
                         }
-                        echo "</div>";
                     } else {
-                        echo "<p>No property to approve</p>";
+                        echo "<p>No property to show</p>";
                     }
                 ?>
         </section>
 
-        <section>
-            <h2>Account Settings</h2>
-            <h3 id="popup" onclick="openPopupFormDelete()">Delete Account</h3>
-        </section>
+        <?php
+        if(isset($_SESSION['admin_id']) && isset($_SESSION['name'])){
+            echo '<section>
+                    <h2>Account Settings</h2>
+                    <h3 id="popup" onclick="openPopupFormDelete()">Delete Account</h3>
+                </section>';
+        }
+        ?>
 
         <!-- Popup Edit -->
         <div id="overlay" onclick="closePopupForm()"></div>

@@ -172,12 +172,14 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                     $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
                     WHERE property_approval.admin_id IS NULL ORDER BY property_approval.assessment_date";
                     $result = @mysqli_query($dbc, $q);
+                    $pages = false;
 
                     //Display the search results
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
                         WHERE property_approval.admin_id IS NULL ORDER BY property_approval.assessment_date LIMIT $resultsPerPage OFFSET $offset1 ";
                         $result = @mysqli_query($dbc, $q);
+                        $pages = true;
                     }
 
                     if (mysqli_num_rows($result) != 0) {
@@ -197,19 +199,22 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                             echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                             echo '</section>';
                         }
-                    
-                        // Add pagination links
-                        $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                        WHERE property_approval.admin_id IS NULL";
-                        $result = @mysqli_query($dbc, $q);
-                        $row = mysqli_fetch_assoc($result);
-                        $totalPages = ceil($row['total'] / $resultsPerPage);
-                    
-                        echo "<div class='pagination'>";
-                        for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<a href='?page1=$i&page2=$page2'>$i</a>";
+
+                        
+                        if($pages){
+                            // Add pagination links
+                            $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
+                            WHERE property_approval.admin_id IS NULL";
+                            $result = @mysqli_query($dbc, $q);
+                            $row = mysqli_fetch_assoc($result);
+                            $totalPages = ceil($row['total'] / $resultsPerPage);
+                        
+                            echo "<div class='pagination'>";
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                echo "<a href='?page1=$i&page2=$page2'>$i</a>";
+                            }
+                            echo "</div>";
                         }
-                        echo "</div>";
                     } else {
                         echo "<p>No property to approve</p>";
                     }
@@ -222,15 +227,18 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                     $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
                     WHERE property_approval.admin_id = $admin_id ORDER BY property_approval.approval_date;";
                     $result = @mysqli_query($dbc, $q);
+                    $page = false;
 
                     //Display the search results
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
                         WHERE property_approval.admin_id = $admin_id ORDER BY property_approval.approval_date LIMIT $resultsPerPage OFFSET $offset2;";
                         $result = @mysqli_query($dbc, $q);
+                        $pages = true;
                     }
 
                     if (mysqli_num_rows($result) != 0) {
+
                         while ($property = mysqli_fetch_assoc($result)) {
                             $q = "SELECT * FROM user WHERE user_id IN (SELECT user_id FROM property WHERE property_id = " . $property['property_id'] . ");";
                             $r = @mysqli_query($dbc, $q);
@@ -251,19 +259,21 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                             echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                             echo '</section>';
                         }
-                    
-                        // Add pagination links
-                        $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                        WHERE property_approval.admin_id = $admin_id";
-                        $result = @mysqli_query($dbc, $q);
-                        $row = mysqli_fetch_assoc($result);
-                        $totalPages = ceil($row['total'] / $resultsPerPage);
-                    
-                        echo "<div class='pagination'>";
-                        for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<a href='?page1=$page1&page2=$i'>$i</a>";
+                        
+                        if($pages){
+                            // Add pagination links
+                            $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
+                            WHERE property_approval.admin_id = $admin_id";
+                            $result = @mysqli_query($dbc, $q);
+                            $row = mysqli_fetch_assoc($result);
+                            $totalPages = ceil($row['total'] / $resultsPerPage);
+                        
+                            echo "<div class='pagination'>";
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                echo "<a href='?page1=$page1&page2=$i'>$i</a>";
+                            }
+                            echo "</div>";
                         }
-                        echo "</div>";
                     } else {
                         echo "<p>No property has been approved</p>";
                     }

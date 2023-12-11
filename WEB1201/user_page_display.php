@@ -193,6 +193,7 @@
                     $resultsPerPage = 3;
                     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
                     $offset = ($page - 1) * $resultsPerPage;
+                    $pages = false;
 
                     //Construct the SQL query
                     $q = "SELECT * FROM property WHERE user_id = $user_id";
@@ -202,9 +203,11 @@
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset ";
                         $result = @mysqli_query($dbc, $q);
+                        $pages = false;
                     }
 
-                    if (mysqli_num_rows($result) != 0) {
+                    if (mysqli_num_rows($result) > 0) {
+
                         while ($property = mysqli_fetch_assoc($result)) {
 
                             echo '<div class="property">';
@@ -264,20 +267,21 @@
                             echo '</div>';
                         }
                     
-                        // Add pagination links
-                        $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                        WHERE property_approval.admin_id IS NULL";
-                        $result = @mysqli_query($dbc, $q);
-                        $row = mysqli_fetch_assoc($result);
-                        $totalPages = ceil($row['total'] / $resultsPerPage);
-                    
-                        echo "<div class='pagination'>";
-                        for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<a href='?page=$i'>$i</a>";
+                        if($pages){
+                            // Add pagination links
+                            $q = "SELECT COUNT(*) FROM property WHERE user_id = $user_id";
+                            $result = @mysqli_query($dbc, $q);
+                            $row = mysqli_fetch_assoc($result);
+                            $totalPages = ceil($row['total'] / $resultsPerPage);
+                        
+                            echo "<div class='pagination'>";
+                            for ($i = 1; $i <= $totalPages; $i++) {
+                                echo "<a href='?page=$i'>$i</a>";
+                            }
+                            echo "</div>";
                         }
-                        echo "</div>";
                     } else {
-                        echo "<p>No property to approve</p>";
+                        echo "<p>No property to show</p>";
                     }
                 ?>
         </section>
