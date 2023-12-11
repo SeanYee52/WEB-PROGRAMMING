@@ -167,7 +167,7 @@
                 elseif(isset($_GET['!property'])){
                     echo 'alert("Property does not exist");';
                 }
-                elseif(isset($_GET['delete_property'])){
+                elseif(isset($_GET['property_delete'])){
                     echo 'alert("Property has been deleted");';
                 }
             }

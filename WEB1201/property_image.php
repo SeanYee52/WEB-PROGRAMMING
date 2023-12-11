@@ -3,11 +3,21 @@
 function add_img ($dbc, $property_id, $photos){
 
     if (is_array($photos) && count($photos) > 0) {
-        foreach ($photos as $photo) {
-            $q = "INSERT INTO property_image (property_id, img_dir) VALUES ($property_id, '$photo')";
-            $r = mysqli_query($dbc, $q);
+
+        if (count($photos) > 4){
+            for($i = 0; $i < 4; $i++){
+                $q = "INSERT INTO property_image (property_id, img_dir) VALUES ($property_id, '" . $photos[$i] . "')";
+                $r = mysqli_query($dbc, $q);
+            }
+            return 1;
         }
-        return 1;
+        else{
+            foreach ($photos as $photo) {
+                $q = "INSERT INTO property_image (property_id, img_dir) VALUES ($property_id, '$photo')";
+                $r = mysqli_query($dbc, $q);
+            }
+            return 2;
+        }
     }else{
         return 0;
     }

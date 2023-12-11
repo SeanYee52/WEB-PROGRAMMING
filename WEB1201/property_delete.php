@@ -28,14 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_SESSION['user_id'])){
 
             echo '<script>alert("Property Deleted Successfully")</script>';
-            sleep(5);
 
             redirect_user("home.php?redirect=1&property_delete=1");
         }
         else{
 
             echo '<script>alert("Property Deleted Successfully")</script>';
-            sleep(5);
 
             redirect_user("admin_page.php");
         }

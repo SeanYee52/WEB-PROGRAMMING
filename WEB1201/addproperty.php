@@ -115,7 +115,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $check2 = send_approval($dbc, $property_id, $assessment_date);
         $check3 = add_img($dbc, $property_id, $uploadedPhotos);
         
-        redirect_user("show_property.php?id=$property_id");
+        if($check3 == 1){
+            redirect_user("show_property.php?id=$property_id&img>=1");
+        }
+        elseif($check3 == 2){
+            redirect_user("show_property.php?id=$property_id");
+        }
 		
 	} else { // If it did not run OK.
 			
@@ -230,16 +235,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </select>
 
                         <br><div class="quecolrow"><label for="city" class="quetitle">Suburb / City / Town:</label></div>
-                        <input type="text" id="city" name="city" class="queansbox" required>
+                        <input type="text" id="city" name="city" class="queansbox" required maxlength="50">
 
                         <br><div class="quecolrow"><label for="address" class="quetitle">Address:</label></div>
-                        <input type="text" id="address" name="address" class="queansbox" required>
+                        <input type="text" id="address" name="address" class="queansbox" required maxlength="100">
 
                         <br><div class="quecolrow"><label for="asking_price" class="quetitle">Asking Price:</label></div>
-                        <input type="number" id="asking_price" name="asking_price" class="queansbox" required>
+                        <input type="number" id="asking_price" name="asking_price" class="queansbox" required max="1000000000">
 
                         <br><div class="quecolrow"><label for="floor_size" class="quetitle">Floor Size (sq. ft.):</label></div>
-                        <input type="number" id="floor_size" name="floor_size" class="queansbox" required>
+                        <input type="number" id="floor_size" name="floor_size" class="queansbox" required max="1000000">
                     </div>
 
                     <!-- Additional Information -->
@@ -255,13 +260,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </select>
 
                         <br><div class="quecolrow"><label for="bedrooms" class="quetitle">No. of Bedrooms:</label></div>
-                        <input type="number" id="bedrooms" name="bedrooms" class="queansbox" required>
+                        <input type="number" id="bedrooms" name="bedrooms" class="queansbox" required max="127">
 
                         <br><div class="quecolrow"><label for="bathrooms" class="quetitle">No. of Bathrooms:</label></div>
-                        <input type="number" id="bathrooms" name="bathrooms" class="queansbox" required>
+                        <input type="number" id="bathrooms" name="bathrooms" class="queansbox" required max="127">
 
                         <br><div class="quecolrow"><label for="car_parks" class="quetitle">No. of Car Parks:</label></div>
-                        <input type="number" id="car_parks" name="car_parks" class="queansbox" required>
+                        <input type="number" id="car_parks" name="car_parks" class="queansbox" required max="127">
 
                         <br><div class="quecolrowrb"><label for="facilities" class="quetitle">Facilities:</label></div>
                         <div class="queradioans">
@@ -272,13 +277,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <br><div class="quecolrowtb1"><label for="description" class="quetitle">Description:</label></div>
-                        <textarea id="description" name="description" rows="1" class="queanstextbox" required></textarea>
+                        <textarea id="description" name="description" rows="1" class="queanstextbox" required maxlength="7500"></textarea>
 
                         <br><div class="quecolrowtb2"><label for="green_building_certification" class="quetitle">Green Building Certification:</label></div>
-                        <textarea id="green_building_certification" name="green_building_certification" rows="1" class="queanstextbox"></textarea>
+                        <textarea id="green_building_certification" name="green_building_certification" rows="1" class="queanstextbox" maxlength="7500"></textarea>
 
                         <br><div class="quecolrow"><label for="photos" class="quetitle">Photos (Upload File):</label></div>
-                        <input type="file" id="photos" name="photos[]" accept="image/*" class="queuploadtext" multiple>
+                        <input type="file" id="photos" name="photos[]" accept="image/*" class="queuploadtext" multiple required>
 
                         <br><div class="quecolrowdb"><label for="assessment_date" class="quetitle">Preferred Date for Sustainability Assessment:</label></div>
                         <input class ="quedatebox" type="date" name="assessment_date" id="assessment_date" min="<?php $current_date = getdate(time() + 604800); echo "$current_date[year]-$current_date[mon]-$current_date[mday]" ?>">

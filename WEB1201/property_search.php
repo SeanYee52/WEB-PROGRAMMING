@@ -109,8 +109,6 @@
 <?php
 include ("mysqli_connect.php");
 
-session_start();
-
 //Session timeout
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
     // last request was more than 30 minutes ago
@@ -190,13 +188,13 @@ $offset = ($page - 1) * $resultsPerPage;
 $whereClause = buildWhereClause($searchInputs);
 
 //Construct the SQL query
-$q = "SELECT * FROM property $whereClause";
+$q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC;";
 $result = @mysqli_query($dbc, $q);
 
 //Display the search results
 
 if (mysqli_num_rows($result) >= $resultsPerPage) {
-    $q = "SELECT * FROM property $whereClause ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset";
+    $q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC LIMIT $resultsPerPage OFFSET $offset";
     $result = @mysqli_query($dbc, $q);
 }
 

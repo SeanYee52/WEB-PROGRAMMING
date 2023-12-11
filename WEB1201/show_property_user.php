@@ -571,7 +571,6 @@
             echo'<section>
                     <h3 id="popup-click" onclick="openPopupFormDelete()">Delete Property</h3>
                 </section>';
-            echo $user_id;
             }
         ?>
 
@@ -586,7 +585,7 @@
                             <!-- Your form fields go here -->
                             <p>Are You Sure You Want To Delete This Property?</p>
 
-                            <br><br><button name="property_id" type="submit" value="<?php echo $property_id;?>">Yes</button>
+                            <br><br><button name="property_id" type="submit" value="' . $property_id . '">Yes</button>
                         </form>
                     <button onclick="closePopupForm()">No</button>
                 </div>
@@ -654,7 +653,6 @@
                     dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
                 }
                 x[slideIndex-1].style.display = "block";
-                dots[slideIndex-1].className += " w3-opacity-off";
             }
 
             function openPopupFormDelete() {
@@ -666,6 +664,12 @@
                 document.getElementById("popup-delete").style.display = "none";
                 document.getElementById("overlay").style.display = "none";
             }
+
+            <?php
+                if(isset($_GET['img>'])){
+                    echo 'alert("You have selected more than 4 image, only 4 images will be uploaded");';
+                }
+            ?>
         </script>
 
     </body>
