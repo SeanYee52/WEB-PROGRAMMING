@@ -371,6 +371,7 @@
                                 echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                             }   
                         }
+                        echo "<div class='starpointalignspace'></div>";
                         echo "<span>Sustainability: $total_rate</span>"
                         ?>
                     </div>
