@@ -108,7 +108,7 @@
 
     </style>
 </head>
-<body>
+<body class="pagewidth">
     <!--HEADER, BEGINNING OF CODE (DO NOT EDIT)-->
     <header>
             <a href="home.php"><img  class="logo" src="../Images/Logo.svg"></a>
