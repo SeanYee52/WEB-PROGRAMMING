@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         session_destroy();
 
         echo '<script>alert("Account deleted sucessfully")</script>';
-        sleep(5);
 
         redirect_user("home.php?redirect=1&delete=1");
     }

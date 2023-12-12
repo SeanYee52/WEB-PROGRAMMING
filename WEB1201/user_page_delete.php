@@ -30,8 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             session_unset();
             session_destroy();
 
-            sleep(5);
-
             redirect_user("home.php?redirect=1&delete=1");
         }
         else{

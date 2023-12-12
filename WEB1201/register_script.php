@@ -117,7 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Print a message:
             $_SESSION['user_id'] = $row['user_id'];
 			$_SESSION['username'] = $row['username'];
-            sleep(5);
             redirect_user("user_page.php");	
 		
 		} else { // If it did not run OK.
