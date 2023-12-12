@@ -66,24 +66,24 @@
                     <li>Collect or store other users&apos; data without their consent.</li>
                 </ul>
                 <strong>Property Listings</strong><br>
-                All property listings on the EcoScore website are subject to the following terms and conditions:
+                All property listings on the EcoEstate website are subject to the following terms and conditions:
                 <ul>
                     <li>All properties listed must be sustainable and environmentally friendly properties.</li>
                     <li>All property listings must be accurate and up to date.</li>
                     <li>All property listings must comply with all applicable laws and regulations.</li>
-                    <li>EcoScore reserves the right to remove any property listing that does not comply with these terms and conditions.</li>
+                    <li>EcoEstate reserves the right to remove any property listing that does not comply with these terms and conditions.</li>
                 </ul>
                 <strong>Disclaimer</strong><br>
-                EcoScore does not guarantee the accuracy or completeness of any information on the website. EcoScore accepts no 
+                EcoEstate does not guarantee the accuracy or completeness of any information on the website. EcoEstate accepts no 
                 liability for any loss or damage arising from reliance on any information on this website.<br>
                 <br>
                 <strong>Limitation of Liability</strong><br>
-                To the maximum extent permitted by law, EcoScore excludes all liability for any loss or damage arising from your 
+                To the maximum extent permitted by law, EcoEstate excludes all liability for any loss or damage arising from your 
                 use of this website, including without limitation direct, indirect, special, consequential, or incidental loss 
                 or damage.<br>
                 <br>
                 <strong>Changes to Terms and Conditions</strong><br>
-                EcoScore reserves the right to change these Terms and Conditions at any time. Any changes to these Terms and 
+                EcoEstate reserves the right to change these Terms and Conditions at any time. Any changes to these Terms and 
                 Conditions will be posted on the website and will be effective immediately upon posting.
             </div>
             <div class="tcspace"></div>
