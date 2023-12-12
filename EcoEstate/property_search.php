@@ -297,7 +297,7 @@
 
                     echo "<div class='pagination'>";
                     for ($i = 1; $i <= $totalPages; $i++) {
-                        echo "<a href='?page=$i&type=" . $searchInputs['type'] . "'>$i</a>";
+                        echo "<a class='sppagenumber' href='?page=$i&type=" . $searchInputs['type'] . "'>$i</a>";
                     }
                     echo "</div>";
                 }
