@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <html lang = "en">
     <head>
-        <title>Template</title>
+        <title>Add Property Page</title>
         <meta charset = "utf-8">
         <link rel = "stylesheet" type = "text/css" href = "style.css">
     </head>
@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a href="property_search.php?type=rent">RENT</a>
                     </div>
                     <div>
-                        <a href="addproperty.php">ADVERTISE</a>
+                        <a class="titlebolder" href="addproperty.php">ADVERTISE</a>
                     </div>
                 </div>
                 <div class="buttons">
@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <option value="Kelantan">Kelantan</option>
                             <option value="Melaka">Melaka</option>
                             <option value="Negeri Sembilan">Negeri Sembilan</option>
-                            <option value="Pahang">Pahan</option>
+                            <option value="Pahang">Pahang</option>
                             <option value="Penang">Penang</option>
                             <option value="Perak">Perak</option>
                             <option value="Perlis">Perlis</option>

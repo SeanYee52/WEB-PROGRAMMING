@@ -1,7 +1,7 @@
 
 <html lang = "en">
     <head>
-        <title>Template</title>
+        <title>About Us Page</title>
         <meta charset = "utf-8">
         <link rel = "stylesheet" type = "text/css" href = "style.css">
     </head>
@@ -13,7 +13,7 @@
             <nav>
                 <div class="right">
                     <div>
-                        <a href="about_us.php">ABOUT US</a>
+                        <a class="titlebolder" href="about_us.php">ABOUT US</a>
                     </div>
                     <div>
                         <a href="property_search.php?type=sale">BUY</a>
