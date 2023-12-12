@@ -387,16 +387,6 @@ footer div.contact{
 }
 }
 
-/**EDIT FROM THIS LINE ONWARDS**/
-
-
-
-
-
-
-
-
-
 /**Login Page Content Section**/
 .formbg{
   display: flex;
@@ -989,4 +979,9 @@ footer div.contact{
 
 .regformborderdescspace{
   height: 30px;
+}
+
+/**Page Width**/
+.pagewidth{
+  min-width: 1200px;
 }
