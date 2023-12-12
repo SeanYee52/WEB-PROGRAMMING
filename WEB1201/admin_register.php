@@ -111,17 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		mysqli_close($dbc); // Close the database connection.
 
 		exit();
-		
-	} else { // Report the errors.
-	
-		echo '<h1>Error!</h1>
-		<p class="error">The following error(s) occurred:<br />';
-		foreach ($errors as $msg) { // Print each error.
-			echo " - $msg<br />\n";
-		}
-		echo '</p><p>Please try again.</p><p><br /></p>';
-		
-	} // End of if (empty($errors)) IF.
+	} 
 	
 	mysqli_close($dbc); // Close the database connection.
 
@@ -181,26 +171,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </header>
         <!--HEADER, END OF CODE-->
 
-		<div >
-			<?php
-			if (!empty($errors)) {
-				echo '<h1>Error!</h1>
-				<p class="error">The following error(s) occurred:<br />';
-				foreach ($errors as $msg) { // Print each error.
-					echo " - $msg<br />\n";
-				}
-				echo '</p><p>Please try again.</p><p><br /></p>';
-			}
-			?>
-			<form action="admin_register.php" method="post">
-				<p>Username: <input type="text" id="username" name="username" required value="<?php echo $username;?>"></p>
-				
-				<p>Password: <input type="password" id="password" name="pass1" required></p>
+		<div class="adregformbg">
+            <div class="adregformborder">
+                <div>
+                    <div class="formborderdesc">Admin Registration</div>
+                    <div class="regformborderdescspace"></div>
+                </div>
+                <div>
+                    <form action="admin_register.php" method="post">
+                        <div class="formques">Username</div>
+                        <div><input class="formquesbox" type="text" id="username" name="username" required value="<?php echo $username;?>"></div>
+                        
+                        <div class="formques">Password</div>
+                        <div><input class="formquesbox" type="password" id="password" name="pass1" required></div>
 
-				<p>Confirm Password: <input type="password" id="confirm_password" name="pass2" required></p>
+                        <div class="formques">Confirm Password</div>
+                        <div><input class="formquesbox" type="password" id="confirm_password" name="pass2" required></div>
 
-				<br><button type="submit">Register</button>
-			</form>
+                        <div><button type="submit" class="formsubmitbutton">Register</button></div>
+                    </form>
+                </div>
+                <?php
+                if (!empty($errors)) {
+                    echo '<p class="errorclass">The following error(s) occurred:<br />';
+                    foreach ($errors as $msg) { // Print each error.
+                        echo " - $msg<br />\n";
+                    }
+                    echo '</p><p class="errorclass">Please try again.</p><p><br /></p>';
+                }
+                ?>
+            </div>
 		</div>
 
         <!--FOOTER, BEGINNING OF CODE (DO NOT EDIT)-->
