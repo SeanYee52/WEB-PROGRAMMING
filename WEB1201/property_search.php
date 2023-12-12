@@ -225,7 +225,8 @@
             $whereClause = buildWhereClause($searchInputs);
 
             //Construct the SQL query
-            $q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC;";
+            $q = "SELECT * FROM property $whereClause AND property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL and approval_date IS NOT NULL)
+             ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC;";
             $result = @mysqli_query($dbc, $q);
 
             //Display the search results
