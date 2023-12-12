@@ -221,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <option value="Kelantan">Kelantan</option>
                             <option value="Melaka">Melaka</option>
                             <option value="Negeri Sembilan">Negeri Sembilan</option>
-                            <option value="Pahang">Pahan</option>
+                            <option value="Pahang">Pahang</option>
                             <option value="Penang">Penang</option>
                             <option value="Perak">Perak</option>
                             <option value="Perlis">Perlis</option>
