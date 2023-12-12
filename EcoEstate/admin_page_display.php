@@ -211,7 +211,7 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                         
                             echo "<div class='pagination'>";
                             for ($i = 1; $i <= $totalPages; $i++) {
-                                echo "<a href='?page1=$i&page2=$page2'>$i</a>";
+                                echo "<a class='sppagenumber' href='?page1=$i&page2=$page2'>$i</a>";
                             }
                             echo "</div>";
                         }
@@ -270,7 +270,7 @@ $offset2 = ($page2 - 1) * $resultsPerPage;
                         
                             echo "<div class='pagination'>";
                             for ($i = 1; $i <= $totalPages; $i++) {
-                                echo "<a href='?page1=$page1&page2=$i'>$i</a>";
+                                echo "<a class='sppagenumber' href='?page1=$page1&page2=$i'>$i</a>";
                             }
                             echo "</div>";
                         }

@@ -110,7 +110,7 @@
                             echo "<img class='property-pic' src='" . $image['img_dir'] . "'>";
                             echo "<h3>" . $property['address'] . ", " . $property['city'] . "</h3>";
                             echo "<p>" . $property['state'] . "</p>";
-                            echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">Learn More</a>';
+                            echo '<br><a href="show_property.php?id=' . $property['property_id'] . '"><u>Learn More</u></a>';
                             echo '</div>';
                         }
                     }

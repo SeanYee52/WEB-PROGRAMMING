@@ -629,7 +629,7 @@
                     </div>
                     <div class="column-2">
                         <p><?php echo $username;?></p>
-                        <a href="user_page.php?user_id=<?php echo $user_id;?>">View Profile</a>
+                        <a href="user_page.php?user_id=<?php echo $user_id;?>"><u>View Profile</u></a>
                     </div>
                 </section>
             </div>
