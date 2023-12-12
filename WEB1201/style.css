@@ -969,3 +969,24 @@ footer div.contact{
 .titlebolder{
   font-weight: bolder;
 }
+
+/**Admin Register Page**/
+.adregformbg{
+  background-color: #ACACAC;
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.adregformborder{
+  background-color: #ffffff;
+  border-radius: 20px;
+  width: 300px;
+  height: 450px;
+  padding: 30px;
+}
+
+.regformborderdescspace{
+  height: 30px;
+}
