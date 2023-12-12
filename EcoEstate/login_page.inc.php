@@ -83,7 +83,6 @@
                     }
                     echo '</p><p class="errorclass">Please try again.</p>';
                 }
-                // Display the form:
                 ?>
             </div>
         </div>

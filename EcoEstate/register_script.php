@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $r = @mysqli_query ($dbc, $q);
 
             $row = mysqli_fetch_assoc($r);
-			// Print a message:
+			// Set SessionA
             $_SESSION['user_id'] = $row['user_id'];
 			$_SESSION['username'] = $row['username'];
             redirect_user("user_page.php");	
