@@ -203,7 +203,7 @@
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset ";
                         $result = @mysqli_query($dbc, $q);
-                        $pages = false;
+                        $pages = true;
                     }
 
                     if (mysqli_num_rows($result) > 0) {
@@ -269,7 +269,7 @@
                     
                         if($pages){
                             // Add pagination links
-                            $q = "SELECT COUNT(*) FROM property WHERE user_id = $user_id";
+                            $q = "SELECT COUNT(*) AS total FROM property WHERE user_id = $user_id";
                             $result = @mysqli_query($dbc, $q);
                             $row = mysqli_fetch_assoc($result);
                             $totalPages = ceil($row['total'] / $resultsPerPage);
