@@ -8,6 +8,7 @@
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 0;
+                min-width: 1200px;
             }
 
             section.details {
@@ -130,6 +131,7 @@
                 height: 100vh;
                 margin: auto;
                 padding: 20px;
+                min-width: 1200px;
             }
 
             .left-side {
@@ -172,8 +174,13 @@
                 flex: 100%;
             }
 
-            .left-column, .right-column {
-                flex: 45%;
+            .left-column{
+                flex: 6%;
+                padding: 10px;
+            }
+
+            .right-column {
+                flex: 50%;
                 padding: 10px;
             }
 
@@ -184,7 +191,6 @@
             .bottom-left img {
                 max-width: 100%;
                 height: auto;
-                margin-bottom: 10px;
             }
 
             section.user{
@@ -274,6 +280,19 @@
                 cursor: pointer;
                 font-weight:bolder;
                 color: #799ecf;
+            }
+
+            .starpointalign{
+                display: flex;
+                align-items: center;
+            }
+
+            .starpointalignspace{
+                width: 8px;
+            }
+
+            .ratealign{
+                padding: 5px;
             }
         </style>
     </head>
@@ -382,6 +401,7 @@
                                 echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                             }   
                         }
+                        echo "<div class='starpointalignspace'></div>";
                         echo "<span>Sustainability: $total_rate</span>"
                         ?>
                     </div>
@@ -466,10 +486,10 @@
                         <hr>
                     </div>
                     <div class="left-column">
-                        <p id="popup-click" onclick="openPopupFormBuild()">Building Materials</p>
-                        <p id="popup-click" onclick="openPopupFormRenew()">Renewable Energy</p>
-                        <p id="popup-click" onclick="openPopupFormEnergy()">Energy Efficiency</p>
-                        <p id="popup-click" onclick="openPopupFormWater()">Water Efficiency</p>
+                        <p class="ratealign" id="popup-click" onclick="openPopupFormBuild()">Building Materials:</p>
+                        <p class="ratealign" id="popup-click" onclick="openPopupFormRenew()">Renewable Energy:</p>
+                        <p class="ratealign" id="popup-click" onclick="openPopupFormEnergy()">Energy Efficiency:</p>
+                        <p class="ratealign" id="popup-click" onclick="openPopupFormWater()">Water Efficiency:</p>
                     </div>
                     <div class="right-column">
                         <?php
@@ -489,7 +509,7 @@
                                 }
                             }                        
                         ?>
-                        <div>
+                        <div class="starpointalign">
                             <?php
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
@@ -501,10 +521,11 @@
                                         echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
+                                echo "<div class='starpointalignspace'></div>";
                                 echo '<span id="popup-click" onclick="openPopupFormBuild()" >' . $build_rate . ' | ' .generateSustainabilityTier($build_rate) . '</span>';
                             ?>
                         </div>
-                        <div>
+                        <div class="starpointalign">
                             <?php
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
@@ -516,10 +537,11 @@
                                         echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
+                                echo "<div class='starpointalignspace'></div>";
                                 echo '<span id="popup-click" onclick="openPopupFormRenew()">' .$renew_rate . ' | '  .generateSustainabilityTier($renew_rate) . '</span>';
                             ?>
                         </div>
-                        <div>
+                        <div class="starpointalign">
                             <?php
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
@@ -531,10 +553,11 @@
                                         echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
+                                echo "<div class='starpointalignspace'></div>";
                                 echo '<span id="popup-click" onclick="openPopupFormEnergy()">'. $energy_rate . ' | ' .generateSustainabilityTier($energy_rate) . '</span>';
                             ?>
                         </div>
-                        <div>
+                        <div class="starpointalign">
                             <?php
                                 for($i = 0; $i < 5; $i++){
                                     // Prints Green Star
@@ -546,6 +569,7 @@
                                         echo '<img class="star-image" src="../Images/EcoEstateImages/pdstar2.svg" width="30" height="30" alt="B">';
                                     }   
                                 }
+                                echo "<div class='starpointalignspace'></div>";
                                 echo '<span id="popup-click" onclick="openPopupFormWater()">'. $water_rate . ' | ' .generateSustainabilityTier($water_rate) . '</span>';
                             ?>
                         </div>
