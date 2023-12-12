@@ -985,3 +985,17 @@ footer div.contact{
 .pagewidth{
   min-width: 1200px;
 }
+
+/**Property Search Page Number Feature**/
+.sppagenumber{
+  background-color: #33363F;
+  border-radius: 5px;
+  font-family: "Roboto";
+  font-size: 20px;
+  color: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-right: 20px;
+}
