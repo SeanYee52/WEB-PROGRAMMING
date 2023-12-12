@@ -15,10 +15,30 @@
                         <a href="about_us.php">ABOUT US</a>
                     </div>
                     <div>
-                        <a href="property_search.php?type=sale">BUY</a>
+                        <a href="property_search.php?type=sale"
+                            <?php 
+                            if(isset($_GET)){
+                                if($_GET['type'] == "sale"){
+                                    echo 'style="font-weight: bolder;"';
+                                }
+                            } 
+                            ?>
+                        >
+                            BUY
+                        </a>
                     </div>
                     <div>
-                        <a href="property_search.php?type=rent">RENT</a>
+                        <a href="property_search.php?type=rent"
+                        <?php 
+                            if(isset($_GET)){
+                                if($_GET['type'] == "rent"){
+                                    echo 'style="font-weight: bolder;"';
+                                }
+                            } 
+                            ?>
+                        >
+                            RENT
+                        </a>
                     </div>
                     <div>
                         <a href="addproperty.php">ADVERTISE</a>
