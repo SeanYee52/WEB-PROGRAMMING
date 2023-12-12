@@ -95,7 +95,7 @@
                     //Construct the SQL query
                     $q = "SELECT * FROM property 
                     WHERE property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL AND approval_date IS NOT NULL)
-                    ORDER BY upload_date DESC LIMIT 3";
+                    ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC,upload_date DESC LIMIT 3";
                     $result = @mysqli_query($dbc, $q);
 
                     if (mysqli_num_rows($result) != 0) {
