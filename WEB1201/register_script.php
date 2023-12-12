@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$q = "SELECT user_id FROM user WHERE phone_no = '$phone'";
 	$r = @mysqli_query($dbc, $q);
     if (mysqli_num_rows($r) != 0){
-        $errors[]= "The email address has already been registered";
+        $errors[]= "The phone number has already been registered";
     }
 
 

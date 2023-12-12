@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Upload photos accordingly
             for ($i = 0; $i < $totalPhotos; $i++) {
                 $temp = explode(".", $_FILES["photos"]["name"][$i]);
-                $newfilename = 'ECOR' . $property_id . $i . '.' . end($temp);
+                $newfilename = 'ECOP' . $property_id . $i . '.' . end($temp);
                 $targetFile = $targetDirectory . $newfilename; //Specifies image folder
                 move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $targetFile); //Uploads photo to folder
                 $uploadedPhotos[] = $targetFile;
