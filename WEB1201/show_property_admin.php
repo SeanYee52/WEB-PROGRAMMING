@@ -659,7 +659,7 @@
                     <!-- Your form fields go here -->
                     <p>Enter a new rating for building materials:</p>
 
-                    <input type="number" id="build" name="build" step="0.1" required>
+                    <input type="number" id="build" name="build" step="0.1" min="0" max="5" required>
                     <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
 
                     <br><br><button type="submit">Submit</button>
@@ -673,7 +673,7 @@
                     <!-- Your form fields go here -->
                     <p>Enter a new rating for renwable energy:</p>
 
-                    <input type="number" id="renew" name="renew" step="0.1" required>
+                    <input type="number" id="renew" name="renew" step="0.1" min="0" max="5" required>
                     <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
 
                     <br><br><button type="submit">Submit</button>
@@ -687,7 +687,7 @@
                     <!-- Your form fields go here -->
                     <p>Enter a new rating for energy efficiency:</p>
 
-                    <input type="number" id="energy" name="energy" step="0.1" equired>
+                    <input type="number" id="energy" name="energy" step="0.1" min="0" max="5" equired>
                     <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
 
                     <br><br><button type="submit">Submit</button>
@@ -701,7 +701,7 @@
                     <!-- Your form fields go here -->
                     <p>Enter a new rating for water efficiency:</p>
 
-                    <input type="number" id="water" name="water" step="0.1" required>
+                    <input type="number" id="water" name="water" step="0.1" min="0" max="5" required>
                     <input type="hidden" id="id" name="id" value="<?php echo $property_id;?>">
 
                     <br><br><button type="submit">Submit</button>
