@@ -964,3 +964,8 @@ footer div.contact{
   font-family: "Roboto";
   font-size: 20px;
 }
+
+/**Bolder Title**/
+.titlebolder{
+  font-weight: bolder;
+}

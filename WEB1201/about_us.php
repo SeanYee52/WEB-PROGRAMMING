@@ -13,7 +13,7 @@
             <nav>
                 <div class="right">
                     <div>
-                        <a href="about_us.php">ABOUT US</a>
+                        <a class="titlebolder" href="about_us.php">ABOUT US</a>
                     </div>
                     <div>
                         <a href="property_search.php?type=sale">BUY</a>

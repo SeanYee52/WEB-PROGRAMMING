@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <a href="property_search.php?type=rent">RENT</a>
                     </div>
                     <div>
-                        <a href="addproperty.php">ADVERTISE</a>
+                        <a class="titlebolder" href="addproperty.php">ADVERTISE</a>
                     </div>
                 </div>
                 <div class="buttons">
