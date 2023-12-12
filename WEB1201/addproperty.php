@@ -208,10 +208,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <br><div class="quecolrow"><label for="property_type" class="quetitle">Property Type:</label></div>
                         <select id="property_type" name="property_type" class="queselectbox" required>
-                            <option value="apartment">Apartment</option>
-                            <option value="condo">Condominium</option>
-                            <option value="townhouse">Townhouse</option>
-                            <option value="bungalow">Bungalow</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Condominium">Condominium</option>
+                            <option value="Townhouse">Townhouse</option>
+                            <option value="Bungalow">Bungalow</option>
                         </select>
 
                         <br><div class="quecolrow"><label for="state" class="quetitle">State:</label></div>

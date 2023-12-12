@@ -220,6 +220,7 @@
             $resultsPerPage = 5;
             $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
             $offset = ($page - 1) * $resultsPerPage;
+            $pages = false;
 
             //Build the WHERE clause based on the inputs
             $whereClause = buildWhereClause($searchInputs);
@@ -232,13 +233,13 @@
             //Display the search results
 
             if (mysqli_num_rows($result) >= $resultsPerPage) {
-                $q = "SELECT * FROM property $whereClause ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC LIMIT $resultsPerPage OFFSET $offset";
+                $q = "SELECT * FROM property $whereClause AND property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL and approval_date IS NOT NULL)
+                 ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC LIMIT $resultsPerPage OFFSET $offset";
                 $result = @mysqli_query($dbc, $q);
+                $pages = true;
             }
 
             if (mysqli_num_rows($result) > 0) {
-
-                $count = 0; // To check whether to show pages or not
 
                 while ($property = mysqli_fetch_assoc($result)) {
 
@@ -284,12 +285,10 @@
                         echo "</div>";
                         echo "</div>";
 
-                        $count ++;
-
                     }
                 }
 
-                if ($count > $resultsPerPage){
+                if ($pages){
                     // Add pagination links
                     $q = "SELECT COUNT(*) AS total FROM property $whereClause";
                     $result = @mysqli_query($dbc, $q);
