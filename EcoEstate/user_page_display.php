@@ -196,16 +196,17 @@
                     $pages = false;
 
                     //Construct the SQL query
-                    $q = "SELECT * FROM property WHERE user_id = $user_id";
+                    $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC";
                     $result = @mysqli_query($dbc, $q);
 
-                    //Display the search results
+                    //Check if results exceeds limit
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset ";
                         $result = @mysqli_query($dbc, $q);
                         $pages = true;
                     }
 
+                    //Display the search results
                     if (mysqli_num_rows($result) > 0) {
 
                         while ($property = mysqli_fetch_assoc($result)) {
@@ -218,7 +219,8 @@
                             $image = mysqli_fetch_assoc($r);
 
                             // Approval date
-                            $q = "SELECT approval_date FROM property_approval WHERE property_id = " . $property['property_id'] . " && approval_date IS NOT NULL;";
+                            $q = "SELECT approval_date FROM property_approval 
+                            WHERE property_id = " . $property['property_id'] . " AND approval_date IS NOT NULL;";
                             $r = @mysqli_query($dbc, $q);
                             $approval = mysqli_fetch_assoc($r);
 
@@ -310,7 +312,7 @@
 
         <div id="popup-name">
             <h2>Change Username</h2>
-            <form action="user_page_name.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_name.php" method="post">
                 <!-- Your form fields go here -->
                 <p>Enter a new username</p>
                 <input type="text" name="username" size="20" maxlength="40" />
@@ -322,7 +324,7 @@
 
         <div id="popup-about">
             <h2>Change About Me</h2>
-            <form action="user_page_about.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_about.php" method="post">
                 <!-- Your form fields go here -->
                 <p>Describe Yourself:</p>
                 <textarea id="description" name="description" rows="1" required></textarea>
@@ -334,7 +336,7 @@
 
         <div id="popup-contact">
             <h2>Change Contact</h2>
-            <form action="user_page_contact.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_contact.php" method="post">
                 <!-- Your form fields go here -->
                 <p>New Email Address: <input type="email" id="email" name="email" required></p>
 
@@ -347,7 +349,7 @@
 
         <div id="popup-pass">
             <h2>Change Password</h2>
-            <form action="user_page_pass.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_pass.php" method="post">
                 <!-- Your form fields go here -->
                 <p>New Password: <input type="password" id="password" name="pass1" required></p>
 
@@ -360,7 +362,7 @@
 
         <div id="popup-delete">
             <h2>Delete Account</h2>
-            <form action="user_page_delete.php" method="post"enctype="multipart/form-data">
+            <form action="user_page_delete.php" method="post">
                 <!-- Your form fields go here -->
                 <p>Are You Sure You Want To Delete Your Account</p>
 

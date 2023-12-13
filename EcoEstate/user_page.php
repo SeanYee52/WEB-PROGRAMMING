@@ -29,7 +29,7 @@ $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
 // Check if user is logged in
 // View other account
-if (isset($_GET['user_id'])){
+if (isset($_GET['user_id']) && (isset($_SESSION["user_id"]) || isset($_SESSION["admin_id"]))){
     $user_id = $_GET["user_id"];
 }
 // View their own account
@@ -37,9 +37,7 @@ elseif (isset($_SESSION["user_id"]) && isset($_SESSION["username"])){
     $user_id = $_SESSION["user_id"];
 }
 else{
-    if(!isset($_SESSION["user_id"]) || !isset($_SESSION["username"])){
-        redirect_user("login.php?redirect=1&!login=1"); // Redirect to login.php if not logged in
-    }
+    redirect_user("login.php?redirect=1&!login=1"); // Redirect to login.php if not logged in
 }
 
 $q = "SELECT * FROM user WHERE user_id = $user_id;";
@@ -47,8 +45,10 @@ $r = @mysqli_query($dbc, $q);
 
 if (mysqli_num_rows($r) == 0) {
 
-    echo "Error, please log in again";
+    echo "<h1>Error, user does not exist</h1>";
+    echo "<h2>If this is your account, please log in again</h2>";
     echo '<a href="login.php">LOGIN</a>';
+    echo '<br?<a href="home.php>HOME</a>"';
 
     // clean the session variable
     session_unset();

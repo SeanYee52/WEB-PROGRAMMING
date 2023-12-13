@@ -190,17 +190,29 @@
                     $pages = false; // Check if results exceeds limit
 
                     //Construct the SQL query
-                    $q = "SELECT * FROM property WHERE user_id = $user_id";
-                    $result = @mysqli_query($dbc, $q);
+                    if (isset($_SESSION['admin_id'])){
+                        $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC";
+                        $result = @mysqli_query($dbc, $q);
+                    }
+                    else{
+                        $q = "SELECT * FROM property 
+                        WHERE user_id = $user_id AND property_id IN (SELECT property_id FROM property_approval WHERE approval_date IS NOT NULL) 
+                        ORDER BY upload_date DESC";
+                        $result = @mysqli_query($dbc, $q);
+                    }
 
-                    //Display the search results
+                    //Check if results exceed limit
                     if (mysqli_num_rows($result) >= $resultsPerPage) {
                         $q = "SELECT * FROM property WHERE user_id = $user_id ORDER BY upload_date DESC LIMIT $resultsPerPage OFFSET $offset ";
                         $result = @mysqli_query($dbc, $q);
                         $pages = true;
                     }
 
+                    //Display the search results
                     if (mysqli_num_rows($result) != 0) {
+
+                        $count = 0;
+
                         while ($property = mysqli_fetch_assoc($result)) {
                         
                             // Images
@@ -209,7 +221,8 @@
                             $image = mysqli_fetch_assoc($r);
 
                             // Approval date
-                            $q = "SELECT approval_date FROM property_approval WHERE property_id = " . $property['property_id'] . " && approval_date IS NOT NULL;";
+                            $q = "SELECT approval_date FROM property_approval 
+                            WHERE property_id = " . $property['property_id'] . " && approval_date IS NOT NULL;";
                             $r = @mysqli_query($dbc, $q);
                             $approval = mysqli_fetch_assoc($r);
 
@@ -259,10 +272,19 @@
 
                                 echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                                 echo '</div>';
+
+                                $count++;
+                            }
+
+                            if($count > $resultsPerPage){
+                                $pages = true;
+                            }
+                            else{
+                                $pages = false;
                             }
                         }
 
-                        if(mysqli_num_rows($result) > $resultsPerPage){
+                        if($pages){
                             // Add pagination links
                             $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
                             WHERE property_approval.admin_id IS NULL";
