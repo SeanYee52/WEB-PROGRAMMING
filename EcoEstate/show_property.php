@@ -16,7 +16,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'])){
     $property_id = $_POST['id'];
 }
 else{
-    redirect_user("home.php");
+    redirect_user("home.php?redirect=1&!property=1");
 }
 
 //Session timeout
@@ -95,7 +95,8 @@ else{
 
     // Dates
     $construction_date = $property['construction_date']; // YEAR ONLY
-    $upload_date = $property['upload_date']; // User will only see date, Admin will see datetime, difference will be handled on their respective .php files
+    // User will only see date, Admin will see datetime, difference will be handled on their respective .php files
+    $upload_date = $property['upload_date']; 
 
     // Floor and Price
     $floor_size = $property['floor_size'];

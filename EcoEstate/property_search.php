@@ -171,8 +171,9 @@
                     $conditions[] = "property_type = '" . $inputs['property_type'] . "'";
                 }
 
+                //To calculate total rooms
                 if (!empty($inputs['rooms'])) {
-                    $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms']; //To calculate total rooms
+                    $conditions[] = "(no_of_bedrooms + no_of_bathrooms) >= " . $inputs['rooms']; 
                 }
 
                 if (!empty($inputs['floor_size'])) {
@@ -226,15 +227,17 @@
             $whereClause = buildWhereClause($searchInputs);
 
             //Construct the SQL query
-            $q = "SELECT * FROM property $whereClause AND property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL and approval_date IS NOT NULL)
-             ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC;";
+            $q = "SELECT * FROM property $whereClause AND 
+            property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL and approval_date IS NOT NULL)
+            ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC;";
             $result = @mysqli_query($dbc, $q);
 
             //Display the search results
 
             if (mysqli_num_rows($result) >= $resultsPerPage) {
-                $q = "SELECT * FROM property $whereClause AND property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL and approval_date IS NOT NULL)
-                 ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC LIMIT $resultsPerPage OFFSET $offset";
+                $q = "SELECT * FROM property $whereClause AND 
+                property_id IN (SELECT property_id FROM property_approval WHERE admin_id IS NOT NULL and approval_date IS NOT NULL)
+                ORDER BY (building_rating + renewable_rating + energy_rating + water_rating) DESC LIMIT $resultsPerPage OFFSET $offset";
                 $result = @mysqli_query($dbc, $q);
                 $pages = true;
             }
