@@ -41,25 +41,4 @@ function all_features($dbc){
     }
 }
 
-function show_features($dbc, $property_id){
-    
-    //Make the query
-    $q = "SELECT features.feature FROM features INNER JOIN property_features ON features.feature_id = property_features.feature_id
-        WHERE property_features.property_id = $property_id";
-    $r = @mysqli_query($dbc, $q); //Run the query
-
-    // Count the number of returned rows
-    $num = mysqli_num_rows($r);
-
-    if ($num > 0){
-
-        while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-            echo "<li>". $row . "</li>"; //Shown as list
-        }
-    }
-    else {
-
-    }
-}
-
 ?>

@@ -61,13 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $assessment_date = mysqli_real_escape_string($dbc, trim($_POST["assessment_date"]));
 
     
-	
 	// Register the property in the database...
 		
 	// Make the query:
 	$q = "INSERT INTO property
-        (address, city, state, property_type, listing_type, price, floor_size, user_id, description, furnished, no_of_bedrooms, no_of_bathrooms, no_of_carparks, upload_date, construction_date, certificates)
-        VALUES('$address', '$city', '$state', '$property_type', '$listing_type', $asking_price, $floor_size, $user_id, '$description', '$furnishing', $bedrooms, $bathrooms, $car_parks, '$upload_date', $year_completion, '$green_building_certification');";
+        (address, city, state, property_type, listing_type, price, floor_size, user_id, description, 
+        furnished, no_of_bedrooms, no_of_bathrooms, no_of_carparks, upload_date, construction_date, certificates)
+        VALUES('$address', '$city', '$state', '$property_type', '$listing_type', $asking_price, $floor_size, $user_id, '$description', '$furnishing', 
+        $bedrooms, $bathrooms, $car_parks, '$upload_date', $year_completion, '$green_building_certification');";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	if ($r) { // If it ran OK.
             
