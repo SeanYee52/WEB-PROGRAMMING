@@ -160,7 +160,7 @@
                 $conditions = array();
 
                 if (!empty($inputs['title'])) {
-                    $conditions[] = "address LIKE '%" . $inputs['title'] . "%'";
+                    $conditions[] = "CONCAT(address, city) LIKE '%" . $inputs['title'] . "%'";
                 }
 
                 if (!empty($inputs['state'])) {
