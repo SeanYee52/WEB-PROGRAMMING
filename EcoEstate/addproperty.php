@@ -2,23 +2,8 @@
 session_start();
 error_reporting(E_ERROR | E_WARNING | E_PARSE); 
 
-function redirect_user ($page) {
-
-	// Start defining the URL...
-	// URL is http:// plus the host name plus the current directory:
-	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
-	
-	// Remove any trailing slashes:
-	$url = rtrim($url, '/\\');
-	
-	// Add the page:
-	$url .= '/' . $page;
-	
-	// Redirect the user:
-	header("Location: $url");
-	exit(); // Quit the script.
-
-} // End of redirect_user() function.
+//Redirect function
+include ("login_functions.inc.php");
 
 //Session timeout
 if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {

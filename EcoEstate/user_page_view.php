@@ -210,9 +210,6 @@
 
                     //Display the search results
                     if (mysqli_num_rows($result) != 0) {
-
-                        $count = 0;
-
                         while ($property = mysqli_fetch_assoc($result)) {
                         
                             // Images
@@ -267,34 +264,31 @@
                                 }
 
                                 echo '<div class="rating-container" style="background-color: ' . $color . ';">
-                                <p>' . $total_rate . '</p>
+                                <p>' . $toStal_rate . '</p>
                                 </div>';
 
                                 echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';
                                 echo '</div>';
-
-                                $count++;
-                            }
-
-                            if($count > $resultsPerPage){
-                                $pages = true;
-                            }
-                            else{
-                                $pages = false;
                             }
                         }
 
                         if($pages){
                             // Add pagination links
-                            $q = "SELECT COUNT(*) AS total FROM property INNER JOIN property_approval ON property.property_id = property_approval.property_id 
-                            WHERE property_approval.admin_id IS NULL";
+                            if(isset($_SESSION['admin_id'])){
+                                $q = "SELECT COUNT(*) AS total FROM property WHERE user_id = $user_id";
+                            }   
+                            else{
+                                $q = "SELECT COUNT(*) AS total FROM property WHERE user_id = $user_id 
+                                AND property_id IN (SELECT property_id FROM property_approval WHERE approval_date IS NOT NULL)";
+                            }
+                            
                             $result = @mysqli_query($dbc, $q);
                             $row = mysqli_fetch_assoc($result);
                             $totalPages = ceil($row['total'] / $resultsPerPage);
                         
                             echo "<div class='pagination'>";
                             for ($i = 1; $i <= $totalPages; $i++) {
-                                echo "<a href='?page=$i'>$i</a>";
+                                echo "<a href='?user_id=$user_id&page=$i'>$i</a>";
                             }
                             echo "</div>";
                         }
