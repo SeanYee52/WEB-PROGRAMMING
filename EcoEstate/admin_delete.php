@@ -24,9 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         session_unset();
         session_destroy();
 
-        echo '<script>alert("Account deleted sucessfully")</script>';
-
         redirect_user("home.php?redirect=1&delete=1");
     }
+}
+else{
+    redirect_user("home.php");
 }
 ?>

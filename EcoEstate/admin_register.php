@@ -17,6 +17,8 @@ if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 
 $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
 if (!isset($_SESSION["admin_id"]) || !isset($_SESSION["name"])){
+    session_unset();     // unset $_SESSION variable for the run-time 
+    session_destroy();   // destroy session data in storage
 	redirect_user("login.php?redirect=1&!login=1");
 }
 

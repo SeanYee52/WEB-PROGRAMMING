@@ -406,7 +406,6 @@
                         ?>
                     </div>
                     <?php
-
                         // Create the query
                         $q = "SELECT * FROM property_approval WHERE property_id = $property_id AND approval_date IS NOT NULL";
                         $r = @mysqli_query($dbc, $q);
