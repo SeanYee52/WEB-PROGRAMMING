@@ -264,7 +264,7 @@
                                 }
 
                                 echo '<div class="rating-container" style="background-color: ' . $color . ';">
-                                <p>' . $toStal_rate . '</p>
+                                <p>' . $total_rate . '</p>
                                 </div>';
 
                                 echo '<br><a href="show_property.php?id=' . $property['property_id'] . '">More Details</a>';

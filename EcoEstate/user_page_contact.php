@@ -39,14 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 	}
 	else{
 		$phone = mysqli_real_escape_string($dbc, trim($_POST['phone']));
+        //  Test for unique phone number
+        $q = "SELECT user_id FROM user WHERE phone_no = '$phone'";
+        $r = @mysqli_query($dbc, $q);
+        if (mysqli_num_rows($r) != 0){
+            $errors[]= "The phone number has already been registered";
+        }
 	}
-
-    //  Test for unique phone number
-	$q = "SELECT user_id FROM user WHERE phone_no = '$phone'";
-	$r = @mysqli_query($dbc, $q);
-    if (mysqli_num_rows($r) != 0){
-        $errors[]= "The phone number has already been registered";
-    }
 
     if(empty($errors)){
         $q = "UPDATE user SET email = '$email', phone_no = '$phone' WHERE user_id = $user_id;";

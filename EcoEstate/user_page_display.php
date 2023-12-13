@@ -158,7 +158,7 @@
          if (!empty($errors)) {
             echo '<h1>Error!</h1>
             <p class="error">The following error(s) occurred:<br />';
-            foreach ($error as $msg) { // Print each error.
+            foreach ($errors as $msg) { // Print each error.
                 echo " - $msg<br />\n";
             }
             echo '</p><p>Please try again.</p><p><br /></p>';

@@ -189,7 +189,7 @@
                 }
 
                 if (!empty($inputs['rating'])) {
-                    $conditions[] = "sustainability_rating >= " . $inputs['rating'];
+                    $conditions[] = "((building_rating + renewable_rating + energy_rating + water_rating) / 4) >= " . $inputs['rating'];
                 }
 
                 if (!empty($inputs['type'])) {
