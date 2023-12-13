@@ -275,7 +275,7 @@
                         $renew_rate = $property['renewable_rating'];
                         $energy_rate = $property['energy_rating'];
                         $water_rate = $property['water_rating'];
-                        $total_rate = ($build_rate + $renew_rate + $energy_rate + $water_rate) / 4; // Average rating
+                        $total_rate = round(($build_rate + $renew_rate + $energy_rate + $water_rate) / 4, 1); // Average rating
                         echo "<div class='propertydetail'>Rating: " . $total_rate . "</div>";
                         echo "</div>";
                         echo "</div>";

@@ -29,7 +29,8 @@ function all_features($dbc){
 	
 	// Fetch and print all the records:
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-		echo '<input type="checkbox" id="facilities" name="facilities[]" value="' . $row['feature_id'] . '"> ' . $row['feature']; //For addproperty page
+        //For addproperty page
+		echo '<input type="checkbox" id="facilities" name="facilities[]" value="' . $row['feature_id'] . '"> ' . $row['feature']; 
 	}
 	
 	mysqli_free_result ($r); // Free up the resources

@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $green_building_certification = mysqli_real_escape_string($dbc, trim($_POST["green_building_certification"]));
     $assessment_date = mysqli_real_escape_string($dbc, trim($_POST["assessment_date"]));
 
-    
+
 	// Register the property in the database...
 		
 	// Make the query:
@@ -88,12 +88,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $totalPhotos = count($_FILES["photos"]["name"]); //Count number of photos
             
             //Upload photos accordingly
-            for ($i = 0; $i < $totalPhotos; $i++) {
-                $temp = explode(".", $_FILES["photos"]["name"][$i]);
-                $newfilename = 'ECOP' . $property_id . $i . '.' . end($temp);
-                $targetFile = $targetDirectory . $newfilename; //Specifies image folder
-                move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $targetFile); //Uploads photo to folder
-                $uploadedPhotos[] = $targetFile;
+            if($totalPhotos < 5){
+                for ($i = 0; $i < $totalPhotos; $i++) {
+                    $temp = explode(".", $_FILES["photos"]["name"][$i]);
+                    $newfilename = 'ECOP' . $property_id . $i . '.' . end($temp);
+                    $targetFile = $targetDirectory . $newfilename; //Specifies image folder
+                    move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $targetFile); //Uploads photo to folder
+                    $uploadedPhotos[] = $targetFile;
+                }
+            }
+            else{ // If user submitted more than 4 images
+                for ($i = 0; $i < 4; $i++) {
+                    $temp = explode(".", $_FILES["photos"]["name"][$i]);
+                    $newfilename = 'ECOP' . $property_id . $i . '.' . end($temp);
+                    $targetFile = $targetDirectory . $newfilename; //Specifies image folder
+                    move_uploaded_file($_FILES["photos"]["tmp_name"][$i], $targetFile); //Uploads photo to folder
+                    $uploadedPhotos[] = $targetFile;
+                }
             }
         }
 
