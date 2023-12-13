@@ -4,6 +4,8 @@
 session_start();
 // Redirect function
 include_once("login_functions.inc.php");
+// Database connection
+include_once("mysqli_connect.php");
 
 // Check if admin is logging out
 if ($_SERVER["REQUEST_METHOD"] == 'GET'){
